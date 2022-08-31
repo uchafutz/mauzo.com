@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Config\UnitTypeController;
+use App\Http\Controllers\Config\UnitController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,5 +24,6 @@ Route::middleware("auth:sanctum")->name("api.")->group(function () {
     
     Route::prefix("/config")->name("config.")->group(function () {
         Route::resource("unitTypes", UnitTypeController::class);
+        ROute::resource("unit",UnitController::class);
     });
 });

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Config\UnitTypeController;
+use App\Htpp\Controllers\Config\UnitController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +28,6 @@ Route::middleware("auth")->group(function () {
 
     Route::prefix("/config")->name("config.")->group(function () {
         Route::resource("unitTypes", UnitTypeController::class);
+        Route::resource("unit",UnitController::class);
     });
 });
