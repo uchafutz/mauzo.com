@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Config;
 
-use App\Models\Config\UnitModel;
+use App\Models\Config\Unit;
+use App\Models\Config\UnitType;
 use Illuminate\Http\Request;
-use  App\Models\Config\UnitType;
 
 class UnitController extends Controller
 {
@@ -15,7 +15,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $unit=UnitModel::all();
+        $unit=Unit::all();
         if(request()->wantsJson()){
             return response([
                 'data'=>$unit,
@@ -24,7 +24,6 @@ class UnitController extends Controller
         }
         return view("resources.config.unit.index",compact('unit'));
 
-        
     }
 
     /**
@@ -34,8 +33,9 @@ class UnitController extends Controller
      */
     public function create()
     {
-     $unitType=UnitType::all();
-     return view("resources.config.unit.from",compact("unitType"));
+    
+    $unitType=UnitType::all();
+     return view("resources.config.unit.form",compact("unitType"));
     }
 
     /**
@@ -53,45 +53,48 @@ class UnitController extends Controller
             "unit_type"=>"required"
 
         ]);
-        $unit=UnitModel::create($request->input());
+        $unit=Unit::create($request->input());
         return view("resources.config.unit.index");
+        //
 
-        
+       
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Config\UnitModel  $unitModel
+     * @param  \App\Models\Config\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function show(UnitModel $unitModel)
+    public function show(Unit $unit)
     {
     
+        return view("resources.config.unit.show",compact("unit"));
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Config\UnitModel  $unitModel
+     * @param  \App\Models\Config\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function edit(UnitModel $unitModel)
+    public function edit(Unit $unit)
     {
-    
-        return view("resources.config.unit.from",compact("unitModel"));
+        return view("resources.config.unit.form",compact("unit"));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Config\UnitModel  $unitModel
+     * @param  \App\Models\Config\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UnitModel $unitModel)
+    public function update(Request $request, Unit $unit)
     {
+    
         $request->validate([
             "name"=>["required","unique:unit,name"],
             "description"=>"required | max:45",
@@ -99,33 +102,28 @@ class UnitController extends Controller
             "unit_type"=>"required"
 
         ]);
-
-        $unitModel->update($request->input());
+        $unit->update($request->input());
         if(request()->wantsJson()){
             return response([
-                "data"=>$unitModel
+                "data"=>$unit
             ],200);
         }
         return redirect(route("resources.config.unit.index"));
-        
-        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Config\UnitModel  $unitModel
+     * @param  \App\Models\Config\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UnitModel $unitModel)
+    public function destroy(Unit $unit)
     {
-        $unitModel->delete();
+    
+        $unit->delete();
         if(request()->wantsJson()){
             return response(null,204);
         }
         return redirect(route("resources.config.unit.index"));
-
-        //
     }
-    
 }

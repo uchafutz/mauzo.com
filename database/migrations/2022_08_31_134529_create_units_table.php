@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('unit', function (Blueprint $table) {
+        Schema::create('units', function (Blueprint $table) {
             $table->id();
-            $table->Integer("unit_type");
+            $table->Integer("unit_types");
             $table->String("name",45);
             $table->String("description",45);
             $table->String("code",45);
             $table->String("symbol")->nullable();
-            $table->Integer("factor");
+            $table->Decimal("factor");
             $table->softDeletes();
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('unit_models');
+        Schema::dropIfExists('units');
     }
 };
