@@ -27,7 +27,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $unitType->name }}</td>
                                         <td>
-                                            <a href="{{ route("config.userTypes.edit", ["unitType" => $unitType]) }}" class="btn btn-info">Edit</a>
+                                            <a href="{{ route("config.unitTypes.edit", ["unitType" => $unitType]) }}" class="btn btn-info">Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach

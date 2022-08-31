@@ -25,7 +25,7 @@ class UnitTypeController extends Controller
             ], 200);
         }
 
-        return view("resource.config.unit_types.index", compact("unitTypes"));
+        return view("resources.config.unit_types.index", compact("unitTypes"));
     }
 
     /**
@@ -36,7 +36,7 @@ class UnitTypeController extends Controller
     public function create()
     {
         //
-        return view("resource.config.unit_types.form");
+        return view("resources.config.unit_types.form");
     }
 
     /**
@@ -60,7 +60,7 @@ class UnitTypeController extends Controller
             ], 201);
         }
 
-        return redirect(route("config.unit_types.index"));
+        return redirect(route("config.unitTypes.index"));
     }
 
     /**
@@ -98,7 +98,7 @@ class UnitTypeController extends Controller
         //
          //
          $request->validate([
-            "name" => ["required", "unique:unit_types,name"]
+            "name" => ["required"]
         ]);
 
         $unitType->update($request->input());
@@ -109,7 +109,7 @@ class UnitTypeController extends Controller
             ], 200);
         }
 
-        return redirect(route("config.unit_types.index"));
+        return redirect(route("config.unitTypes.index"));
     }
 
     /**
@@ -127,6 +127,6 @@ class UnitTypeController extends Controller
             return response(null, 204);
         }
 
-        return redirect(route("config.unit_types.index"));
+        return redirect(route("config.unitTypes.index"));
     }
 }
