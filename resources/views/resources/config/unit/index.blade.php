@@ -10,7 +10,7 @@
                     <div class="card-body">
                        
 
-                        <a href="{{ route("config.unit.create") }}" class="btn btn-primary">Add</a>
+                        <a href="{{ route("config.units.create") }}" class="btn btn-primary">Add</a>
 
                         <table class="table table-stripped">
                             <thead>
@@ -31,7 +31,12 @@
                                         <td>{{ $unitModel->code }}</td>
                                         <td>{{ $unitModel->description }}</td>
                                         <td>
-                                            <a href="{{ route("config.unit.edit", ["unit" => $unitModel]) }}" class="btn btn-info">Edit</a>
+                                            <a href="{{ route("config.units.edit", ["unit" => $unitModel]) }}" class="btn btn-info">Edit</a>
+                                            <form action="{{ route("config.units.destroy", ["unit" => $unitModel]) }}" method="post">
+                                                @csrf
+                                                @method("delete")
+                                            <button type="submit" class="btn btn-danger">delete</button>
+                                             </form>
                                         </td>
                                     </tr>
                                 @endforeach

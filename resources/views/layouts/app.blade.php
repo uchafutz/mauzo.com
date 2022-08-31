@@ -32,6 +32,7 @@
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('config.unitTypes.index') }}">{{ __('Settings') }}</a>
+                            <a href="{{ route('config.units.index')}}" class="nav-link">Units</a>
                         </li>
                     </ul>
 

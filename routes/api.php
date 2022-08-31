@@ -24,6 +24,6 @@ Route::middleware("auth:sanctum")->name("api.")->group(function () {
     
     Route::prefix("/config")->name("config.")->group(function () {
         Route::resource("unitTypes", UnitTypeController::class);
-        ROute::resource("unit",UnitController::class);
+        ROute::resource("units",UnitController::class);
     });
 });

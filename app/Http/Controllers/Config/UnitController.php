@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Config;
 
+use App\Http\Controllers\Controller;
 use App\Models\Config\Unit;
 use App\Models\Config\UnitType;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class UnitController extends Controller
 
             ],200);
         }
-        return view("resources.config.unit.index",compact('unit'));
+        return view("resources.config.unit.index",['unit'=>$unit]);
 
     }
 
@@ -47,13 +48,15 @@ class UnitController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "name"=>["required","unique:unit,name"],
+            "name"=>["required","unique:units,name"],
             "description"=>"required | max:45",
-            "code"=>["required","unique:unit,code"],
-            "unit_type"=>"required"
+            "code"=>["required","unique:units,code"],
+            "unit_types"=>"required"
 
         ]);
-        $unit=Unit::create($request->input());
+     
+        Unit::create($request->input());
+        
         return view("resources.config.unit.index");
         //
 
@@ -82,7 +85,8 @@ class UnitController extends Controller
      */
     public function edit(Unit $unit)
     {
-        return view("resources.config.unit.form",compact("unit"));
+        $unitType=UnitType::all();
+        return view("resources.config.unit.form",["unit"=>$unit,"unitType"=>$unitType]);
     }
 
     /**
@@ -96,10 +100,10 @@ class UnitController extends Controller
     {
     
         $request->validate([
-            "name"=>["required","unique:unit,name"],
+            "name"=>["required","unique:units,name"],
             "description"=>"required | max:45",
-            "code"=>["required","unique:unit,code"],
-            "unit_type"=>"required"
+            "code"=>["required","unique:units,code"],
+            "unit_types"=>"required"
 
         ]);
         $unit->update($request->input());
@@ -108,7 +112,7 @@ class UnitController extends Controller
                 "data"=>$unit
             ],200);
         }
-        return redirect(route("resources.config.unit.index"));
+        return redirect(route("config.units.index"));
     }
 
     /**
@@ -124,6 +128,6 @@ class UnitController extends Controller
         if(request()->wantsJson()){
             return response(null,204);
         }
-        return redirect(route("resources.config.unit.index"));
+        return redirect(route("config.units.index"));
     }
 }
