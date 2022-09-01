@@ -27,9 +27,9 @@
                             </div>
                             <div class="form-group">
                                 <label for="" class="label-control">Unit Type</label>
-                                <select name="unit_types"  class="form-control @error('unit_types') is-invalid @enderror">
-                                    @foreach($unitType as $unitOpt)
-                                    <option value="{{ old('unit_types')??(isset($unitOpt->id) ? $unitOpt->id:"")}}">{{ $unitOpt->name }}</option>
+                                <select name="unit_type_id"  class="form-control @error('unit_type_id') is-invalid @enderror">
+                                    @foreach($unitTypes as $unitOpt)
+                                    <option value="{{ old('unit_type_id')??(isset($unitOpt->id) ? $unitOpt->id:"")}}">{{ $unitOpt->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('unit_types')

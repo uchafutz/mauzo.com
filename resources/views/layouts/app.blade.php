@@ -33,6 +33,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('config.unitTypes.index') }}">{{ __('Settings') }}</a>
                             <a href="{{ route('config.units.index')}}" class="nav-link">Units</a>
+                            <a href="{{ route('inventory.inventoryCategories.index')}}" class="nav-link">Inventory</a>
                         </li>
                     </ul>
 

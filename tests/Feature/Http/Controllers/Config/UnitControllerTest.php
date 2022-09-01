@@ -35,6 +35,7 @@ class UnitControllerTest extends TestCase
 
         // assert
         $response->assertSessionDoesntHaveErrors();
+        $response->assertStatus(200);
     }
 
     /** @test */

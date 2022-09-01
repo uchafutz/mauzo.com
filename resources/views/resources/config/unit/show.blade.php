@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('View Unit') }}</div>
                     <div class="card-body">
-                       <p>{{$unit->name}}</p>
+                       <p>{{$units->name}}</p>
                        
                     </div>
                 </div>

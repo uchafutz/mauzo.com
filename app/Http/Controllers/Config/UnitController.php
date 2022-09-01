@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Config\Unit;
 use App\Models\Config\UnitType;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 class UnitController extends Controller
 {
@@ -16,14 +17,14 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $unit=Unit::all();
+        $units=Unit::all();
         if(request()->wantsJson()){
             return response([
-                'data'=>$unit,
+                'data'=>$units,
 
             ],200);
         }
-        return view("resources.config.unit.index",['unit'=>$unit]);
+        return view("resources.config.unit.index",['units'=>$units]);
 
     }
 
@@ -35,8 +36,8 @@ class UnitController extends Controller
     public function create()
     {
     
-    $unitType=UnitType::all();
-     return view("resources.config.unit.form",compact("unitType"));
+    $unitTypes=UnitType::all();
+     return view("resources.config.unit.form",compact("unitTypes"));
     }
 
     /**
@@ -49,13 +50,17 @@ class UnitController extends Controller
     {
         $request->validate([
             "name"=>["required","unique:units,name"],
-            "description"=>"required | max:45",
             "code"=>["required","unique:units,code"],
-            "unit_types"=>"required"
+            "unit_type_id"=>"required"
 
         ]);
      
-        Unit::create($request->input());
+       $units=Unit::create($request->input());
+       if(request()->wantsJson()){
+        return response([
+            "data"=>$units
+        ],200);
+       }
         
         return view("resources.config.unit.index");
         //
@@ -70,10 +75,14 @@ class UnitController extends Controller
      * @param  \App\Models\Config\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function show(Unit $unit)
+    public function show(Unit $units)
     {
-    
-        return view("resources.config.unit.show",compact("unit"));
+        if(request()->wantsJson()){
+            return response([
+                "data"=>$units
+            ],200);
+        }
+        return view("resources.config.unit.show",compact("units"));
 
     }
 
@@ -85,8 +94,8 @@ class UnitController extends Controller
      */
     public function edit(Unit $unit)
     {
-        $unitType=UnitType::all();
-        return view("resources.config.unit.form",["unit"=>$unit,"unitType"=>$unitType]);
+        $unitTypes=UnitType::all();
+        return view("resources.config.unit.form", compact('unitTypes', 'unit'));
     }
 
     /**
@@ -96,20 +105,12 @@ class UnitController extends Controller
      * @param  \App\Models\Config\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Unit $unit)
+    public function update(Request $request, Unit $units)
     {
-    
-        $request->validate([
-            "name"=>["required","unique:units,name"],
-            "description"=>"required | max:45",
-            "code"=>["required","unique:units,code"],
-            "unit_types"=>"required"
-
-        ]);
-        $unit->update($request->input());
+        $units->update($request->input());
         if(request()->wantsJson()){
             return response([
-                "data"=>$unit
+                "data"=>$units
             ],200);
         }
         return redirect(route("config.units.index"));

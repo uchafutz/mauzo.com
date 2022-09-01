@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Models\Config;
+namespace App\Models\Inventory;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Unit extends Model
+class InventoryCategory extends Model
 {
     use HasFactory;
     use SoftDeletes;
     protected $fillable=[
-        'name','description','code','symbol','unit_type_id','factor'
+        'parent_id',
+        'name',
+        'description',
+        'featured_image'
     ];
-
-    public function unitType(){
-        return $this->belongsTo(UnitType::class);
-    }
 }

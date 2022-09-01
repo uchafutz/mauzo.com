@@ -17,16 +17,11 @@
                         @endisset
                         
                             @csrf
+                             
+                               <x-form.customer-input name="name" type="text" label="Name" placeholder="Enter name" value="{{ old('name')  }}"/>
 
-                            <div class="form-group">
-                                <label for="" class="label-control">Name</label>
-                                <input type="text" name="name" class="form-control" placeholder="Name" value="{{ old('name') ?? (isset($unitType) ? $unitType->name : "") }}" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="" class="label-control">Description</label>
-                                <textarea name="description" class="form-control" placeholder="Description" >{{ old('description') ?? (isset($unitType) ? $unitType->description : "") }}</textarea>
-                            </div>
+                               <x-form.customer-textarea name="description" label="Description" placeholder="Description" value="{{old('description')}}"/>
+                               <br/>
 
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
