@@ -24,7 +24,7 @@ class UnitController extends Controller
 
             ],200);
         }
-        return view("resources.config.unit.index",['units'=>$units]);
+        return view("resources.config.unit.index", compact("units"));
 
     }
 
@@ -62,7 +62,7 @@ class UnitController extends Controller
         ],201);
        }
         
-        return view("resources.config.unit.index");
+        return redirect(route("config.units.index"));
         //
 
        
