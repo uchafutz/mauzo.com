@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Config\UnitController;
 use App\Http\Controllers\Config\UnitTypeController;
+use App\Http\Controllers\Inventory\InventoryCategoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +29,10 @@ Route::middleware("auth")->group(function () {
 
     Route::prefix("/config")->name("config.")->group(function () {
         Route::resource("unitTypes", UnitTypeController::class);
+        Route::resource("units",UnitController::class);
+    });
+    Route::prefix("/inventory")->name("inventory.")->group(function(){
+        Route::resource("inventoryCategories",InventoryCategoryController::class);
+
     });
 });
