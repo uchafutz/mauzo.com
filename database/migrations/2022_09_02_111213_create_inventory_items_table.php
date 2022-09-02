@@ -15,16 +15,17 @@ return new class extends Migration
     {
         Schema::create('inventory_items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("inv_categories_id");
+            $table->unsignedBigInteger("inventory_category_id");
             $table->String("name");
             $table->Text("description")->nullable();
-            $table->unsignedBigInteger("unit_types_id");
-            $table->unsignedTinyInteger("is_manufactured");
-            $table->unsignedTinyInteger("is_material");
-            $table->unsignedTinyInteger("is_product");
-            $table->unsignedBigInteger("default_units_id");
+            $table->unsignedBigInteger("unit_type_id");
+            $table->boolean("is_manufactured")->default(false);
+            $table->boolean("is_material")->default(false);
+            $table->boolean("is_product")->default(false);
+            $table->unsignedBigInteger("default_unit_id");
             $table->decimal("reorder_level");
             $table->decimal("in_stock");
+            $table->String("featured_image");
             $table->softDeletes();
             $table->timestamps();
         });

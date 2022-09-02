@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
+use App\Models\Config\UnitType;
+use App\Models\Inventory\InventoryCategory;
 use App\Models\Inventory\InventoryItem;
 use Illuminate\Http\Request;
 
@@ -22,7 +24,7 @@ class InventoryItemController extends Controller
             ],200);
         }
 
-        return view("resources.Inventory.item.index");
+        return view("resources.Inventory.item.index",compact("inventoryItems"));
        
     }
 
@@ -33,7 +35,9 @@ class InventoryItemController extends Controller
      */
     public function create()
     {
-        return view("resources.Inventory.item.form");
+        $unitTypes=UnitType::all();
+        $inventoryCategories=InventoryCategory::all();
+        return view("resources.Inventory.item.form",compact("unitTypes","inventoryCategories"));
     }
 
     /**
@@ -46,7 +50,9 @@ class InventoryItemController extends Controller
     {
         
       $request->validate([
-            "name"=>["required","unique:inventory_items,name"],   
+            "name"=>["required","unique:inventory_items,name"], 
+             "unit_type_id"=>["required"],
+             "inventory_category_id"=>["required"]
         ]);
       $inventoryItem=InventoryItem::create($request->input());
       if(request()->wantsJson()){

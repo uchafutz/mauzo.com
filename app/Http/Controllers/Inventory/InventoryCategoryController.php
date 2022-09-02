@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
 use App\Models\Inventory\InventoryCategory;
+use App\Models\Inventory\InventoryItem;
 use Illuminate\Http\Request;
 
 
@@ -31,9 +32,9 @@ class InventoryCategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        
-        return view ("resources.Inventory.category.form");
+    {  
+        $inventoryCategories=InventoryCategory::all();
+        return view ("resources.Inventory.category.form",compact("inventoryCategories"));
     }
 
     /**
