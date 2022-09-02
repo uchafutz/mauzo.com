@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('inventory_categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("parent_id");
+            $table->unsignedBigInteger("parent_id")->nullable();
             $table->String("name");
             $table->String("description")->nullable();
             $table->String("featured_image")->nullable();

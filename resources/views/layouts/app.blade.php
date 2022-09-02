@@ -23,19 +23,29 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+               
+                
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Menu
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ route('config.unitTypes.index') }}">{{ __('Settings') }}</a></li>
+                              <li><a class="dropdown-item" href="{{ route('config.units.index')}}" class="nav-link">Units</a></li>
+                              <li><a class="dropdown-item" href="{{ route('inventory.inventoryCategories.index')}}">inventoryCategory</a></li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                          </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('config.unitTypes.index') }}">{{ __('Settings') }}</a>
-                            <a href="{{ route('config.units.index')}}" class="nav-link">Units</a>
-                            <a href="{{ route('inventory.inventoryCategories.index')}}" class="nav-link">Inventory</a>
+                          <a class="nav-link">Link</a>
                         </li>
-                    </ul>
+                      </ul>
+                   
+                    <!-- Left Side Of Navbar -->
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">

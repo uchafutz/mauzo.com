@@ -16,4 +16,12 @@ class InventoryCategory extends Model
         'description',
         'featured_image'
     ];
+
+    public function parent() {
+        return $this->belongsTo(InventoryCategory::class, "parent_id");
+    }
+
+    public function children() {
+        return $this->hasMany(InventoryCategory::class, "parent_id");
+    }
 }

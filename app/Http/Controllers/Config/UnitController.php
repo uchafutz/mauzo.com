@@ -59,7 +59,7 @@ class UnitController extends Controller
        if(request()->wantsJson()){
         return response([
             "data"=>$units
-        ],200);
+        ],201);
        }
         
         return view("resources.config.unit.index");
@@ -75,14 +75,14 @@ class UnitController extends Controller
      * @param  \App\Models\Config\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function show(Unit $units)
+    public function show(Unit $unit)
     {
         if(request()->wantsJson()){
             return response([
-                "data"=>$units
+                "data"=>$unit
             ],200);
         }
-        return view("resources.config.unit.show",compact("units"));
+        return view("resources.config.unit.show",compact("unit"));
 
     }
 
@@ -105,12 +105,12 @@ class UnitController extends Controller
      * @param  \App\Models\Config\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Unit $units)
+    public function update(Request $request, Unit $unit)
     {
-        $units->update($request->input());
+        $unit->update($request->input());
         if(request()->wantsJson()){
             return response([
-                "data"=>$units
+                "data"=>$unit
             ],200);
         }
         return redirect(route("config.units.index"));

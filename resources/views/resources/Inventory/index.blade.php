@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Inventory') }}</div>
+                    <div class="card-header">{{ __('inventoryCategories') }}</div>
 
                     <div class="card-body">
                        
@@ -23,14 +23,14 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($inventories as $Data)
+                                @foreach ($inventoryCategories as $inventoryCategory)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $Data->name }}</td>
-                                        <td>{{ $Data->description }}</td>
+                                        <td>{{ $inventoryCategory->name }}</td>
+                                        <td>{{ $inventoryCategory->description }}</td>
                                         <td>
-                                            <a href="{{ route("inventory.inventoryCategories.edit", ["inventoryCategory" => $Data]) }}" class="btn btn-info">Edit</a>
-                                            <form action="{{ route("inventory.inventroryCategoies.destroy", ["inventoryCategory" => $Data]) }}" method="post">
+                                            <a href="{{ route("inventory.inventoryCategories.edit", ["inventoryCategory" => $inventoryCategory]) }}" class="btn btn-info">Edit</a>
+                                            <form action="{{ route("inventory.inventoryCategories.destroy", ["inventoryCategory" => $inventoryCategory]) }}" method="post">
                                                 @csrf
                                                 @method("delete")
                                             <button type="submit" class="btn btn-danger">delete</button>

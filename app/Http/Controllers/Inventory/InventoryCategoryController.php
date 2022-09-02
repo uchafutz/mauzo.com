@@ -16,13 +16,13 @@ class InventoryCategoryController extends Controller
      */
     public function index()
     {
-        $inventories=InventoryCategory::all();
+        $inventoryCategories=InventoryCategory::all();
         if(request()->wantsJson()){
             return response([
-                "data"=>$inventories
+                "data"=>$inventoryCategories
             ],200);
         }
-        return view("resources.Inventory.index",compact("inventories"));
+        return view("resources.Inventory.index",["inventoryCategories"=> $inventoryCategories ]);
     }
 
     /**
@@ -52,9 +52,9 @@ class InventoryCategoryController extends Controller
        if(request()->wantsJson()){
         return response([
             "data"=>$inventories
-        ],200);
+        ],201);
        }
-        return view("resources.Invetory.index");
+        return view("resources.Inventory.index");
 
     }
 
