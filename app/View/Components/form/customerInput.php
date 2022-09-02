@@ -18,7 +18,7 @@ class customerInput extends Component
      *
      * @return void
      */
-    public function __construct(String $type="text",String $name,String $lable,String $placeholder,String $value)
+    public function __construct(String $type="text",String $name,String $label,String $placeholder,String $value)
     {
         $this->type=$type;
         $this->name=$name;

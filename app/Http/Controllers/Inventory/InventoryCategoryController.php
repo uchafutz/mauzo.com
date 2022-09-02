@@ -54,7 +54,7 @@ class InventoryCategoryController extends Controller
             "data"=>$inventories
         ],201);
        }
-        return view("resources.Inventory.index");
+        return redirect(route("inventory.inventoryCategories.index"));
 
     }
 
