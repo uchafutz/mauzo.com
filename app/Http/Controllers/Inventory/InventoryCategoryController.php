@@ -22,7 +22,7 @@ class InventoryCategoryController extends Controller
                 "data"=>$inventoryCategories
             ],200);
         }
-        return view("resources.Inventory.index",["inventoryCategories"=> $inventoryCategories ]);
+        return view("resources.Inventory.category.index",["inventoryCategories"=> $inventoryCategories ]);
     }
 
     /**
@@ -33,7 +33,7 @@ class InventoryCategoryController extends Controller
     public function create()
     {
         
-        return view ("resources.Inventory.form");
+        return view ("resources.Inventory.category.form");
     }
 
     /**
@@ -72,7 +72,7 @@ class InventoryCategoryController extends Controller
                 "data"=>$inventoryCategory
             ],200);
         }
-        return view("resources.Inventory.show",["inventory"=>$inventoryCategory]);
+        return view("resources.Inventory.category.show",["inventory"=>$inventoryCategory]);
     }
 
     /**
@@ -84,7 +84,7 @@ class InventoryCategoryController extends Controller
     public function edit(InventoryCategory $inventoryCategory)
     {
         
-        return view("resources.Inventory.form",["inventory"=>$inventoryCategory]);
+        return view("resources.Inventory.category.form",["inventory"=>$inventoryCategory]);
     }
 
     /**
