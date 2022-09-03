@@ -1,15 +1,11 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ __('Inventory Categories') }}</div>
-
                     <div class="card-body">
-                       
-
                         <a href="{{ route("inventory.inventoryCategories.create") }}" class="btn btn-primary">Add</a>
 
                         <table class="table table-stripped">

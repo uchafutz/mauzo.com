@@ -20,7 +20,7 @@
                                <x-form.customer-input name="name" type="text" label="Name" placeholder="Enter name" value="{{ old('name')  }}"/>
                                <div class="form-group">
                                 <label for="" class="label-control">Select Unit type</label>
-                                <select name="unit_type_id" id="unit_type_id" class="form-control">
+                                <select name="unit_type_id" id="unit_type_id" class="form-control  @error('unit_type_id') is-invalid @enderror">
                                     <option value=""></option>
                                     @foreach ($unitTypes as $unitType)
                                     <option value="{{$unitType->id}}">{{$unitType->name}}</option>
@@ -32,7 +32,7 @@
                                <x-form.customer-textarea name="description" label="Description" placeholder="Description" value="{{old('description')}}"/>
                                <div class="form-group">
                                 <label for="" class="label-control">Select Inventory category</label>
-                                <select name="inventory_category_id" id="inventory_category_id" class="form-control">
+                                <select name="inventory_category_id" id="inventory_category_id" class="form-control  @error('inventory_category_id') is-invalid @enderror">
                                     @foreach ($inventoryCategories as $invetoryCategory)
                                     <option value="{{$invetoryCategory->id}}">{{$invetoryCategory->name}}</option>
                                     @endforeach
