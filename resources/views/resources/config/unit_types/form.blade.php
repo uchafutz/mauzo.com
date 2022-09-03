@@ -18,9 +18,9 @@
                         
                             @csrf
                              
-                               <x-form.customer-input name="name" type="text" label="Name" placeholder="Enter name" value="{{ old('name')  }}"/>
+                               <x-form.custom-input name="name" type="text" label="Name" placeholder="Enter name" value="{{ old('name')  }}"/>
 
-                               <x-form.customer-textarea name="description" label="Description" placeholder="Description" value="{{old('description')}}"/>
+                               <x-form.custom-textarea name="description" label="Description" placeholder="Description" value="{{old('description')}}"/>
                                <br/>
 
                             <button type="submit" class="btn btn-primary">Submit</button>

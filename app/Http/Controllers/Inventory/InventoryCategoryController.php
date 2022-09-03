@@ -22,7 +22,7 @@ class InventoryCategoryController extends Controller
                 "data"=>$inventoryCategories
             ],200);
         }
-        return view("resources.Inventory.index",["inventoryCategories"=> $inventoryCategories ]);
+        return view("resources.Inventory.index", ["inventoryCategories"=> $inventoryCategories ]);
     }
 
     /**

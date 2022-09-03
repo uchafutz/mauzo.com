@@ -39,8 +39,11 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item"
-                                            href="{{ route('inventory.inventoryCategories.index') }}">{{ __('Inventory Categories') }}</a>
+                                            href="{{ route('inventory.inventoryCategories.index') }}">{{ __('Categories') }}</a>
                                     </li>
+                                    <li><a class="dropdown-item"
+                                        href="{{ route('inventory.inventoryWarehouses.index') }}">{{ __('Warehouses') }}</a>
+                                </li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">

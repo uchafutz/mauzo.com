@@ -18,7 +18,7 @@
                         
                             @csrf
 
-                            <x-form.customer-input name="name" type="text" label="Name Unit" placeholder="Unit name" value="{{ old('name')}}"/>
+                            <x-form.custom-input name="name" type="text" label="Name Unit" placeholder="Unit name" value="{{ old('name')}}"/>
                             <div class="form-group">
                                 <label for="" class="label-control">Unit Type</label>
                                 <select name="unit_type_id"  class="form-control @error('unit_type_id') is-invalid @enderror">
@@ -30,10 +30,10 @@
                                     <p class="invalid-feedback">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <x-form.customer-input name="code" type="text" label="Code" placeholder="Code" value="{{ old('code') }}"/>
-                            <x-form.customer-textarea name="description" label="Description" placeholder="Description" value="{{old('description')}}"/>
-                            <x-form.customer-input name="symbol" type="text" label="Symbol" placeholder="Symbol" value="{{ old('symbol')  }}"/>
-                            <x-form.customer-input name="factor" type="text" label="Factor" placeholder="Factor" value="{{ old('factor') }}"/>
+                            <x-form.custom-input name="code" type="text" label="Code" placeholder="Code" value="{{ old('code') }}"/>
+                            <x-form.custom-textarea name="description" label="Description" placeholder="Description" value="{{old('description')}}"/>
+                            <x-form.custom-input name="symbol" type="text" label="Symbol" placeholder="Symbol" value="{{ old('symbol')  }}"/>
+                            <x-form.custom-input name="factor" type="text" label="Factor" placeholder="Factor" value="{{ old('factor') }}"/>
 
                             <br/>
                            
