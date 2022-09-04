@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
+use App\Http\Helpers\Utility;
 use App\Models\Inventory\InventoryCategory;
 use Illuminate\Http\Request;
 
@@ -48,10 +49,15 @@ class InventoryCategoryController extends Controller
             "name"=>['required','unique:inventory_categories,name'],
          
         ]);
-       $inventories=InventoryCategory::create($request->input());
+        $inventoryCategory= new InventoryCategory();
+        $inventoryCategory->fill($request->input());
+        if(request()->hasFile("featured_image")){
+            $inventoryCategory->featured_image=Utility::uploadFile("featured_image");
+        }
+        $inventoryCategory->save();
        if(request()->wantsJson()){
         return response([
-            "data"=>$inventories
+            "data"=>$inventoryCategory
         ],201);
        }
         return redirect(route("inventory.inventoryCategories.index"));

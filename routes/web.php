@@ -4,6 +4,7 @@ use App\Http\Controllers\Config\UnitController;
 use App\Http\Controllers\Config\UnitTypeController;
 use App\Http\Controllers\Inventory\InventoryCategoryController;
 use App\Http\Controllers\Inventory\InventoryWarehouseController;
+use App\Models\Inventory\InventoryCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -38,3 +39,5 @@ Route::middleware("auth")->group(function () {
         Route::resource("inventoryWarehouses", InventoryWarehouseController::class);
     });
 });
+
+

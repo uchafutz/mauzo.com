@@ -16,11 +16,18 @@
                         @endisset
                         
                             @csrf
-                               
-                               <x-form.custom-input name="name" type="text" label="Name" placeholder="Enter name" value="{{ old('name')  }}"/>
-                               <x-form.custom-input type="file" name="featured_image" label="Featured Image" placeholder="Import file" />
+                             
+                               <x-form.customer-input name="name" type="text" label="Name" placeholder="Enter name" value="{{ old('name')  }}"/>
+                               <div class="form-group">
+                                <label for="" class="label-control">{{__('Select Inventory category')}}</label>
+                                <select name="parent_id" id="parent_id" class="form-control ">
+                                    @foreach ($inventoryCategories as $inventoryCategory)
+                                        <option value="{{$inventoryCategory->id}}">{{$inventoryCategory->name}}</option>
+                                    @endforeach
+                                </select>
+                               </div>
 
-                               <x-form.custom-textarea name="description" label="Description" placeholder="Description" value="{{old('description')}}"/>
+                               <x-form.customer-textarea name="description" label="Description" placeholder="Description" value="{{old('description')}}"/>
                                <br/>
 
                             <button type="submit" class="btn btn-primary">Submit</button>
