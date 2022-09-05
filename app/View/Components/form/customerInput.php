@@ -35,6 +35,6 @@ class customerInput extends Component
      */
     public function render()
     {
-        return view('components.form.customer-input');
+        return view('components.form.customerinput');
     }
 }
