@@ -3,6 +3,7 @@
 use App\Http\Controllers\Config\UnitTypeController;
 use App\Http\Controllers\Config\UnitController;
 use App\Http\Controllers\Inventory\InventoryCategoryController;
+use App\Http\Controllers\Inventory\InventoryItemController;
 use App\Http\Controllers\Inventory\InventoryWarehouseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,9 +30,10 @@ Route::middleware("auth:sanctum")->name("api.")->group(function () {
         ROute::resource("units",UnitController::class);
     });
   
-    Route::prefix("/inventory")->name("inventory.")->group(function(){
-        Route::resource("inventoryCategories",InventoryCategoryController::class);
-        Route::resource("inventoryWarehouses", InventoryWarehouseController::class);
-    });
-
+  Route::prefix("/inventory")->name("inventory.")->group(function(){
+       Route::resource("inventoryCategories",InventoryCategoryController::class);
+       Route::resource("inventoryItems",InventoryItemController::class);
+       Route::resource("inventoryWarehouses", InventoryWarehouseController::class);
+  });
+  
 });

@@ -35,15 +35,15 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
-                                    Inventory
+                                    {{__('Inventory')}}
                                 </a>
                                 <ul class="dropdown-menu">
+                                    <li> <a class="dropdown-item"   href="{{route('inventory.inventoryItems.index')}}">{{__('Items')}}</a></li>
                                     <li><a class="dropdown-item"
                                             href="{{ route('inventory.inventoryCategories.index') }}">{{ __('Categories') }}</a>
                                     </li>
                                     <li><a class="dropdown-item"
                                         href="{{ route('inventory.inventoryWarehouses.index') }}">{{ __('Warehouses') }}</a>
-                                </li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">

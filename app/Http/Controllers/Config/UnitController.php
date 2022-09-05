@@ -24,7 +24,7 @@ class UnitController extends Controller
 
             ],200);
         }
-        return view("resources.config.unit.index", compact("units"));
+        return view("resources.config.units.index", compact("units"));
 
     }
 
@@ -37,7 +37,7 @@ class UnitController extends Controller
     {
     
     $unitTypes=UnitType::all();
-     return view("resources.config.unit.form",compact("unitTypes"));
+     return view("resources.config.units.form",compact("unitTypes"));
     }
 
     /**
@@ -82,7 +82,7 @@ class UnitController extends Controller
                 "data"=>$unit
             ],200);
         }
-        return view("resources.config.unit.show",compact("unit"));
+        return view("resources.config.units.show",compact("unit"));
 
     }
 
@@ -95,7 +95,7 @@ class UnitController extends Controller
     public function edit(Unit $unit)
     {
         $unitTypes=UnitType::all();
-        return view("resources.config.unit.form", compact('unitTypes', 'unit'));
+        return view("resources.config.units.form", compact('unitTypes', 'unit'));
     }
 
     /**
