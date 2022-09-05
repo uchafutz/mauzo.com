@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
+use App\Http\Helpers\Utility;
 use App\Models\Config\UnitType;
 use App\Models\Inventory\InventoryCategory;
 use App\Models\Inventory\InventoryItem;
@@ -24,7 +25,7 @@ class InventoryItemController extends Controller
             ],200);
         }
 
-        return view("resources.Inventory.item.index",compact("inventoryItems"));
+        return view("resources.inventory.item.index",compact("inventoryItems"));
        
     }
 
@@ -37,7 +38,7 @@ class InventoryItemController extends Controller
     {
         $unitTypes=UnitType::all();
         $inventoryCategories=InventoryCategory::all();
-        return view("resources.Inventory.item.form",compact("unitTypes","inventoryCategories"));
+        return view("resources.inventory.item.form",compact("unitTypes","inventoryCategories"));
     }
 
     /**
@@ -54,7 +55,12 @@ class InventoryItemController extends Controller
              "unit_type_id"=>["required"],
              "inventory_category_id"=>["required"]
         ]);
-      $inventoryItem=InventoryItem::create($request->input());
+      $inventoryItem=new InventoryItem();
+      $inventoryItem->fill($request->input());
+      if(request()->hasFile("featured_image")){
+        $inventoryItem->faetured_image=Utility::uploadFile("featured_image");
+      }
+      $inventoryItem->save();
       if(request()->wantsJson()){
         return response([
             "data"=>$inventoryItem
@@ -80,7 +86,7 @@ class InventoryItemController extends Controller
                 "data"=>$inventoryItem
             ],200);
         }
-        return view("resources.Inventory.item.show",compact("inventoryItem"));
+        return view("resources.inventory.item.show",compact("inventoryItem"));
     }
 
     /**
@@ -92,7 +98,7 @@ class InventoryItemController extends Controller
     public function edit(InventoryItem $inventoryItem)
     {
         
-        return view("resources.Inventory.item.form",compact("inventoryItem"));
+        return view("resources.inventory.item.form",compact("inventoryItem"));
     }
 
     /**
