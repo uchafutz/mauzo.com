@@ -58,7 +58,7 @@ class InventoryItemController extends Controller
       $inventoryItem=new InventoryItem();
       $inventoryItem->fill($request->input());
       if(request()->hasFile("featured_image")){
-        $inventoryItem->faetured_image=Utility::uploadFile("featured_image");
+        $inventoryItem->featured_image=Utility::uploadFile("featured_image");
       }
       $inventoryItem->save();
       if(request()->wantsJson()){
