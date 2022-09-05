@@ -12,6 +12,7 @@
                             <thead>
                                 <tr>
                                     <th>S/n</th>
+                                    <th>Image</th>
                                     <th>Name</th>
                                     <th>Description</th>
                                     <th>Actions</th>
@@ -22,6 +23,7 @@
                                 @foreach ($inventoryItems as $inventoryItem)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        <td><img src="{{ $inventoryItem->featured_image }}" height="50px" alt=""></td>
                                         <td>{{ $inventoryItem->name }}</td>
                                         <td>{{ $inventoryItem->description }}</td>
                                         <td>

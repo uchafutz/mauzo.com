@@ -22,8 +22,9 @@
                                 <label for="" class="label-control">Select Unit type</label>
                                 <select name="unit_type_id" id="unit_type_id" class="form-control  @error('unit_type_id') is-invalid @enderror">
                                     <option value=""></option>
+                                    <option value="">Choose...</option>
                                     @foreach ($unitTypes as $unitType)
-                                    <option value="{{$unitType->id}}">{{$unitType->name}}</option>
+                                    <option value="{{$unitType->id}}" {{ (isset($unitType) && $unitType->id == $unitType->id) ? 'selected' : '' }}>{{$unitType->name}}</option>
                                     @endforeach
                                     
                                 </select>
@@ -35,14 +36,23 @@
                                 <select name="inventory_category_id" id="inventory_category_id" class="form-control  @error('inventory_category_id') is-invalid @enderror">
                                     <option value="">Choose...</option>
                                     @foreach ($inventoryCategories as $invetoryCategory)
-                                    <option value="{{$invetoryCategory->id}}">{{$invetoryCategory->name}}</option>
+                                    <option value="{{$invetoryCategory->id}}"{{ (isset($invetoryCategory) && $invetoryCategory->id == $invetoryCategory->id) ? 'selected' : '' }}>{{$invetoryCategory->name}}</option>
                                     @endforeach
                                     
                                 </select>
                                </div>
                                <x-form.custom-input name="featured_image" type="file" label="Choose file" placeholder="Choose file" value="{{ isset($inventoryItem)?$inventoryItem->featured_image : null  }}"/>
-                               <x-form.custom-input name="reorder" type="text" label="Re order" placeholder="Enter Order" value="{{ isset($inventoryItem)? $inventoryItem->reorder :null }}"/>
-                               <x-form.custom-input name="in_stock" type="text" label="Stock item" placeholder="Enter stock item" value="{{ isset($inventoryItem) ? $inventoryItem->in_stock : null }}"/>
+                                <div class="form-group">
+                                <label for="" class="label-control">Select Unit</label>
+                                <select name="default_unit_id" id="default_unit_id" class="form-control  @error('default_unit_id') is-invalid @enderror">
+                                    <option value="">Choose...</option>
+                                    @foreach ($units as $unit)
+                                    <option value="{{$unit->id}}"{{ (isset($unit) && $unit->id == $unit->id) ? 'selected' : '' }}>{{$unit->name}}</option>
+                                    @endforeach
+                                    
+                                </select>
+                               </div>
+                               <x-form.custom-input name="reorder_level" type="text" label="Re order" placeholder="Enter Order" value="{{ isset($inventoryItem)? $inventoryItem->reorder_level : null }}"/>
                                <br/>
 
                             <button type="submit" class="btn btn-primary">Submit</button>

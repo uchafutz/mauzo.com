@@ -24,7 +24,7 @@ return new class extends Migration
             $table->boolean("is_product")->default(false);
             $table->unsignedBigInteger("default_unit_id");
             $table->decimal("reorder_level")->nullable();
-            $table->decimal("in_stock")->default(0);
+            $table->decimal("in_stock")->nullable();
             $table->String("featured_image")->nullable();
             $table->softDeletes();
             $table->timestamps();
