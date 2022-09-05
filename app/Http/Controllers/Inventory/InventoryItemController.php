@@ -25,7 +25,7 @@ class InventoryItemController extends Controller
             ],200);
         }
 
-        return view("resources.inventories.items.index",compact("inventoryItems"));
+        return view("resources.inventory.items.index",compact("inventoryItems"));
        
     }
 
@@ -38,7 +38,7 @@ class InventoryItemController extends Controller
     {
         $unitTypes=UnitType::all();
         $inventoryCategories=InventoryCategory::all();
-        return view("resources.inventories.items.form",compact("unitTypes","inventoryCategories"));
+        return view("resources.inventory.items.form",compact("unitTypes","inventoryCategories"));
     }
 
     /**
@@ -67,10 +67,6 @@ class InventoryItemController extends Controller
         ],201);
       }
       return redirect(route("inventory.inventoryItems.index"));
-       
-
-
-
     }
 
     /**
@@ -86,7 +82,7 @@ class InventoryItemController extends Controller
                 "data"=>$inventoryItem
             ],200);
         }
-        return view("resources.inventories.items.show",compact("inventoryItem"));
+        return view("resources.inventory.items.show",compact("inventoryItem"));
     }
 
     /**
@@ -98,7 +94,7 @@ class InventoryItemController extends Controller
     public function edit(InventoryItem $inventoryItem)
     {
         
-        return view("resources.inventories.items.form",compact("inventoryItem"));
+        return view("resources.inventory.items.form",compact("inventoryItem"));
     }
 
     /**
