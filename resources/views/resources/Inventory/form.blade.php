@@ -17,10 +17,10 @@
                         
                             @csrf
                                
-                               <x-form.custom-input name="name" type="text" label="Name" placeholder="Enter name" value="{{ old('name')  }}"/>
-                               <x-form.custom-input type="file" name="featured_image" label="Featured Image" placeholder="Import file" />
+                               <x-form.custominput name="name" type="text" label="Name" placeholder="Enter name" value="{{ isset($inventoryCategory)?$inventoryCategory->name:null }}"/>
+                               <x-form.custominput type="file" name="featured_image" label="Featured Image" placeholder="Import file" />
 
-                               <x-form.custom-textarea name="description" label="Description" placeholder="Description" value="{{old('description')}}"/>
+                               <x-form.custom-textarea name="description" label="Description" placeholder="Description" value="{{isset($inventoryCategory) ? $inventoryCategory->description:null}}"/>
                                <br/>
 
                             <button type="submit" class="btn btn-primary">Submit</button>

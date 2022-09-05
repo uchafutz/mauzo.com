@@ -90,7 +90,7 @@ class InventoryCategoryController extends Controller
     public function edit(InventoryCategory $inventoryCategory)
     {
         
-        return view("resources.Inventory.form",["inventory"=>$inventoryCategory]);
+        return view("resources.Inventory.form",compact("inventoryCategory"));
     }
 
     /**
