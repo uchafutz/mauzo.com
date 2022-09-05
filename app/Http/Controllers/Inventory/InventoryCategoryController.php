@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
 use App\Models\Inventory\InventoryCategory;
+use App\Models\Inventory\InventoryItem;
 use Illuminate\Http\Request;
 
 
@@ -22,7 +23,7 @@ class InventoryCategoryController extends Controller
                 "data"=>$inventoryCategories
             ],200);
         }
-        return view("resources.Inventory.index",["inventoryCategories"=> $inventoryCategories ]);
+        return view("resources.inventories.categories.index",compact("inventoryCategories"));
     }
 
     /**
@@ -31,9 +32,9 @@ class InventoryCategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        
-        return view ("resources.Inventory.form");
+    {  
+        $inventoryCategories=InventoryCategory::all();
+        return view ("resources.inventories.categories.form",compact("inventoryCategories"));
     }
 
     /**
@@ -72,7 +73,7 @@ class InventoryCategoryController extends Controller
                 "data"=>$inventoryCategory
             ],200);
         }
-        return view("resources.Inventory.show",["inventory"=>$inventoryCategory]);
+        return view("resources.inventories.categories.show",compact("inventoryCategory"));
     }
 
     /**
@@ -84,7 +85,7 @@ class InventoryCategoryController extends Controller
     public function edit(InventoryCategory $inventoryCategory)
     {
         
-        return view("resources.Inventory.form",["inventory"=>$inventoryCategory]);
+        return view("resources.Inventories.categories.form",compact("inventoryCategory"));
     }
 
     /**

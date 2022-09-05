@@ -30,10 +30,10 @@
                                     <p class="invalid-feedback">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <x-form.customer-input name="code" type="text" label="Code" placeholder="Code" value="{{ old('code') }}"/>
+                            <x-form.customerinput name="code" type="text" label="Code" placeholder="Code" value="{{ old('code') }}"/>
                             <x-form.customer-textarea name="description" label="Description" placeholder="Description" value="{{old('description')}}"/>
-                            <x-form.customer-input name="symbol" type="text" label="Symbol" placeholder="Symbol" value="{{ old('symbol')  }}"/>
-                            <x-form.customer-input name="factor" type="text" label="Factor" placeholder="Factor" value="{{ old('factor') }}"/>
+                            <x-form.customerinput name="symbol" type="text" label="Symbol" placeholder="Symbol" value="{{ old('symbol')  }}"/>
+                            <x-form.customerinput name="factor" type="text" label="Factor" placeholder="Factor" value="{{ old('factor') }}"/>
 
                             <br/>
                            

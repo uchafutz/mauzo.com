@@ -3,6 +3,7 @@
 use App\Http\Controllers\Config\UnitController;
 use App\Http\Controllers\Config\UnitTypeController;
 use App\Http\Controllers\Inventory\InventoryCategoryController;
+use App\Http\Controllers\Inventory\InventoryItemController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,7 @@ Route::middleware("auth")->group(function () {
     });
     Route::prefix("/inventory")->name("inventory.")->group(function(){
         Route::resource("inventoryCategories",InventoryCategoryController::class);
+        Route::resource("inventoryItems",InventoryItemController::class);
 
     });
 });

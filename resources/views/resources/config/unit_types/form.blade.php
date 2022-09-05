@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -18,9 +17,9 @@
                         
                             @csrf
                              
-                               <x-form.customer-input name="name" type="text" label="Name" placeholder="Enter name" value="{{ old('name')  }}"/>
+                               <x-form.customerinput name="name" type="text" label="Name" placeholder="Enter name" value="{{ old('name')  }}"/>
 
-                               <x-form.customer-textarea name="description" label="Description" placeholder="Description" value="{{old('description')}}"/>
+                               <x-form.customertextarea name="description" label="Description" placeholder="Description" value="{{old('description')}}"/>
                                <br/>
 
                             <button type="submit" class="btn btn-primary">Submit</button>
