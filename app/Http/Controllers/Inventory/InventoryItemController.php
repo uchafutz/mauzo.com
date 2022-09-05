@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Utility;
+use App\Models\Config\Unit;
 use App\Models\Config\UnitType;
 use App\Models\Inventory\InventoryCategory;
 use App\Models\Inventory\InventoryItem;
@@ -38,7 +39,8 @@ class InventoryItemController extends Controller
     {
         $unitTypes=UnitType::all();
         $inventoryCategories=InventoryCategory::all();
-        return view("resources.inventory.items.form",compact("unitTypes","inventoryCategories"));
+        $units=Unit::all();
+        return view("resources.inventory.items.form",compact("unitTypes","inventoryCategories","units"));
     }
 
     /**
@@ -53,7 +55,9 @@ class InventoryItemController extends Controller
       $request->validate([
             "name"=>["required","unique:inventory_items,name"], 
              "unit_type_id"=>["required"],
-             "inventory_category_id"=>["required"]
+             "inventory_category_id"=>["required"],
+             "default_unit_id"=>["required"],
+          
         ]);
       $inventoryItem=new InventoryItem();
       $inventoryItem->fill($request->input());
@@ -93,8 +97,11 @@ class InventoryItemController extends Controller
      */
     public function edit(InventoryItem $inventoryItem)
     {
+        $unitTypes=UnitType::all();
+        $inventoryCategories=InventoryCategory::all();
+        $units=Unit::all();
         
-        return view("resources.inventory.items.form",compact("inventoryItem"));
+        return view("resources.inventory.items.form",compact("inventoryItem","units","inventoryCategories","unitTypes"));
     }
 
     /**

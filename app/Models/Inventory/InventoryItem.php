@@ -22,7 +22,6 @@ class InventoryItem extends Model
         'is_product',
         'default_unit_id',
         'reorder_level',
-        'in_stock',
         'featured_image'
     ];
 
