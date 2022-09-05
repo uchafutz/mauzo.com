@@ -17,8 +17,8 @@ class UnitControllerTest extends TestCase
      * @return void
      */
 
-    /** @test */
-    public function it_can_create_a_unit()
+
+    public function it_can_create_a_unit_from_web()
     {
         // when
         $user = User::factory()->create();
@@ -30,7 +30,7 @@ class UnitControllerTest extends TestCase
             'name' => "Killogram",
             "description" => "Sample Description",
             "code" => "code",
-            "unit_types" => $unitType->id,
+            "unit_type_id" => $unitType->id,
         ]);
 
         // assert
@@ -38,7 +38,28 @@ class UnitControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
-    /** @test */
+
+    public function it_can_create_a_unit_from_api()
+    {
+        // when
+        $user = User::factory()->create();
+        $this->actingAs($user);
+        $unitType = UnitType::create(['name' => "Mass"]);
+
+        // do
+        $response = $this->post(route('api.config.units.index'), [
+            'name' => "Killogram",
+            "description" => "Sample Description",
+            "code" => "code",
+            "unit_type_id" => $unitType->id,
+        ]);
+
+        // assert
+        $response->assertSessionDoesntHaveErrors();
+        $response->assertStatus(201);
+    }
+
+
     public function it_can_update_a_unit()
     {
         $response = $this->get('/');
