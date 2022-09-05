@@ -17,9 +17,9 @@
                         
                             @csrf
                              
-                               <x-form.custom-input name="name" type="text" label="Name" placeholder="Enter name" value="{{ old('name')  }}"/>
+                               <x-form.custom-input name="name" type="text" label="Name" placeholder="Enter name" value="{{ isset($unitType) ? $unitType->name : null }}"/>
 
-                               <x-form.custom-textarea name="description" label="Description" placeholder="Description" value="{{old('description')}}"/>
+                               <x-form.custom-textarea name="description" label="Description" placeholder="Description" value="{{ isset($unitType) ? $unitType->description : null }}"/>
                                <br/>
 
                             <button type="submit" class="btn btn-primary">Submit</button>

@@ -21,8 +21,9 @@
                                <div class="form-group">
                                 <label for="" class="label-control">{{__('Select Inventory category')}}</label>
                                 <select name="parent_id" id="parent_id" class="form-control">
-                                    @foreach ($inventoryCategories as $inventoryCategory)
-                                        <option value="{{$inventoryCategory->id}}">{{$inventoryCategory->name}}</option>
+                                    <option value="">Choose...</option>
+                                    @foreach ($inventoryCategories as $inventoryCategoryVariant)
+                                        <option value="{{$inventoryCategoryVariant->id}}" {{ (isset($inventoryCategory) && $inventoryCategory->parent_id == $inventoryCategoryVariant->id) ? 'selected' : '' }}>{{$inventoryCategoryVariant->name}}</option>
                                     @endforeach
                                 </select>
                                </div>

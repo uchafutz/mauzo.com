@@ -13,6 +13,7 @@
                                 <tr>
                                     <th>S/n</th>
                                     <th>Name</th>
+                                    <th>Parent</th>
                                     <th>Description</th>
                                     <th>Actions</th>
                                 </tr>
@@ -23,6 +24,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $inventoryCategory->name }}</td>
+                                        <td>{{ $inventoryCategory->parent ? $inventoryCategory->parent->name : "N/A" }}</td>
                                         <td>{{ $inventoryCategory->description }}</td>
                                         <td>
                                             <a href="{{ route("inventory.inventoryCategories.edit", ["inventoryCategory" => $inventoryCategory]) }}" class="btn btn-info">Edit</a>

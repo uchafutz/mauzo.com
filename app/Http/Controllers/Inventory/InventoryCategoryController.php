@@ -24,7 +24,7 @@ class InventoryCategoryController extends Controller
                 "data"=>$inventoryCategories
             ],200);
         }
-        return view("resources.inventories.categories.index",compact("inventoryCategories"));
+        return view("resources.inventory.categories.index",compact("inventoryCategories"));
     }
 
     /**
@@ -35,7 +35,7 @@ class InventoryCategoryController extends Controller
     public function create()
     {  
         $inventoryCategories=InventoryCategory::all();
-        return view ("resources.inventories.categories.form",compact("inventoryCategories"));
+        return view ("resources.inventory.categories.form",compact("inventoryCategories"));
     }
 
     /**
@@ -79,7 +79,7 @@ class InventoryCategoryController extends Controller
                 "data"=>$inventoryCategory
             ],200);
         }
-        return view("resources.inventories.categories.show",compact("inventoryCategory"));
+        return view("resources.inventory.categories.show",compact("inventoryCategory"));
     }
 
     /**
@@ -90,8 +90,8 @@ class InventoryCategoryController extends Controller
      */
     public function edit(InventoryCategory $inventoryCategory)
     {
-        
-        return view("resources.Inventories.categories.form",compact("inventoryCategory"));
+        $inventoryCategories = InventoryCategory::all();
+        return view("resources.Inventory.categories.form",compact("inventoryCategory", "inventoryCategories"));
     }
 
     /**
