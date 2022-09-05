@@ -90,8 +90,8 @@ class InventoryCategoryController extends Controller
      */
     public function edit(InventoryCategory $inventoryCategory)
     {
-        
-        return view("resources.Inventory.categories.form",compact("inventoryCategory"));
+        $inventoryCategories = InventoryCategory::all();
+        return view("resources.Inventory.categories.form",compact("inventoryCategory", "inventoryCategories"));
     }
 
     /**
