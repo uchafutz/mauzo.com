@@ -28,6 +28,7 @@
                                         <td>{{ $inventoryItem->description }}</td>
                                         <td>
                                             <a href="{{ route("inventory.inventoryItems.edit", ["inventoryItem" => $inventoryItem]) }}" class="btn btn-info">Edit</a>
+                                            <a href="{{ route("inventory.inventoryItems.show",["inventoryItem" =>$inventoryItem]) }}" class="btn btn-success">View item</a>
                                             <form action="{{ route("inventory.inventoryItems.destroy", ["inventoryItem" => $inventoryItem]) }}" method="post">
                                                 @csrf
                                                 @method("delete")

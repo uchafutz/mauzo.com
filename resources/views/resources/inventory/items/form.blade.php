@@ -52,6 +52,34 @@
                                     
                                 </select>
                                </div>
+                               <br/>
+                             <div class="row row-cols-lg-auto g-3 align-items-center">
+                                <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" name="is_material" type="checkbox" value="1" id="flexCheckDefault" {{  ($inventoryItem->is_material == 1 ? ' checked' : '') }}>
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                      Is Material
+                                    </label>
+                                  </div>
+                                </div>
+                                <div class="col-12">
+                                  <div class="form-check">
+                                    <input class="form-check-input" name="is_product" type="checkbox" value="1" id="flexCheckDefault" {{  ($inventoryItem->is_product == 1 ? ' checked' : '') }}>
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                      Is Product
+                                    </label>
+                                  </div>
+                                  </div>
+                                  <div class="col-12">
+                                  <div class="form-check">
+                                    <input class="form-check-input" name="is_manufactured" type="checkbox" value="1" id="flexCheckDefault" {{  ($inventoryItem->is_manufactured == 1 ? ' checked' : '') }}>
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                      Is Manufactured
+                                    </label>
+                                  </div>
+                                  </div>
+                             </div>
+                             <br/>
                                <x-form.custom-input name="reorder_level" type="text" label="Re order" placeholder="Enter Order" value="{{ isset($inventoryItem)? $inventoryItem->reorder_level : null }}"/>
                                <br/>
 

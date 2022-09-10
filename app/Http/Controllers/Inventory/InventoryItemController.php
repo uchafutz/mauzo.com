@@ -80,13 +80,18 @@ class InventoryItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(InventoryItem $inventoryItem)
+
     {
+
+        
         if(request()->wantsJson()){
             return response([
                 "data"=>$inventoryItem
             ],200);
         }
         return view("resources.inventory.items.show",compact("inventoryItem"));
+
+
     }
 
     /**

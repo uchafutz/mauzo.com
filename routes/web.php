@@ -4,6 +4,7 @@ use App\Http\Controllers\Config\UnitController;
 use App\Http\Controllers\Config\UnitTypeController;
 use App\Http\Controllers\Inventory\InventoryCategoryController;
 use App\Http\Controllers\Inventory\InventoryItemController;
+use App\Http\Controllers\Inventory\InventoryItemMaterialController;
 use App\Http\Controllers\Inventory\InventoryWarehouseController;
 use App\Models\Inventory\InventoryCategory;
 use Illuminate\Support\Facades\Auth;
@@ -39,6 +40,7 @@ Route::middleware("auth")->group(function () {
         Route::resource("inventoryCategories",InventoryCategoryController::class);
         Route::resource("inventoryItems",InventoryItemController::class);
         Route::resource("inventoryWarehouses", InventoryWarehouseController::class);
+        Route::resource("inventoryItems.inventoryItemMaterials",InventoryItemMaterialController::class);
     });
 });
 
