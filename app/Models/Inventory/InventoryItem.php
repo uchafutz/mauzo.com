@@ -2,6 +2,7 @@
 
 namespace App\Models\Inventory;
 
+use App\Models\Config\Unit;
 use App\Models\Config\UnitType;
 use App\Models\Inventory\InventoryCategory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -36,5 +37,8 @@ class InventoryItem extends Model
     }
     protected function featuredImage(): Attribute {
         return Attribute::make(fn ($val) => Storage::url($val));
+    }
+    public function materials(){
+        return $this->hasMany(InventoryItemMaterial::class, "source_inv_items_id");
     }
 }

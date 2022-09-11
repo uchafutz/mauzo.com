@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('inventory_item_materials', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("source_inv_items_id");
+            $table->unsignedBigInteger("material_inv_items_id");
+            $table->decimal("quantity");
+            $table->enum("type",["RAW","WASTAGE"]);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
