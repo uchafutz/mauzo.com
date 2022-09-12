@@ -23,7 +23,7 @@ class PurchaseController extends Controller
             ],200);
         }
 
-        return view("resources.purchase.index",compact("purchases"));
+        return view("resources.purchase.purchases.index",compact("purchases"));
     }
 
     /**
@@ -34,7 +34,7 @@ class PurchaseController extends Controller
     public function create()
     {
         
-        return view("resources.purchase.form");
+        return view("resources.purchase.purchases.form");
     }
 
     /**
@@ -74,7 +74,7 @@ class PurchaseController extends Controller
     public function show(Purchase $purchase)
     {
         //
-
+        dd($purchase->items);
         return view("resources.purchase.show",compact("purchase"));
         if(request()->wantsJson()){
             return response(
@@ -95,7 +95,7 @@ class PurchaseController extends Controller
     public function edit(Purchase $purchase)
     {
         //
-     return view("resources.purchase.form",compact("purchase"));
+     return view("resources.purchase.purchases.form",compact("purchase"));
        
     }
 

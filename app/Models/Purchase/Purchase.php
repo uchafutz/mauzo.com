@@ -11,4 +11,8 @@ class Purchase extends Model
     use HasFactory;
     use SoftDeletes;
     protected $fillable=['code','date','description'];
+
+    public function items(){
+        return $this->hasMany(PurchaseItems::class,'purchases_id');
+    }
 }

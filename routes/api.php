@@ -7,6 +7,7 @@ use App\Http\Controllers\Inventory\InventoryItemController;
 use App\Http\Controllers\Inventory\InventoryItemMaterialController;
 use App\Http\Controllers\Inventory\InventoryWarehouseController;
 use App\Http\Controllers\Purchase\PurchaseController;
+use App\Http\Controllers\Purchase\PurchaseItemsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,7 @@ Route::middleware("auth:sanctum")->name("api.")->group(function () {
 
   Route::prefix("/purchase")->name("purchase.")->group(function(){
     Route::resource("purchases",PurchaseController::class);
+    Route::resource("purchaseItems",PurchaseItemsController::class);
   });
-  
+
 });
