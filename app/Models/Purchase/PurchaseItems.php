@@ -4,6 +4,7 @@ namespace App\Models\Purchase;
 
 use App\Models\Config\Unit;
 use App\Models\Config\UnitType;
+use App\Models\Inventory\InventoryItem;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,7 +16,7 @@ class PurchaseItems extends Model
     protected $fillable=['inv_items_id','conf_unit_types_id','conf_units_id','purchases_id','amount','quantity'];
 
     public function inventoryItem(){
-        return $this->belongsTo(inventoryItems::class,'inv_items_id');
+        return $this->belongsTo(InventoryItem::class,'inv_items_id');
     }
 
     public function unitType(){

@@ -16,6 +16,9 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
@@ -42,6 +45,10 @@
                                     <li><a class="dropdown-item"
                                             href="{{ route('inventory.inventoryCategories.index') }}">{{ __('Categories') }}</a>
                                     </li>
+                                    <li>
+                                        <a class="dropdown-item"
+                                        href="{{ route('purchase.purchases.index') }}">{{ __('Purchase') }}</a>
+                                     </li>
                                     <li><a class="dropdown-item"
                                         href="{{ route('inventory.inventoryWarehouses.index') }}">{{ __('Warehouses') }}</a>
                                 </ul>
@@ -112,6 +119,53 @@
             @yield('content')
         </main>
     </div>
+    <script>
+         $('.phone').on('focus',function(){
+                  phone_($(this));
+              });
+              $('.phone').on('input',function(){
+                  phone_($(this));
+              });
+              $('.phone').on('change',function(){
+                  phone_($(this));
+              });
+  
+              function phone_(element){
+                  $.mask.definitions['~'] = "[+-]";
+                  element.mask("0999999999");
+              }
+  
+              var i = 0;
+              $('#receive').on('click', '.tr_clone_add', function() {
+                  previous_no = parseInt(i?i:0);
+                  i++;
+                  next_no = i;
+                  var $tr    = $(this).closest('.dubplicate_row');
+                  var $clone = $tr.clone(true,true);
+                  $clone.children().children('.item').addClass('item'+next_no);
+                  $clone.children().children('.item').attr('data-index',next_no);
+                  $clone.children().children('.quantity').addClass('quantity'+next_no);
+                  $clone.children().children('.quantity').attr('data-index',next_no);
+  
+                  $clone.find(':text').val('');
+                  $tr.after($clone);
+                  for(j = (next_no -1); j >= 0; j--){
+                      $('.item'+next_no).removeClass('item'+j);
+                      $('.quantity'+next_no).removeClass('quantity'+j);
+                  }
+  
+              });
+  
+              $('#receive').on('click', '.tr_clone_remove', function() {
+                  numItems = $('.dubplicate_row').length;
+                  if(numItems > 1){
+                      $(this).closest('.dubplicate_row').remove();
+                  }else{
+                      alert("Must have single item row");
+                  }
+                  $("#source_account_id").change();
+              });
+    </script>
 </body>
 
 </html>

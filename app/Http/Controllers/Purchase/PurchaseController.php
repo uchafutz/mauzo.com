@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Purchase;
 
 use App\Http\Controllers\Controller;
+use App\Models\Config\Unit;
+use App\Models\Inventory\InventoryItem;
 use App\Models\Purchase\Purchase;
+use App\Models\Purchase\PurchaseItems;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PurchaseController extends Controller
 {
@@ -32,9 +36,10 @@ class PurchaseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        
-        return view("resources.purchase.purchases.form");
+    {   
+        $items=InventoryItem::all();
+        $units=Unit::all();
+        return view("resources.purchase.purchases.form",compact("units","items"));
     }
 
     /**
@@ -45,13 +50,46 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        dd($request->all());
+        $this->validate($request,[
             "code"=>["required","unique:purchases,code"],
             "date"=>["required"],
-            
+            "inv_items_id"=>["required"],
+            "conf_units_id"=>["required"],
+            "quantity.*"=>["required","numeric"],
+            "amount.*"=>["required","numeric"]
         ]);
-
-        $purchase=Purchase::create($request->input());
+        
+        $data = [];
+        $data["code"] = $request->code;
+        $data["description"] = $request->description;
+        $data["date"]=$request->date;
+        DB::beginTransaction();
+        $purchase = Purchase::create($data);
+        if($purchase->wasRecentlyCreated){
+         $purchases_id=$purchase->id;
+         $items =[];
+         if(is_array($request->inv_items_id)){
+            $i =0;
+            foreach($request->inv_items_id as $item){
+                $items[] = new PurchaseItems([
+                    'inv_items_id' => $item,
+                    'quantity' => $request->quantity[$i],
+                    'amount' => $request->amount[$i],
+                    'conf_units_id' => $request->conf_units_id[$i],
+                    'conf_unit_types_id' => Unit::where('id',$request->conf_units_id[$i])->first()->unit_type_id ?? 0,
+                    // 'purchases_id' => $purchase->id,
+                ]);
+                $i++;
+            }
+         }
+         
+        }
+        $purchase->items()->saveMany($items);
+        dd($items);
+        DB::commit();
+      
+        
         if(request()->wantsJson()){
             return response(
                 [
@@ -73,16 +111,18 @@ class PurchaseController extends Controller
      */
     public function show(Purchase $purchase)
     {
-        //
-        dd($purchase->items);
-        return view("resources.purchase.show",compact("purchase"));
-        if(request()->wantsJson()){
-            return response(
-                [
-                    "data"=>$purchase
-                ],200
-            );
-        }
+    
+
+       $purchaseItems= $purchase->items;
+       if(request()->wantsJson()){
+        return response(
+            [
+                "data"=>[$purchaseItems]
+            ],200
+        );
+    }
+        return view("resources.purchase.purchases.show",compact("purchaseItems"));
+        
      
     }
 
