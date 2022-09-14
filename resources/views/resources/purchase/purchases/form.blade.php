@@ -27,7 +27,7 @@
                                             <label for="" class="label-control">Inventory Item</label>
                                             <select class="form-control" x-model="form.inv_item_id">
                                                 <option value="">Choose Item...</option>
-                                                <template x-for="item in inventoryItems">
+                                                <template x-for="item in inventoryItems.filter(i => !items.find(it => it.inv_item_id == i.id))">
                                                     <option x-bind:value="item.id" x-text="item.name"></option>
                                                 </template>
                                             </select>
@@ -78,6 +78,7 @@
                                             @isset($purchase)
                                                 <input type="hidden" x-bind:name="'items[' + index + '][id]'" x-bind:value="item.id">
                                             @endisset
+
                                             <input type="hidden" x-bind:name="'items[' + index + '][inv_item_id]'" x-bind:value="item.inv_item_id">
                                             <input type="hidden" x-bind:name="'items[' + index + '][conf_unit_id]'" x-bind:value="item.conf_unit_id">
                                             <input type="hidden" x-bind:name="'items[' + index + '][quantity]'" x-bind:value="item.quantity">

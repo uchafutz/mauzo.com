@@ -8,7 +8,7 @@
                     <div class="card-body">
                         <div>
                             <h4>{{ $purchase->code }}</h4>
-                            <p></p>
+                            <p>{{  $purchase->date->format("d/m/Y") }}</p>
                         </div>
                         <table class="table table-stripped">
                             <thead>
