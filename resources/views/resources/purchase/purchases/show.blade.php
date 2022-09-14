@@ -31,7 +31,12 @@
                                     <td>{{$purchaseItem->quantity}}</td>
                                     <td>{{$purchaseItem->amount}}</td>
                                     <td>
-                                     
+                                        <a href="{{ route("purchase.purchases.edit", ["purchaseItem" => $purchaseItem,"purchase"=>$purchaseItem->purchase->id]) }}" class="btn btn-info">Edit</a>
+                                        <form action="{{ route("purchase.purchases.destroy", ["purchaseItem" => $purchaseItem,"purchase"=>$purchaseItem->purchase->id]) }}" method="post">
+                                            @csrf
+                                            @method("delete")
+                                        <button type="submit" class="btn btn-danger">delete</button>
+                                     </form> 
                                     </td>
                                    </tr>
                                        

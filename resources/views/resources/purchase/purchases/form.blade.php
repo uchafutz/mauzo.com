@@ -6,34 +6,70 @@
                 <div class="card">
                     <div class="card-header">{{ __('New Purchase') }}</div>
                     <div class="card-body">
-                       
+                        @isset($purchase)
+                        <form  class="row g-3" action="{{ route("purchase.purchases.update", ["purchase" => $purchase]) }}" method="POST" enctype="multipart/form-data">
+                            @method("patch")  
+                        @else 
                         <form class="row g-3" action="{{ route("purchase.purchases.store") }}" method="POST" enctype="multipart/form-data">
-                            @csrf
+                        @endisset
+                        @csrf
                             <div class="col-md-6">
-                              <label for="inputEmail" class="form-label">Code</label>
-                              <input type="text" name="code" class="form-control" id="inputEmail4">
+                                <input type="hidden" name="purchases_id" value="{{ isset($purchase)? $purchase->id:null  }}">
+                                <x-form.custom-input name="code" type="text" label="Code" placeholder="Enter Code" value="{{ isset($purchase)? $purchase->code:null  }}"/>
                             </div>
                             <div class="col-md-6">
-                              <label for="inputPassword4" class="form-label">Date</label>
-                              <input type="date" name="date" class="form-control" id="inputPassword4">
+                                <x-form.custom-input name="date" type="date" label="Date" placeholder="Enter date" value="{{ isset($purchase)? $purchase->date:null  }}"/>
                             </div>
                             <div class="col-12">
-                                <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                                <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <x-form.custom-textarea name="description" label="Description" placeholder="Description" value="{{ isset($purchase)?$purchase->description : null}}"/>
                             </div>
-                            <table  id="receive" class="table table-bordered">
+                            <table  id="receive" class="table table-bordered" style="width:100%">
                                 <tr>
-                                   <th>S/n</th>
-                                   <th>Item</th>
-                                   <th>Unit</th>
-                                   <th>Quantity</th>
-                                   <th>Unit Amount</th>
-                                   <th>Amount</th>
-                                   <th></th>
+                                   <th style="width: 2%">S/n</th>
+                                   <th style="width: 25%">Item</th>
+                                   <th style="width: 20%">Unit</th>
+                                   <th style="width: 13%">Quantity</th>
+                                   <th style="width: 15%">Unit Amount</th>
+                                   <th style="width: 15%">Amount</th>
+                                   <th style="width: 10"></th>
                                 </tr>  
                                 <tbody>
+                                    @if (isset($purchase))
+                                    @foreach ($purchaseItems as $purchaseItem)
                                     <tr class="dubplicate_row">
-                                        <td>1</td>
+                                        <td><input type="hidden" value="{{ isset($purchaseItem)? $purchaseItem->id:null  }}" name="purchaseItem_id"></td>
+                                        <td>
+                                            <input type="text" name="inv_items_id_a[]" id="name[]" list="items" autocomplete="off" placeholder="Item Name" class="  name border form-control" value="{{ isset($purchaseItem)? $purchaseItem->InventoryItem->name:null  }}" required="">
+                                            <input type="hidden" value="{{ isset($purchaseItem)? $purchaseItem->InventoryItem->id:null  }}" name="inv_items_id[]" class="item_name">
+                                            </td>
+                                        <td>
+                                        <input  type="text" name="conf_units_id_A[]" id="conf_units_id[]" placeholder="Unit" list="measure" autocomplete="off" class="  unit border form-control" value="{{ isset($purchaseItem)? $purchaseItem->unit->name:null  }}" required="">
+                                        <input type="hidden" value="{{ isset($purchaseItem)? $purchaseItem->unit->id:null  }}" name="conf_units_id[]" class="item_unit">
+                                            </td>
+                                            <td >
+                                                <input type="text" name="quantity[]" id="name[]" placeholder="Quantinty" class="quantity border form-control" value="{{ isset($purchaseItem)? $purchaseItem->quantity:null  }}" required="">
+                        
+                                                </td>
+                                            <td >
+                                            <input  type="text" name="amount[]" id="" placeholder="Unit Amount" class="unit_amount border form-control" value="{{ isset($purchaseItem)? $purchaseItem->amount:null  }}" required="">
+                                            </td>
+                                            <td >
+                                            <input  type="text" name="amount_t[]" id="amount_t[]" placeholder="Amount" class="amount border form-control" value="" readonly>
+                            
+                                            </td>
+
+                                        <td  class="clickable">
+                                          <div class="btn-group" role="group" aria-label="default">
+                                            <input type="button" class="btn btn-primary btn-act tr_clone_add" value=" + ">
+                                            <input type="button" class="btn btn-danger btn-act tr_clone_remove" value=" x ">
+                                          </div> 
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                        
+                                    @else
+                                    <tr class="dubplicate_row">
+                                        <td></td>
                                         <td>
                                             <input type="text" name="inv_items_id_a[]" id="name[]" list="items" autocomplete="off" placeholder="Item Name" class="  name border form-control" value="" required="">
                                             <input type="hidden" name="inv_items_id[]" class="item_name">
@@ -47,10 +83,10 @@
                         
                                                 </td>
                                             <td >
-                                            <input  type="text" name="" id="" placeholder="Unit Amount" class="unit_amount border form-control" value="" required="">
+                                            <input  type="text" name="amount[]" id="amount[]" placeholder="Unit Amount" class="unit_amount border form-control" value="" required="">
                                             </td>
                                             <td >
-                                            <input  type="text" name="amount[]" id="amount[]" placeholder="Amount" class="amount border form-control" value="" readonly>
+                                            <input  type="text" name="amount_t[]" id="amount_t[]" placeholder="Amount" class="amount border form-control" value="" readonly>
                             
                                             </td>
 
@@ -61,9 +97,12 @@
                                           </div> 
                                         </td>
                                     </tr>
+                                        
+                                    @endif
+            
                                     <tr class="d-grid gap-2">
                                         <td colspan="6" >
-                                            <button  type="submit" id="" class="btn btn-primary">Submit</button>
+                                            <button  type="submit" id="" class="btn btn-success">Submit</button>
                                         </td>
                                     </tr>
                                 </tbody>

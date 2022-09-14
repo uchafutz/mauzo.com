@@ -50,7 +50,7 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
         $this->validate($request,[
             "code"=>["required","unique:purchases,code"],
             "date"=>["required"],
@@ -86,7 +86,7 @@ class PurchaseController extends Controller
          
         }
         $purchase->items()->saveMany($items);
-        dd($items);
+        //dd($items);
         DB::commit();
       
         
@@ -134,8 +134,10 @@ class PurchaseController extends Controller
      */
     public function edit(Purchase $purchase)
     {
-        //
-     return view("resources.purchase.purchases.form",compact("purchase"));
+    $items=InventoryItem::all();
+    $units=Unit::all();
+    $purchaseItems= $purchase->items;
+     return view("resources.purchase.purchases.form",compact("purchase","items","units","purchaseItems"));
        
     }
 
@@ -148,7 +150,31 @@ class PurchaseController extends Controller
      */
     public function update(Request $request, Purchase $purchase)
     {
+       // dd($request->input());
+        //dd($request->all());
+        // $debug = [
+        //     "inventory items id lenght" => count($request->inv_items_id),
+        //     "invevntory items" => $request->inv_items_id,
+        //     "purchase items length" => count($request->purchaseItem_id),
+        //     "purchase items" => $request->purchaseItem_id,
+        // ];
+       // dd($debug);
         $purchase->update($request->input());
+        $items =[];
+        if(is_array($request->inv_items_id)){
+           $i =0;
+           foreach($request->inv_items_id as $item){
+               PurchaseItems::where('id',$request->purchaseItem_id)->update([
+                   'inv_items_id' => $item,
+                   'quantity' => $request->quantity[$i],
+                   'amount' => $request->amount[$i],
+                   'conf_units_id' => $request->conf_units_id[$i],
+                   'conf_unit_types_id' => Unit::where('id',$request->conf_units_id[$i])->first()->unit_type_id ?? 0,
+                 'purchases_id' => $request->purchases_id
+               ]);
+               $i++;
+           }
+        }
          if(request()->wantsJson()){
             return response(
                 [

@@ -34,3 +34,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
 //     enabledTransports: ['ws', 'wss'],
 // });
+var Highcharts = require('highcharts');  
+// Load module after Highcharts is loaded
+require('highcharts/modules/exporting')(Highcharts);
