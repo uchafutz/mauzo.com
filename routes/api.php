@@ -1,13 +1,14 @@
 <?php
 
+use App\Http\Controllers\Config\RoleController;
 use App\Http\Controllers\Config\UnitTypeController;
 use App\Http\Controllers\Config\UnitController;
+use App\Http\Controllers\Config\UserController;
 use App\Http\Controllers\Inventory\InventoryCategoryController;
 use App\Http\Controllers\Inventory\InventoryItemController;
 use App\Http\Controllers\Inventory\InventoryItemMaterialController;
 use App\Http\Controllers\Inventory\InventoryWarehouseController;
 use App\Http\Controllers\Purchase\PurchaseController;
-use App\Http\Controllers\Purchase\PurchaseItemsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,8 @@ Route::middleware("auth:sanctum")->name("api.")->group(function () {
     Route::prefix("/config")->name("config.")->group(function () {
         Route::resource("unitTypes", UnitTypeController::class);
         ROute::resource("units",UnitController::class);
+        Route::resource("roles",RoleController::class);
+        Route::resource("users",UserController::class);
     });
   
   Route::prefix("/inventory")->name("inventory.")->group(function(){
@@ -42,7 +45,6 @@ Route::middleware("auth:sanctum")->name("api.")->group(function () {
 
   Route::prefix("/purchase")->name("purchase.")->group(function(){
     Route::resource("purchases",PurchaseController::class);
-    Route::resource("purchaseItems",PurchaseItemsController::class);
   });
 
 });

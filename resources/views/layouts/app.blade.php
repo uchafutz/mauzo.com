@@ -63,6 +63,10 @@
                                             href="{{ route('config.unitTypes.index') }}">{{ __('Unit Types') }}</a></li>
                                     <li><a class="dropdown-item" href="{{ route('config.units.index') }}"
                                             class="nav-link">{{ __('Units') }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('config.roles.index') }}"
+                                                class="nav-link">{{ __('Roles') }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('config.users.index') }}"
+                                                    class="nav-link">{{ __('Users') }}</a></li>
 
                                     <li>
                                         <hr class="dropdown-divider">

@@ -4,34 +4,32 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Roles') }}</div>
+                    <div class="card-header">{{ __('User') }}</div>
 
                     <div class="card-body">
                        
 
-                        <a href="{{ route("config.roles.create") }}" class="btn btn-primary">Add</a>
+                        <a href="{{ route("config.users.create") }}" class="btn btn-primary">Add</a>
 
                         <table class="table table-stripped">
                             <thead>
                                 <tr>
                                     <th>S/n</th>
                                     <th>Name</th>
-                                    <th>Display</th>
-                                    <th>Description</th>
+                                    <th>Email</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach ($roles as $role)
+                                @foreach ($users as $user)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $role->name }}</td>
-                                        <td>{{ $role->display }}</td>
-                                        <td>{{ $role->description }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
                                         <td>
-                                            <a href="{{ route("config.roles.edit", ["role" => $role]) }}" class="btn btn-info">Edit</a>
-                                            <form action="{{ route("config.roles.destroy",["role" => $role]) }}" method="post">
+                                            <a href="{{ route("config.users.edit", ["user" => $user]) }}" class="btn btn-info">Edit</a>
+                                            <form action="{{ route("config.users.destroy",["user" => $user]) }}" method="post">
                                                 @csrf
                                                 @method("delete")
                                             <button type="submit" class="btn btn-danger">delete</button>

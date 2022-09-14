@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Config;
 
 use App\Http\Controllers\Controller;
-use App\Models\Config\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Log\Logger;
-use Illuminate\Support\Facades\Log;
+use Nette\Utils\Random;
 
-class RoleController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,14 +16,14 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles=Role::all();
+        $users=User::all();
         if(request()->wantsJson()){
             return response([
-                "data"=>$roles
+                "data"=>$users
             ],200);
-      
         }
-        return view("resources.config.roles.index",compact("roles"));
+        return view("resources.config.users.index",compact("users"));
+        
     }
 
     /**
@@ -34,8 +33,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        Log::info("create method triggred from Role controller", ["debug" => "values"]);
-        return view("resources.config.roles.form");
+        
+        return view("resources.config.users.form");
     }
 
     /**
@@ -46,81 +45,83 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->input());
         $request->validate([
-            "name"=>["required","unique:roles,name"],
-            "display"=>["required"],
+            "name"=>["required"],
+            "email"=>["required","unique:users,email"],   
         ]);
-        $role=Role::create($request->input());
+        $data=[];
+        $data["name"]=$request->name;
+        $data["email"]=$request->email;
+        $data["password"]=Random::generate();
+        $user=User::create($data);
         if(request()->wantsJson()){
             return response([
-                "data"=>$role
+                "data"=>$user
             ],201);
         }
-        return redirect(route("config.roles.index"));
 
+       return redirect(route("config.users.index"));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Config\Role  $role
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show(User $user)
     {
         if(request()->wantsJson()){
             return response([
-                "data"=>$role
+                "data"=>$user
             ],200);
         }
-        
-        return view("resources.config.roles.show");
+        return view("resources.config.users.show",compact("user"));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Config\Role  $role
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit(User $user)
     {
         //
-        return view("resources.config.roles.form",compact("role"));
+
+        return view("resources.config.users.form",compact("user"));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Config\Role  $role
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, User $user)
     {
-        $role->update($request->input());
+        $user->update($request->input());
         if(request()->wantsJson()){
             return response([
-                "data"=>$role
+                "data"=>$user
             ],201);
         }
-        return redirect(route("config.roles.index"));
+        return redirect(route("config.users.index"));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Config\Role  $role
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy(User $user)
     {
-        
-        $role->delete();
+        $user->delete();
         if(request()->wantsJson()){
             return response(null,204);
         }
-        return redirect(route("config.roles.index"));
+        return redirect(route("config.users.index"));
     }
 }

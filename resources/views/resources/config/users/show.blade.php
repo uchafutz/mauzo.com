@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('View Role') }}</div>
                     <div class="card-body">
-                       <p>{{$role->name}}</p>
+                       <p>{{$user->name}}</p>
                        
                     </div>
                 </div>
