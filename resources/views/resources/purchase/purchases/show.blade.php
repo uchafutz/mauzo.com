@@ -23,20 +23,32 @@
                             </thead>
 
                             <tbody>
-                               
+                                    @php
+                                        $total = 0;
+                                    @endphp
                                    @foreach ($purchase->items as $purchaseItem)
+                                   @php
+                                       $amount = $purchaseItem->unit_price * $purchaseItem->quantity;
+                                       $total += $amount;
+                                   @endphp
                                    <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{$purchaseItem->purchase->code}}</td>
                                     <td>{{$purchaseItem->inventoryItem->name}}</td>
                                     <td>{{$purchaseItem->quantity}} {{$purchaseItem->unit->code}}</td>
                                     <td>{{ number_format($purchaseItem->unit_price) }} TZS</td>
-                                    <td>{{ number_format($purchaseItem->unit_price * $purchaseItem->quantity) }} TZS</td>
+                                    <td align="right">{{ number_format($amount) }} TZS</td>
                                    </tr>
                                        
                                    @endforeach
-                              
                             </tbody>
+
+                            <tfoot>
+                                <tr>
+                                    <th colspan="5">Total:</th>
+                                    <td align="right"><h5>{{ number_format($total) }} TZS</h5></td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
