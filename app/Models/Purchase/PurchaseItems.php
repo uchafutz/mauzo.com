@@ -13,23 +13,18 @@ class PurchaseItems extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable=['inv_items_id','conf_unit_types_id','conf_units_id','purchases_id','amount','quantity'];
+
+    protected $fillable=['inv_item_id','conf_unit_id','purchase_id','unit_price','quantity'];
 
     public function inventoryItem(){
-        return $this->belongsTo(InventoryItem::class,'inv_items_id');
-    }
-
-    public function unitType(){
-        return $this->belongsTo(UnitType::class,'conf_unit_types_id');
+        return $this->belongsTo(InventoryItem::class,'inv_item_id');
     }
 
     public function unit(){
-        return $this->belongsTo(Unit::class,'conf_units_id');
+        return $this->belongsTo(Unit::class,'conf_unit_id');
     }
 
     public function purchase(){
-        return $this->belongsTo(Purchase::class,'purchases_id');
+        return $this->belongsTo(Purchase::class,'purchase_id');
     }
-
-
 }

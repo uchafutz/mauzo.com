@@ -29,7 +29,7 @@
                                     <td>{{$purchase->description}}</td>
                                     <td>
                                         <a href="{{ route("purchase.purchases.edit", ["purchase" => $purchase]) }}" class="btn btn-info">Edit</a>
-                                        <a href="{{ route("purchase.purchases.show",["purchase" =>$purchase]) }}" class="btn btn-success">View Items</a>
+                                        <a href="{{ route("purchase.purchases.show",["purchase" =>$purchase]) }}" class="btn btn-success">View</a>
                                         <form action="{{ route("purchase.purchases.destroy", ["purchase" => $purchase]) }}" method="post">
                                             @csrf
                                             @method("delete")

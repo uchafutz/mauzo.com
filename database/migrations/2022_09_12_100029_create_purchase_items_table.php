@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('purchase_items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("inv_items_id");
-            $table->unsignedBigInteger("conf_unit_types_id");
-            $table->unsignedBigInteger("conf_units_id");
-            $table->unsignedBigInteger("purchases_id");
+            $table->unsignedBigInteger("inv_item_id");
+            $table->unsignedBigInteger("conf_unit_id");
+            $table->unsignedBigInteger("purchase_id");
             $table->decimal("quantity");
-            $table->decimal("amount");
+            $table->decimal("unit_price");
             $table->softDeletes();
             $table->timestamps();
         });
