@@ -28,6 +28,7 @@
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>
+                                            <a href="{{ route("config.users.show", ["user" => $user]) }}" class="btn btn-primary">view</a>
                                             <a href="{{ route("config.users.edit", ["user" => $user]) }}" class="btn btn-info">Edit</a>
                                             <form action="{{ route("config.users.destroy",["user" => $user]) }}" method="post">
                                                 @csrf

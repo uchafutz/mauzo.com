@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Config;
 
+use App\Events\UserCreated;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -49,16 +50,17 @@ class UserController extends Controller
             "name"=>["required"],
             "email"=>["required","unique:users,email"],   
         ]);
-        $data=[];
-        $data["name"]=$request->name;
-        $data["email"]=$request->email;
-        $data["password"]=Random::generate();
-        $user=User::create($data);
-        if(request()->wantsJson()){
-            return response([
-                "data"=>$user
-            ],201);
-        }
+        // $data=[];
+        // $data["name"]=$request->name;
+        // $data["email"]=$request->email;
+        // $data["password"]=Random::generate();
+        // $user=User::create($data);
+        event(new UserCreated($request->email,$request->name));
+        // if(request()->wantsJson()){
+        //     return response([
+        //         "data"=>$user
+        //     ],201);
+        // }
 
        return redirect(route("config.users.index"));
     }

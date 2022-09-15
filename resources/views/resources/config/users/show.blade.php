@@ -5,9 +5,50 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('View Role') }}</div>
+                    <div class="card-header">{{ __('View User') }}</div>
                     <div class="card-body">
-                       <p>{{$user->name}}</p>
+                        <div class="card card-primary">
+                        
+                            <div class="card-body">
+                            <strong><i class="fas fa-book mr-1"></i>{{__("User Details")}}</strong>
+                            <p class="text-muted">
+                              <table class="table table-bordered">
+                                <tr>
+                                    <td>Name</td>
+                                    <td>{{$user->name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>{{$user->email}}</td>
+                                </tr>
+                              </table>
+                            </p>
+                            <hr>
+                            <strong><a class="btn btn-app">
+                                <i class="fas fa-plus"></i> Add Role
+                                </a></strong>
+                            <p class="text-muted">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>{{$user->name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td>{{$user->email}}</td>
+                                    </tr>
+                                  </table>
+                            </p>
+                            <hr>
+                            <strong><i class="fas fa-pencil-alt mr-1"></i>{{__("Permissions")}}</strong>
+                            <p class="text-muted">
+                            
+                            </p>
+                            <hr>
+                    
+                            </div>
+                            
+                            </div>
                        
                     </div>
                 </div>
