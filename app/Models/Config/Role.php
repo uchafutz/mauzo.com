@@ -16,4 +16,13 @@ class Role extends Model
         "display",
         "description"
     ];
+   
+    public function role_has_permission(){
+        return $this->belongsToMany(Permission::class,'roles_has_permissions','role_id','permission_id');
+    }
+
+    public function user_has_role(){
+        return $this->belongsToMany(User::class,'users_has_roles','role_id','user_id');
+    }
+    
 }

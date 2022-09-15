@@ -103,7 +103,7 @@ class RoleController extends Controller
         if(request()->wantsJson()){
             return response([
                 "data"=>$role
-            ],201);
+            ],200);
         }
         return redirect(route("config.roles.index"));
     }

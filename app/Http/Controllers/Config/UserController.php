@@ -50,17 +50,17 @@ class UserController extends Controller
             "name"=>["required"],
             "email"=>["required","unique:users,email"],   
         ]);
-        // $data=[];
-        // $data["name"]=$request->name;
-        // $data["email"]=$request->email;
-        // $data["password"]=Random::generate();
-        // $user=User::create($data);
-        event(new UserCreated($request->email,$request->name));
-        // if(request()->wantsJson()){
-        //     return response([
-        //         "data"=>$user
-        //     ],201);
-        // }
+        $data=[];
+        $data["name"]=$request->name;
+        $data["email"]=$request->email;
+        $data["password"]=Random::generate();
+        $user=User::create($data);
+        UserCreated::dispatch($user);
+        if(request()->wantsJson()){
+            return response([
+                "data"=>$user
+            ],201);
+        }
 
        return redirect(route("config.users.index"));
     }
@@ -107,7 +107,7 @@ class UserController extends Controller
         if(request()->wantsJson()){
             return response([
                 "data"=>$user
-            ],201);
+            ],200);
         }
         return redirect(route("config.users.index"));
     }

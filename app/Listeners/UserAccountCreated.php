@@ -4,9 +4,8 @@ namespace App\Listeners;
 
 use App\Events\UserCreated;
 use App\Mail\UserCreatedMail;
-use App\Models\User;
+use App\Notifications\UserCreatedNotification;
 use Illuminate\Support\Facades\Mail;
-use Nette\Utils\Random;
 
 class UserAccountCreated
 {
@@ -28,15 +27,11 @@ class UserAccountCreated
      */
     public function handle(UserCreated $event)
     {
-      
-        User::create([
-            'name'=>$event->name,
-            "email"=>$event->email,
-            "password"=>Random::generate(),
 
-        ]);
-        Mail::to($event->email)->send(new UserCreatedMail());
+        //Mail::to($user->email)->send(new UserCreatedMail());
         
+        
+        //UserCreatedNotification
 
     }
 }

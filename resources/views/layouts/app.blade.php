@@ -47,10 +47,7 @@
                                     <li><a class="dropdown-item"
                                             href="{{ route('inventory.inventoryCategories.index') }}">{{ __('Categories') }}</a>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item"
-                                        href="{{ route('purchase.purchases.index') }}">{{ __('Purchase') }}</a>
-                                     </li>
+                
                                     <li><a class="dropdown-item"
                                         href="{{ route('inventory.inventoryWarehouses.index') }}">{{ __('Warehouses') }}</a>
                                 </ul>
