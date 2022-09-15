@@ -13,11 +13,11 @@ class Permission extends Model
 
     public $fillable = ["name", "display", "description"];
 
-   public function user_has_permission(){
+   public function users(){
     return $this->belongsToMany(User::class,'users_has_permissions','permission_id','user_id');
    }
 
-   public function role_hase_permission(){
+   public function roles(){
     return $this->belongsToMany(Permission::class,'roles_has_permissions','role_id','permission_id');
    }
 
