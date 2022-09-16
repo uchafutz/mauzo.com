@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Config\Role\AssignRolePermissionController;
 use App\Http\Controllers\Config\RoleController;
 use App\Http\Controllers\Config\UnitController;
 use App\Http\Controllers\Config\UnitTypeController;
@@ -38,6 +39,7 @@ Route::middleware("auth")->group(function () {
         Route::resource("unitTypes", UnitTypeController::class);
         Route::resource("units",UnitController::class);
         Route::resource("roles", RoleController::class);
+        Route::post("roles/{role}/assign-role-permission",AssignRolePermissionController::class)->name("roles.assignPermissions");
         
         Route::resource("users", UserController::class);
         Route::post("users/{user}/assign-roles", AssignUserRolesController::class)->name("users.assignRoles");

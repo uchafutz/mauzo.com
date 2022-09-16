@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Config\Role\AssignRolePermissionController;
 use App\Http\Controllers\Config\RoleController;
 use App\Http\Controllers\Config\UnitTypeController;
 use App\Http\Controllers\Config\UnitController;
@@ -34,6 +35,7 @@ Route::middleware("auth:sanctum")->name("api.")->group(function () {
         Route::resource("unitTypes", UnitTypeController::class);
         ROute::resource("units",UnitController::class);
         Route::resource("roles",RoleController::class);
+        Route::post("roles/{role}/assign-role-permission",AssignRolePermissionController::class)->name("roles.assignPermissions");
 
         Route::resource("users",UserController::class);
         Route::post("users/{user}/assign-roles", AssignUserRolesController::class)->name("users.assignRoles");

@@ -37,7 +37,7 @@
                                 </form>
                             </p>
                             <hr>
-                    
+                            <form action="{{ route("config.roles.assignPermissions", ["role" => $role]) }}" method="post">
                             <strong><i class="fas fa-pencil-alt mr-1"></i>{{__("Permissions")}} <button type="submit" class="btn btn-primary">Update</button></strong>
                            
                             <hr>
@@ -56,7 +56,7 @@
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
                                             <td>{{$permission->display}}</td>
-                                            <td><input class="form-check-input" name="" type="checkbox" value="{{$permission->id}}" id="flexCheckDefault" {{  (dd($role->permissions->role_id)==$role->id) ? ' checked' : '' }}></td>
+                                            <td><input class="form-check-input" name="permission_id[]" type="checkbox" value="{{$permission->id}}" id="flexCheckDefault" {{  ($role->permissions->contains("id", $permission->id)) ? ' checked' : '' }}></td>
                                         </tr>
                                     @endforeach
                               
