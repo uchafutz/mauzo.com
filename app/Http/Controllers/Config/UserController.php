@@ -55,7 +55,9 @@ class UserController extends Controller
         $data["email"]=$request->email;
         $data["password"]=Random::generate();
         $user=User::create($data);
+
         UserCreated::dispatch($user);
+        
         if(request()->wantsJson()){
             return response([
                 "data"=>$user
