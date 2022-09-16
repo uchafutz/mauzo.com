@@ -3,7 +3,7 @@
 use App\Http\Controllers\Config\RoleController;
 use App\Http\Controllers\Config\UnitController;
 use App\Http\Controllers\Config\UnitTypeController;
-use App\Http\Controllers\Config\UserController;
+use App\Http\Controllers\Config\User\UserController;
 use App\Http\Controllers\Inventory\InventoryCategoryController;
 use App\Http\Controllers\Inventory\InventoryItemController;
 use App\Http\Controllers\Inventory\InventoryItemMaterialController;

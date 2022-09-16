@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Config;
+namespace App\Http\Controllers\Config\User;
 
 use App\Events\UserCreated;
 use App\Http\Controllers\Controller;
