@@ -35,7 +35,7 @@ Route::middleware("auth:sanctum")->name("api.")->group(function () {
         Route::resource("roles",RoleController::class);
 
         Route::resource("users",UserController::class);
-        Route::post("users/{user}/assign-roles", AssignUserRolesController::class);
+        Route::post("users/{user}/assign-roles", AssignUserRolesController::class)->name("users.assignRoles");
     });
   
   Route::prefix("/inventory")->name("inventory.")->group(function(){

@@ -28,12 +28,11 @@
                                 <i class="fas fa-plus"></i> New Role
                                 </a></strong>
                             <p class="text-muted">
-                                <form action="{{ route("config.roles.store") }}" method="post">
+                                <form action="{{ route("config.users.assignRoles", ["user" => $user]) }}" method="post">
                                     @csrf
                                 <table class="table table-bordered">
                                     @foreach ($roles as $role)
                                       <tr>
-                                        <input type="hidden" name="user_id" value="{{$user->id}}">
                                         <th>{{ $loop->iteration }}</th>
                                         <th>{{$role->display}}</th>
                                         <th><input class="form-check-input" name="role_id[]" type="checkbox" value="{{$role->id}}" id="flexCheckDefault" {{  ($role->roles==$user->id ? ' checked' : '') }}></th>
