@@ -3,6 +3,7 @@
 use App\Http\Controllers\Config\RoleController;
 use App\Http\Controllers\Config\UnitTypeController;
 use App\Http\Controllers\Config\UnitController;
+use App\Http\Controllers\Config\User\AssignUserPermissionController;
 use App\Http\Controllers\Config\User\AssignUserRolesController;
 use App\Http\Controllers\Config\User\UserController;
 use App\Http\Controllers\Inventory\InventoryCategoryController;
@@ -36,6 +37,7 @@ Route::middleware("auth:sanctum")->name("api.")->group(function () {
 
         Route::resource("users",UserController::class);
         Route::post("users/{user}/assign-roles", AssignUserRolesController::class)->name("users.assignRoles");
+        Route::post("users/{user}/assign-permission",AssignUserPermissionController::class)->name("users.assignPermissions");
     });
   
   Route::prefix("/inventory")->name("inventory.")->group(function(){

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Config\User;
 use App\Events\UserCreated;
 use App\Http\Controllers\Controller;
 use App\Models\Config\Role;
+use App\Models\Config\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Nette\Utils\Random;
@@ -77,12 +78,13 @@ class UserController extends Controller
     public function show(User $user)
     {
         $roles=Role::all();
+        $permissions=Permission::all();
         if(request()->wantsJson()){
             return response([
                 "data"=>$user
             ],200);
         }
-        return view("resources.config.users.show",compact("user","roles"));
+        return view("resources.config.users.show",compact("user","roles","permissions"));
     }
 
     /**
