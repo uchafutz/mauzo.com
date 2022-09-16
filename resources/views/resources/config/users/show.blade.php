@@ -24,20 +24,24 @@
                               </table>
                             </p>
                             <hr>
-                            <strong><a class="btn btn-app">
-                                <i class="fas fa-plus"></i> Add Role
+                            <strong><a class="btn btn-app" href="{{ route("config.roles.create") }}">
+                                <i class="fas fa-plus"></i> New Role
                                 </a></strong>
                             <p class="text-muted">
+                                <form action="{{ route("config.roles.store") }}" method="post">
+                                    @csrf
                                 <table class="table table-bordered">
-                                    <tr>
-                                        <td>Name</td>
-                                        <td>{{$user->name}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Email</td>
-                                        <td>{{$user->email}}</td>
-                                    </tr>
+                                    @foreach ($roles as $role)
+                                      <tr>
+                                        <input type="hidden" name="user_id" value="{{$user->id}}">
+                                        <th>{{ $loop->iteration }}</th>
+                                        <th>{{$role->display}}</th>
+                                        <th><input class="form-check-input" name="role_id[]" type="checkbox" value="{{$role->id}}" id="flexCheckDefault" {{  ($role->roles==$user->id ? ' checked' : '') }}></th>
+                                        </tr>
+                                    @endforeach
                                   </table>
+                                  <button type="submit" class="btn btn-primary">Update</button>
+                                </form>
                             </p>
                             <hr>
                             <strong><i class="fas fa-pencil-alt mr-1"></i>{{__("Permissions")}}</strong>
