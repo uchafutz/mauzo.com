@@ -4,12 +4,12 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('View User') }}</div>
+                    <div class="card-header">{{ __('View Role') }}</div>
                     <div class="card-body">
                         <div class="card card-primary">
                         
                             <div class="card-body">
-                            <strong><i class="fas fa-book mr-1"></i>{{__("User Details")}}</strong>
+                            <strong><i class="fas fa-book mr-1"></i>{{__("Role ")}}</strong>
                             <p class="text-muted">
                               <table class="table table-bordered">
                                 <tr>
@@ -19,17 +19,17 @@
                               </table>
                             </p>
                             <hr>
-                            <strong><a class="btn btn-app" href="{{ route("config.roles.create") }}">
-                                <i class="fas fa-plus"></i> New Users
+                            <strong><a class="btn btn-app">
+                                <i class="fas fa-users"></i> {{__("Role Users")}}
                                 </a></strong>
                             <p class="text-muted">
                                     @csrf
                                 <table class="table table-bordered">
-                                    @foreach ($role->users as $role)
+                                    @foreach ($role->users as $user)
                                       <tr>
                                         <th>{{$loop->iteration }}</th>
-                                        <th>{{$role->name}}</th>
-                                        <th>{{$role->email}}</th>
+                                        <th>{{$user->name}}</th>
+                                        <th>{{$user->email}}</th>
                                         </tr>
                                     @endforeach
                                   </table>
@@ -43,7 +43,7 @@
                             <hr>
                             <div class="card-body">
                                 
-                                    @csrf
+                              @csrf
                             <table id="example" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
                                     <th>S/n</th>
@@ -52,10 +52,11 @@
                                 </thead>
                                 <tbody>
 
-                                    @foreach ($role->permissions as $role)
+                                    @foreach ($permissions as $permission)
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
-                                             <td>{{$role->display}}</td>
+                                            <td>{{$permission->display}}</td>
+                                            <td><input class="form-check-input" name="" type="checkbox" value="{{$permission->id}}" id="flexCheckDefault" {{  ($role->permissions==$role->id) ? ' checked' : '' }}></td>
                                         </tr>
                                     @endforeach
                               

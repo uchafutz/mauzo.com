@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Config;
 
 use App\Http\Controllers\Controller;
+use App\Models\Config\Permission;
 use App\Models\Config\Role;
 use Illuminate\Http\Request;
 use Illuminate\Log\Logger;
@@ -69,13 +70,14 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
+        $permissions=Permission::all();
         if(request()->wantsJson()){
             return response([
                 "data"=>$role
             ],200);
         }
         
-        return view("resources.config.roles.show",compact("role"));
+        return view("resources.config.roles.show",compact("role","permissions"));
     }
 
     /**
