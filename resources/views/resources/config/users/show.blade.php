@@ -35,7 +35,7 @@
                                       <tr>
                                         <th>{{ $loop->iteration }}</th>
                                         <th>{{$role->display}}</th>
-                                        <th><input class="form-check-input" name="role_id[]" type="checkbox" value="{{$role->id}}" id="flexCheckDefault" {{  ($role->roles==$user->id ? ' checked' : '') }}></th>
+                                        <th><input class="form-check-input" name="role_id[]" type="checkbox" value="{{$role->id}}" id="flexCheckDefault" {{  ($user->roles->contains('name', $role->name) ? ' checked' : '') }}></th>
                                         </tr>
                                     @endforeach
                                   </table>

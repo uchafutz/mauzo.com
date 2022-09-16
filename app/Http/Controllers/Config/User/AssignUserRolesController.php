@@ -17,6 +17,7 @@ class AssignUserRolesController extends Controller
     public function __invoke(Request $request, User $user)
     {
         //
-        dd($request->input());
+        $user->roles()->sync($request->input("role_id"));
+        return redirect(route("config.users.show", ["user" => $user]));
     }
 }
