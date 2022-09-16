@@ -56,7 +56,7 @@
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
                                             <td>{{$permission->display}}</td>
-                                            <td><input class="form-check-input" name="" type="checkbox" value="{{$permission->id}}" id="flexCheckDefault" {{  ($role->permissions==$role->id) ? ' checked' : '' }}></td>
+                                            <td><input class="form-check-input" name="" type="checkbox" value="{{$permission->id}}" id="flexCheckDefault" {{  (dd($role->permissions->role_id)==$role->id) ? ' checked' : '' }}></td>
                                         </tr>
                                     @endforeach
                               
