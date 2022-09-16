@@ -75,7 +75,7 @@ class RoleController extends Controller
             ],200);
         }
         
-        return view("resources.config.roles.show");
+        return view("resources.config.roles.show",compact("role"));
     }
 
     /**

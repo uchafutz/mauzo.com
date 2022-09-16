@@ -30,6 +30,7 @@
                                         <td>{{ $role->display }}</td>
                                         <td>{{ $role->description }}</td>
                                         <td>
+                                            <a href="{{ route("config.roles.show", ["role" => $role]) }}" class="btn btn-primary">show</a>
                                             <a href="{{ route("config.roles.edit", ["role" => $role]) }}" class="btn btn-info">Edit</a>
                                             <form action="{{ route("config.roles.destroy",["role" => $role]) }}" method="post">
                                                 @csrf
