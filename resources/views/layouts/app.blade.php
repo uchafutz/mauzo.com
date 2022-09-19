@@ -9,10 +9,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+    
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/fontawesome.min.css" />  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />  
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -45,10 +47,7 @@
                                     <li><a class="dropdown-item"
                                             href="{{ route('inventory.inventoryCategories.index') }}">{{ __('Categories') }}</a>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item"
-                                        href="{{ route('purchase.purchases.index') }}">{{ __('Purchase') }}</a>
-                                     </li>
+                
                                     <li><a class="dropdown-item"
                                         href="{{ route('inventory.inventoryWarehouses.index') }}">{{ __('Warehouses') }}</a>
                                 </ul>
@@ -63,6 +62,10 @@
                                             href="{{ route('config.unitTypes.index') }}">{{ __('Unit Types') }}</a></li>
                                     <li><a class="dropdown-item" href="{{ route('config.units.index') }}"
                                             class="nav-link">{{ __('Units') }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('config.roles.index') }}"
+                                                class="nav-link">{{ __('Roles') }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('config.users.index') }}"
+                                                    class="nav-link">{{ __('Users') }}</a></li>
 
                                     <li>
                                         <hr class="dropdown-divider">
@@ -119,6 +122,13 @@
             @yield('content')
         </main>
     </div>
+    
+			
+	
+
+        
+           
+   
     <script>
          $('.phone').on('focus',function(){
                   phone_($(this));

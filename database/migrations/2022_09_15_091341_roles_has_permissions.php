@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -14,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('purchases', function (Blueprint $table) {
+    
+        Schema::create("roles_has_permissions",function(Blueprint $table){
             $table->id();
-            $table->String("code");
-            $table->dateTime("date")->default(Carbon::now());
-            $table->String("description")->nullable();
-            $table->enum("status", ["DRAFT", "SUBMITED"])->default("DRAFT");
+            $table->unsignedBigInteger("role_id");
+            $table->unsignedBigInteger("permission_id");
             $table->softDeletes();
             $table->timestamps();
         });
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchases');
+        Schema::dropIfExists("roles_has_permissions");
     }
 };

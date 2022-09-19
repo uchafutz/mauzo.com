@@ -13,15 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('purchase_items', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger("inv_item_id");
-            $table->unsignedBigInteger("conf_unit_id");
-            $table->unsignedBigInteger("purchase_id");
-            $table->decimal("quantity");
-            $table->decimal("unit_price");
+        Schema::table('users', function (Blueprint $table) {
+            //
             $table->softDeletes();
-            $table->timestamps();
         });
     }
 
@@ -32,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchase_items');
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->dropSoftDeletes();
+        });
     }
 };

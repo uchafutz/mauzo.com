@@ -432,64 +432,9 @@
         @endif
 
         <div class="modal-body">
-            <script>
-                $(document).ready(function() {
-                    $(".specification_add-row").click(function() {
-                        var name = $("#specification_key").val();
-                        var email = $("#specification_value").val();
-                        $("#specification_key").val("")
-                        $("#specification_value").val("")
-                        var formMarkup = "<td><input name='specification_key[]' value='" + name +
-                            "' type='text'></td><td><input name='specification_value[]' value='" + email +
-                            "' type='text'></td>";
-                        var markup = "<tr class='border-top'>" + formMarkup + "</tr>";
-                        $("table#specification_table tbody").append(markup);
-                        showHideAddSpecification();
-                    });
-                    showHideAddSpecification();
-                });
-                $(document).on('click', '.specification_delete-row', function() {
-                    $(this).parents("tr").remove();
-                });
-
-                $(document).on('input', '#specification_value', function() {
-                    showHideAddSpecification();
-                });
-                $(document).on('input', '#specification_key', function() {
-                    showHideAddSpecification();
-                });
-
-                function showHideAddSpecification() {
-                    var name = $("#specification_key").val();
-                    var email = $("#specification_value").val();
-                    if (email == "" || name == "") {
-                        $(".specification_add-row").addClass("d-none").removeClass("d-block");
-                    } else {
-                        $(".specification_add-row").addClass("d-block").removeClass("d-none");
-                    }
-                }
-            </script>
-            <form>
-                <div class="row py-3">
-                    <div class="col-5"><input list="specification_suggestion" type="text" id="specification_key"
-                            class="form-control form-control-sm px-1" placeholder="Specification"></div>
-                    <div class="col-5"><input type="text" id="specification_value"
-                            class="form-control form-control-sm px-1" placeholder="Value"></div>
-                    <div class="col-2"><input type="button" class="px-1 btn btn-sm btn-success specification_add-row"
-                            value="Add +"></div>
-                </div>
-            </form>
-            <table id="specification_table" class="table table-striped table-sm w-100">
-                <thead>
-                    <tr>
-                        <th width="42%">Specification</th>
-                        <th width="42%">Value</th>
-                        <th width="16%"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            
+            
+          
 
         </div>
     </div>
