@@ -6,6 +6,8 @@ use App\Http\Controllers\Inventory\InventoryCategoryController;
 use App\Http\Controllers\Inventory\InventoryItemController;
 use App\Http\Controllers\Inventory\InventoryItemMaterialController;
 use App\Http\Controllers\Inventory\InventoryWarehouseController;
+use App\Http\Controllers\Purchase\PurchaseController;
+use App\Http\Controllers\Purchase\PurchaseItemsController;
 use App\Models\Inventory\InventoryCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +43,10 @@ Route::middleware("auth")->group(function () {
         Route::resource("inventoryItems",InventoryItemController::class);
         Route::resource("inventoryWarehouses", InventoryWarehouseController::class);
         Route::resource("inventoryItems.inventoryItemMaterials",InventoryItemMaterialController::class);
+    });
+    Route::prefix("/purchase")->name("purchase.")->group(function(){
+      Route::resource("purchases",PurchaseController::class);
+      Route::resource("purchaseItems",PurchaseItemsController::class);
     });
 });
 
