@@ -49,6 +49,8 @@ Route::middleware("auth:sanctum")->name("api.")->group(function () {
        Route::resource("inventoryItems.inventoryItemMaterials",InventoryItemMaterialController::class);
   });
 
-  
+  Route::prefix("/purchase")->name("purchase.")->group(function(){
+        Route::resource("purchases",PurchaseController::class);
+    });
 
 });
