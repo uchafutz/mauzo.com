@@ -11,7 +11,7 @@ class Purchase extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable=['code','date','description'];
+    protected $fillable=['code','date','description', 'status'];
     protected $dates = ["date"];
 
     public static function boot() {

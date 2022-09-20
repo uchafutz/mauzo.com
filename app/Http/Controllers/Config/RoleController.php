@@ -35,7 +35,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        Log::info("create method triggred from Role controller", ["debug" => "values"]);
+       // Log::info("create method triggred from Role controller", ["debug" => "values"]);
         return view("resources.config.roles.form");
     }
 

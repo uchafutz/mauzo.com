@@ -12,6 +12,7 @@ use App\Http\Controllers\Inventory\InventoryItemController;
 use App\Http\Controllers\Inventory\InventoryItemMaterialController;
 use App\Http\Controllers\Inventory\InventoryWarehouseController;
 use App\Http\Controllers\Purchase\PurchaseController;
+use App\Http\Controllers\Purchase\PurchaseSubmittedController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -56,6 +57,7 @@ Route::middleware("auth")->group(function () {
 
     Route::prefix("/purchase")->name("purchase.")->group(function(){
         Route::resource("purchases",PurchaseController::class);
+        Route::post("purchases/{purchase}/purchase-submited",PurchaseSubmittedController::class)->name("purchases.purchaseSubmited");
     });
   
 });

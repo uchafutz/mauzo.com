@@ -49,7 +49,19 @@
                                     <td align="right"><h5>{{ number_format($total) }} TZS</h5></td>
                                 </tr>
                             </tfoot>
+                            
                         </table>
+                       
+                        @if ($purchase->status=="DRAFT")
+                        <form   action="{{route("purchase.purchases.purchaseSubmited",["purchase" =>$purchase])}}" method="post" enctype="multipart/form-data" >
+                            @csrf
+                            <button type="submit" class="btn btn-lg btn-success">Submit Purchase</button>
+                         </form>
+                        @else
+                        
+                        @endif
+                        
+                        
                     </div>
                 </div>
             </div>
