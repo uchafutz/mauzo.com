@@ -13,7 +13,7 @@ class PurchaseSubmittedController extends Controller
     {
         $data=[];
         $data["status"]="SUBMITED";
-        $data["date"]=date('Y-m-d H:i:s');
+        $data["submited_at"]=date('Y-m-d H:i:s');
         
         $purchase->update($data);
         PurchaseSubmited::dispatch($purchase);

@@ -2,6 +2,7 @@
 
 namespace App\Listeners\PurchaseSubmited;
 
+use App\Models\Inventory\InventoryStockItem;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -27,5 +28,11 @@ class CreateStockItem
     {
         //
         $purchase = $event->purchase;
+        
+        foreach ($purchase->items as $item) {
+            $item->stockItems()->save(new InventoryStockItem([
+                
+            ]));
+        }
     }
 }

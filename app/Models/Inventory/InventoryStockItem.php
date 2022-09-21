@@ -12,7 +12,7 @@ class InventoryStockItem extends Model
     use SoftDeletes;
 
     protected $fillable=[
-        'in_item_id',
+        'inv_item_id',
         'source_id',
         'source_type',
         'inv_warehouse_id',
@@ -21,4 +21,17 @@ class InventoryStockItem extends Model
         'in_stock'
 
     ];
+
+    public function source(){
+        return $this->morphTo();
+    }
+
+    public function warehouse(){
+        return $this->belongsTo(InventoryWarehouse::class,'inv_warehouse_id');
+    }
+
+    public function item(){
+        return $this->belongsTo(InventoryItem::class,"inv_item_id");
+    }
+
 }

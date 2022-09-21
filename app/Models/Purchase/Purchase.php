@@ -11,7 +11,7 @@ class Purchase extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable=['code','date','description', 'status'];
+    protected $fillable=['code','date','description', 'status','submited_at'];
     protected $dates = ["date"];
 
     public static function boot() {
@@ -31,5 +31,10 @@ class Purchase extends Model
 
     public function items(){
         return $this->hasMany(PurchaseItems::class,'purchase_id');
+    }
+
+    // @TODO: when generate stock items logic needs to be reused for a purchase
+    public function generateStockItems() {
+        // loop through the items
     }
 }
