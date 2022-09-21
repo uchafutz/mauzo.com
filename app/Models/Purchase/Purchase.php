@@ -11,7 +11,7 @@ class Purchase extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable=['code','date','description', 'status','submited_at'];
+    protected $fillable=['code','date','description', 'status','submited_at','warehouse_id'];
     protected $dates = ["date"];
 
     public static function boot() {
@@ -37,4 +37,6 @@ class Purchase extends Model
     public function generateStockItems() {
         // loop through the items
     }
+
+
 }

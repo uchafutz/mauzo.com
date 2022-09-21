@@ -55,6 +55,17 @@
                         @if ($purchase->status=="DRAFT")
                         <form   action="{{route("purchase.purchases.purchaseSubmited",["purchase" =>$purchase])}}" method="post" enctype="multipart/form-data" >
                             @csrf
+                            <div class="form-group">
+                                <label for="" class="label-control">{{__('Select Inventory warehouse')}}</label>
+                                <select name="warehouse_id" id="warehouse_id" class="form-control" required>
+                                    <option value="">Choose...</option>
+                                    @foreach ($InventoryWarehouses as $InventoryWarehouse)
+                                        <option value="{{$InventoryWarehouse->id}}">{{$InventoryWarehouse->name}}</option>
+                                    @endforeach
+                                </select>
+                               </div>
+                              <br/>
+                            
                             <button type="submit" class="btn btn-lg btn-success">Submit Purchase</button>
                          </form>
                         @else
