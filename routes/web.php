@@ -7,6 +7,7 @@ use App\Http\Controllers\Config\UnitTypeController;
 use App\Http\Controllers\Config\User\AssignUserPermissionController;
 use App\Http\Controllers\Config\User\AssignUserRolesController;
 use App\Http\Controllers\Config\User\UserController;
+use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Inventory\InventoryCategoryController;
 use App\Http\Controllers\Inventory\InventoryItemController;
 use App\Http\Controllers\Inventory\InventoryItemMaterialController;
@@ -58,6 +59,10 @@ Route::middleware("auth")->group(function () {
     Route::prefix("/purchase")->name("purchase.")->group(function(){
         Route::resource("purchases",PurchaseController::class);
         Route::post("purchases/{purchase}/purchase-submited",PurchaseSubmittedController::class)->name("purchases.purchaseSubmited");
+    });
+
+    Route::prefix("/customer")->name("customer.")->group(function(){
+      Route::resource("customers",CustomerController::class);
     });
   
 });

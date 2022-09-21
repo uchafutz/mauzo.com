@@ -34,6 +34,7 @@ class CreateStockItem
         foreach ($purchase->items as $item) {
             // per each purchase item, do unit conversion: from unints used during purchase to item default unit
             // calculate the resulting quantity
+        
             $stockItem = $item->stockItems()->create([
                 "inv_item_id" => $item->inv_item_id,
                 "warehouse_id" => $purchase->warehouse_id,
