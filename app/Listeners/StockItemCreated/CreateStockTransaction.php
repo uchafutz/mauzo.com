@@ -46,6 +46,6 @@ class CreateStockTransaction
         }
 
         // update inventory item instock
-        $stockItem->item->updateStock();
+        $stockItem->item->updateInStock();
     }
 }

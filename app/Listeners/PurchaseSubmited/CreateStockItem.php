@@ -34,12 +34,14 @@ class CreateStockItem
         foreach ($purchase->items as $item) {
             // per each purchase item, do unit conversion: from unints used during purchase to item default unit
             // calculate the resulting quantity
+            $convertedQuantity = Utility::convert($item->unit, $item->inventoryItem->unit, $item->quantity);
+            $convertedUnitCost = ($item->unit_price * $item->quantity)/$convertedQuantity;
             $stockItem = $item->stockItems()->create([
                 "inv_item_id" => $item->inv_item_id,
-                "warehouse_id" => $purchase->warehouse_id,
-                "unit_cost" => $item->unit_price,
-                "quantity" => Utility::convert($item->unit, $item->item->unit, $item->quantity),
-                "in_stock" => Utility::convert($item->unit, $item->item->unit, $item->quantity),
+                "inv_warehouse_id" => $purchase->warehouse_id,
+                "unit_cost" => $convertedUnitCost,
+                "quantity" => $convertedQuantity,
+                "in_stock" => $convertedQuantity,
             ]);
             StockItemCreated::dispatch($stockItem);
         }
