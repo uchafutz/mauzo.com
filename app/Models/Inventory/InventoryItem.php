@@ -41,4 +41,20 @@ class InventoryItem extends Model
     public function materials(){
         return $this->hasMany(InventoryItemMaterial::class, "source_inv_items_id");
     }
+
+    public function stockItems() {
+        return $this->hasMany(InventoryStockItem::class, "inv_item_id");
+    }
+
+    public function calculateInStock() {
+        $in_stock = $this->stockItems->reduce(function ($carry, $stockItem) {
+            return $carry + $stockItem->in_stock;
+        }, 0);
+        return $in_stock;
+    }
+
+    public function updateInStock() {
+        $this->in_stock = $this->calculateInStock();
+        $this->save();
+    }
 }

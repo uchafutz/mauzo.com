@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Purchase;
 use App\Http\Controllers\Controller;
 use App\Models\Config\Unit;
 use App\Models\Inventory\InventoryItem;
+use App\Models\Inventory\InventoryWarehouse;
 use App\Models\Purchase\Purchase;
 use App\Models\Purchase\PurchaseItems;
 use Illuminate\Http\Request;
@@ -84,7 +85,7 @@ class PurchaseController extends Controller
      */
     public function show(Purchase $purchase)
     {
-    
+       $InventoryWarehouses=InventoryWarehouse::all();
        if(request()->wantsJson()){
         return response(
             [
@@ -92,7 +93,7 @@ class PurchaseController extends Controller
             ],200
         );
     }
-        return view("resources.purchase.purchases.show",compact("purchase"));
+        return view("resources.purchase.purchases.show",compact("purchase","InventoryWarehouses"));
         
      
     }

@@ -14,6 +14,7 @@
                                     <th>S/n</th>
                                     <th>Code</th>
                                     <th>Date</th>
+                                    <th>Status</th>
                                     <th>Description</th>
                                     <th>Actions</th>
                                 </tr>
@@ -26,15 +27,21 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{$purchase->code}}</td>
                                     <td>{{$purchase->date}}</td>
+                                    <td>{{ $purchase->status}}</td>
                                     <td>{{$purchase->description}}</td>
                                     <td>
+                                        @if ($purchase->status=="SUBMITED")
+                                        <a href="{{ route("purchase.purchases.show",["purchase" =>$purchase]) }}" class="btn btn-success">View</a>   
+                                        @else
                                         <a href="{{ route("purchase.purchases.edit", ["purchase" => $purchase]) }}" class="btn btn-info">Edit</a>
                                         <a href="{{ route("purchase.purchases.show",["purchase" =>$purchase]) }}" class="btn btn-success">View</a>
                                         <form action="{{ route("purchase.purchases.destroy", ["purchase" => $purchase]) }}" method="post">
                                             @csrf
                                             @method("delete")
                                         <button type="submit" class="btn btn-danger">delete</button>
-                                         </form>
+                                         </form> 
+                                        @endif
+                                       
                                     </td>
                                    </tr>
                                        

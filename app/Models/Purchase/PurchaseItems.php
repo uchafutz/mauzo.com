@@ -5,6 +5,7 @@ namespace App\Models\Purchase;
 use App\Models\Config\Unit;
 use App\Models\Config\UnitType;
 use App\Models\Inventory\InventoryItem;
+use App\Models\Inventory\InventoryStockItem;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -26,5 +27,9 @@ class PurchaseItems extends Model
 
     public function purchase(){
         return $this->belongsTo(Purchase::class,'purchase_id');
+    }
+
+    public function stockItems(){
+        return $this->morphMany(InventoryStockItem::class,'source');
     }
 }

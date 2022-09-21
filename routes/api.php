@@ -11,6 +11,7 @@ use App\Http\Controllers\Inventory\InventoryCategoryController;
 use App\Http\Controllers\Inventory\InventoryItemController;
 use App\Http\Controllers\Inventory\InventoryItemMaterialController;
 use App\Http\Controllers\Inventory\InventoryWarehouseController;
+use App\Http\Controllers\Purchase\PurchaseSubmittedController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +50,9 @@ Route::middleware("auth:sanctum")->name("api.")->group(function () {
        Route::resource("inventoryItems.inventoryItemMaterials",InventoryItemMaterialController::class);
   });
 
-  
+  Route::prefix("/purchase")->name("purchase.")->group(function(){
+        Route::resource("purchases",PurchaseController::class);
+        Route::post("purchases/{purchase}/purchase-submited",PurchaseSubmittedController::class)->name("purchases.purchaseSubmited");
+    });
 
 });
