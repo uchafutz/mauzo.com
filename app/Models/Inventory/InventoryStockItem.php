@@ -34,4 +34,12 @@ class InventoryStockItem extends Model
         return $this->belongsTo(InventoryItem::class,"inv_item_id");
     }
 
+    public function stockReceived() {
+        return $this->morphMany(InventoryStockTransaction::class, "destination");
+    }
+
+    public function stockTransfered() {
+        return $this->morphMany(InventoryStockTransaction::class, "source");
+    }
+
 }

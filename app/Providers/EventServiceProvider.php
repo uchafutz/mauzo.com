@@ -3,9 +3,10 @@
 namespace App\Providers;
 
 use App\Events\PurchaseSubmited;
+use App\Events\StockItemCreated;
 use App\Events\UserCreated;
 use App\Listeners\PurchaseSubmited\CreateStockItem;
-use App\Listeners\PurchaseSubmited\CreateStockTransaction;
+use App\Listeners\StockItemCreated\CreateStockTransaction;
 use App\Listeners\UserAccountCreated;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -28,8 +29,10 @@ class EventServiceProvider extends ServiceProvider
          ],
          PurchaseSubmited::class => [
             CreateStockItem::class,
+         ],
+         StockItemCreated::class => [
             CreateStockTransaction::class,
-         ]
+         ],
     ];
 
     /**

@@ -20,4 +20,16 @@ class InventoryStockTransaction extends Model
      'quantity'
     ];
 
+    public function source() {
+        return $this->morphTo();
+    }
+
+    public function destination() {
+        return $this->morphTo();
+    }
+
+    public function item() {
+        return $this->belongsTo(InventoryItem::class);
+    }
+
 }
