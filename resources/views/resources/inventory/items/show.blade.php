@@ -74,6 +74,32 @@
                        
                     </div>
                 </div>
+
+                <div class="card mt-2">
+                    <div class="card-header">{{ __('Available In Warehouse') }}</div>
+                    <div class="card-body">
+                       <table class="table table-stripped">
+                        <thead>
+                            <tr>
+                                <th>S/n</th>
+                                <th>Warehouse</th>
+                                <th>In Stock</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach ($inventoryItem->warehouses as $warehouse)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $warehouse->name }}</td>
+                                    <td>{{ $warehouse->pivot->in_stock }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                       
+                    </div>
+                </div>
             </div>
         </div>
     </div>
