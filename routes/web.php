@@ -62,7 +62,7 @@ Route::middleware("auth")->group(function () {
         Route::post("manufacturings/{manufacturing}/generate-boq", ManufacturingGenrateBOQController::class)->name("manufacturings.generateBOQ");
         Route::post("manufacturings/{manufacturing}/material/{manufacturingMaterial}/assign-stock-items", ManufacturingMaterialStockAssignmentController::class)->name("manufacturings.materials.assignStock");
     });
-
+    
     Route::prefix("/purchase")->name("purchase.")->group(function(){
         Route::resource("purchases",PurchaseController::class);
         Route::post("purchases/{purchase}/purchase-submited",PurchaseSubmittedController::class)->name("purchases.purchaseSubmited");

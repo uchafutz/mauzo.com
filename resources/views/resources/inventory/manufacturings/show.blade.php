@@ -114,7 +114,7 @@
                                                 <td>{{ $material->quantity }} {{ $material->material->materialItem->unit->code }}</td>
                                                 <td>{{ $material->material->materialItem->in_stock }} {{ $material->material->materialItem->unit->code }} <sup class="{{ $material->material->type == 'RAW' ? 'text-danger' : 'text-success' }}"> {{ $material->material->type == 'RAW' ? '-' : '+' }}{{ $material->quantity }} {{ $material->material->materialItem->unit->code }}</sup> </td>
                                                 <td>
-                                                    @if ($material->material->type == "RAW")
+                                                    @if ($material->material->type == "RAW" && $material->stockItems->count() == 0)
                                                         <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" x-on:click="setValues('{{ route('inventory.manufacturings.materials.assignStock', ['manufacturing' => $manufacturing, 'manufacturingMaterial' => $material]) }}', '{{ $material->quantity }}', {{ json_encode($material->material->materialItem->stockItems()->with('warehouse')->get()) }})">Assign Stock</button>
                                                     @endif
                                                 </td>
@@ -193,8 +193,8 @@
                         return {
                             ...i, 
                             "contribution": 0,
-                            "stock_item_name": "items[:i]['stock_item_id']".replace(':i', index),
-                            "contribution_name": "items[:i]['quantity']".replace(':i', index),
+                            "stock_item_name": "items[:i][stock_item_id]".replace(':i', index),
+                            "contribution_name": "items[:i][quantity]".replace(':i', index),
                         };
                     });
                     console.debug(_items);
