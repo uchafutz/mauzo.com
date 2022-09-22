@@ -2,6 +2,7 @@
 
 namespace App\Models\Inventory;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -19,7 +20,6 @@ class InventoryStockItem extends Model
         'quantity',
         'unit_cost',
         'in_stock'
-
     ];
 
     public function source(){
@@ -42,4 +42,7 @@ class InventoryStockItem extends Model
         return $this->morphMany(InventoryStockTransaction::class, "source");
     }
 
+    public function manufacturingMaterials() {
+        return $this->belongsToMany(ManufacturingMaterial::class, "manufacturing_material_stock_items")->withPivot("quantity");
+    }
 }

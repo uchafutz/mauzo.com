@@ -16,23 +16,24 @@
                             <thead>
                                 <tr>
                                     <th>S/n</th>
-                                    <th>Name</th>
-                                    <th>Code</th>
-                                    <th>Description</th>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                    <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach ($units as $unit)
+                                @foreach ($manufacturings as $manufacturing)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $unit->name }}</td>
-                                        <td>{{ $unit->code }}</td>
-                                        <td>{{ $unit->description }}</td>
+                                        <td>{{ $manufacturing->item->name }}</td>
+                                        <td>{{ $manufacturing->quantity }} {{ $manufacturing->unit->code }}</td>
+                                        <td>{{ $manufacturing->status }}</td>
                                         <td>
-                                            <a href="{{ route("config.units.edit", ["unit" => $unit]) }}" class="btn btn-info">Edit</a>
-                                            <form action="{{ route("config.units.destroy",["unit" => $unit]) }}" method="post">
+                                            <a href="{{ route("inventory.manufacturings.show", ["manufacturing" => $manufacturing]) }}" class="btn btn-success">View</a>
+                                            <a href="{{ route("inventory.manufacturings.edit", ["manufacturing" => $manufacturing]) }}" class="btn btn-info">Edit</a>
+                                            <form action="{{ route("inventory.manufacturings.destroy", ["manufacturing" => $manufacturing]) }}" method="post">
                                                 @csrf
                                                 @method("delete")
                                             <button type="submit" class="btn btn-danger">delete</button>

@@ -47,7 +47,7 @@
                                     <li><a class="dropdown-item" href="{{route('inventory.inventoryItems.index')}}">{{__('Items')}}</a></li>
                                     <li><a class="dropdown-item" href="{{ route('purchase.purchases.index') }}">{{ __('Purchases') }}</a>
                                     <li><a class="dropdown-item" href="{{ route('inventory.inventoryWarehouses.index') }}">{{ __('Warehouses') }}</a>
-                                    <li><a class="dropdown-item" href="{{ route('inventory.manufacturing.index') }}">{{ __('Manufacturing') }}</a>
+                                    <li><a class="dropdown-item" href="{{ route('inventory.manufacturings.index') }}">{{ __('Manufacturing') }}</a>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">

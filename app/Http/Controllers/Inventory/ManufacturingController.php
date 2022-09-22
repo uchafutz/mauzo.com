@@ -18,11 +18,11 @@ class ManufacturingController extends Controller
     public function index()
     {
         //
-        $manufucturings = Manufacturing::all();
+        $manufacturings = Manufacturing::all();
         
         if (request()->wantsJson()) {
             return response([
-                "data" => $manufucturings,
+                "data" => $manufacturings,
             ], 200);
         }
 
@@ -83,7 +83,7 @@ class ManufacturingController extends Controller
             ], 200);
         }
 
-        return redirect(route("inventory.manufacturing.show"));
+        return view("resources.inventory.manufacturings.show", compact("manufacturing"));
     }
 
     /**

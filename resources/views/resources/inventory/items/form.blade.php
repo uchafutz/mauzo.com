@@ -24,7 +24,7 @@
                                     <option value=""></option>
                                     <option value="">Choose...</option>
                                     @foreach ($unitTypes as $unitType)
-                                    <option value="{{$unitType->id}}" {{ (isset($unitType) && $unitType->id == $unitType->id) ? 'selected' : '' }}>{{$unitType->name}}</option>
+                                    <option value="{{$unitType->id}}" {{ (isset($inventoryItem) && $unitType->id == $inventoryItem->unit_type_id) ? 'selected' : '' }}>{{$unitType->name}}</option>
                                     @endforeach
                                     
                                 </select>
@@ -45,8 +45,9 @@
                                 <label for="" class="label-control">Select Unit</label>
                                 <select name="default_unit_id" id="default_unit_id" class="form-control  @error('default_unit_id') is-invalid @enderror">
                                     <option value="">Choose...</option>
+                                    
                                     @foreach ($units as $unit)
-                                    <option value="{{$unit->id}}"{{ (isset($unit) && $unit->id == $unit->id) ? 'selected' : '' }}>{{$unit->name}}</option>
+                                    <option value="{{$unit->id}}"{{ (isset($inventoryItem) && $inventoryItem->default_unit_id == $unit->id) ? 'selected' : '' }}>{{$unit->name}}</option>
                                     @endforeach
                                     
                                 </select>
