@@ -25,7 +25,7 @@
                                     @foreach ($inventoryItems as $inventorySelect)
                                       @if ($inventorySelect->id == $inventoryItem->id)
                                       @else
-                                      <option value="{{$inventorySelect->id}}"{{ (isset($inventorySelect) && $inventorySelect->id == $inventorySelect->id) ? 'selected' : '' }}>{{$inventorySelect->name}}</option>
+                                      <option value="{{$inventorySelect->id}}"{{ (isset($inventorySelect) && $inventorySelect->id == $inventorySelect->id) ? 'selected' : '' }}>{{$inventorySelect->name}} - {{ $inventorySelect->unit->code }}</option>
                                       @endif
                                        
                                     @endforeach
