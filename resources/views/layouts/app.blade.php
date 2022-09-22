@@ -67,7 +67,7 @@
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('customer.customers.index') }}">Customer</a></li>
                                 </ul>
                             </li>
                         @endguest
