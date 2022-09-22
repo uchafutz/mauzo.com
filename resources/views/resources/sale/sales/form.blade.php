@@ -5,7 +5,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ __('New Sale') }}</div>
-                    <div class="card-body" x-data="getState()" x-init="initialize({{ json_encode($items) }}, {{ json_encode($units) }}, {{ json_encode($customers) }},{{ isset($sale) ? json_encode($sale->items) : json_encode([]) }})">
+                    <div class="card-body" x-data="getState()" x-init="initialize({{ json_encode($items) }}, {{ json_encode($units) }}, {{ isset($sale) ? json_encode($sale->items) : json_encode([]) }})">
                         @isset($sale)
                             <form class="row g-3" action="{{ route('sale.sales.update', ['sale' => $sale]) }}" method="POST" enctype="multipart/form-data">
                             @method("patch")
@@ -20,10 +20,10 @@
                                 <div class="col-md-6">
                                     <label for="" class="label-control" x-model="form.customer_id">Select customer</label>
                                             <select name="customer_id" class="form-control">
-                                                <option value="">Choose customer...</option>
-                                                <template x-for="customer in customers">
-                                                    <option x-bind:value="customer.id" x-text="customer.name"></option>
-                                                </template>
+                                                <option value="1" selected>DEFAULT CUSTOMER</option>
+                                                @foreach ($customers as $customer)
+                                                    <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                                @endforeach
                                         </select>
                                 </div>
                             </div>
@@ -54,20 +54,16 @@
                                             </select>
                                         </div>
                                         <div class="col-md-3">
-                                            <label for="" class="label-control">Stock</label>
-                                            <input type="text" placeholder="" class="form-control" x-bind:value="form.item ? form.item.in_stock : 0"  readonly>
-                                        </div>
-                                        <div class="col-md-3">
                                             <label for="" class="label-control">Quantity</label>
                                             <input type="number" placeholder="Qty" class="quantity border form-control" x-model="form.quantity">
                                         </div>
                                         <div class="col-md-3">
-                                            <label for="" class="label-control">Unit Price</label>
-                                            <input type="number" placeholder="Unit Amount" x-model="form.unit_price" class="quantity border form-control">
+                                            <label for="" class="label-control">Selling Price</label>
+                                            <input type="number" placeholder="Unit Amount" x-model="form.sale_price" class="quantity border form-control">
                                         </div>
                                         <div class="col-md-3">
-                                            <label for="" class="label-control">Select warehouse</label>
-                                            <select name="in_stock_item_id" class="form-control">
+                                            <label for="" class="label-control">Stock Item</label>
+                                            <select class="form-control" x-model="form.inv_stock_item_id">
                                                 <option value="">Choose warehouse...</option>
                                                 <template x-for="stock in form.item.stock_items">
                                                     <option x-bind:value="stock.id" x-text="stock.warehouse.name"></option>
@@ -89,12 +85,14 @@
 
                             <table class="table table-bordered table-hover">
                                 <tr>
-                                    <th>S/n</th>
                                     <th>Item</th>
                                     <th>Unit</th>
                                     <th>Quantity</th>
-                                    <th>Unit Amount</th>
-                                    <th>Amount</th>
+                                    <th>Stock Item</th>
+                                    <th>In Stock</th>
+                                    <th>Buying Price</th>
+                                    <th>Selling Price</th>
+                                    <th>Margin</th>
                                     <th></th>
                                 </tr>
                                 <tbody>
@@ -107,14 +105,17 @@
                                             <input type="hidden" x-bind:name="'items[' + index + '][inv_item_id]'" x-bind:value="item.inv_item_id">
                                             <input type="hidden" x-bind:name="'items[' + index + '][conf_unit_id]'" x-bind:value="item.conf_unit_id">
                                             <input type="hidden" x-bind:name="'items[' + index + '][quantity]'" x-bind:value="item.quantity">
-                                            <input type="hidden" x-bind:name="'items[' + index + '][unit_price]'" x-bind:value="item.unit_price">
+                                            <input type="hidden" x-bind:name="'items[' + index + '][unit_price]'" x-bind:value="item.sale_price">
+                                            <input type="hidden" x-bind:name="'items[' + index + '][inv_stock_item_id]'" x-bind:value="item.inv_stock_item_id">
 
-                                            <td x-text="index + 1"></td>
                                             <td x-text="item.item.name"></td>
                                             <td x-text="item.unit.name"></td>
                                             <td x-text="item.quantity"></td>
-                                            <td x-text="item.unit_price"></td>
-                                            <td x-text="item.unit_price * item.quantity"></td>
+                                            <td x-text="item.stock_item.warehouse.name"></td>
+                                            <td x-text="item.stock_item.in_stock"></td>
+                                            <td x-text="item.stock_item.unit_cost"></td>
+                                            <td x-text="item.sale_price"></td>
+                                            <td x-text="item.sale_price - item.stock_item.unit_cost"></td>
                                             <td>
                                                 <button type="button" class="btn btn-sm btn-outline-info" x-on:click="select(index)">Edit</button>
                                                 <button type="button" class="btn btn-sm btn-outline-danger" x-on:click="remove(index)">X</button>
@@ -134,12 +135,12 @@
                                 <tr>
                                     <td><h6>RECEIVED</h6></td>
                                     <td>
-                                    <input type="text" name="received_amount" x-model="form.received_amount"  class="form-control" required></td>
+                                    <input type="number" name="received_amount" x-model="received_amount"  class="form-control" required></td>
                                   </tr>
                                   <tr>
                                     <td ><h6>RETURN</h6></td>
-                                    <td x-text="total - form.received_amount">.00</td>
-                                    <input type="hidden" name="returned_amount" x-bind:value="total - form.received_amount"  class="form-control" readonly>
+                                    <td x-text="received_amount - total">.00</td>
+                                    <input type="hidden" name="returned_amount" x-bind:value="received_amount - total"  class="form-control" readonly>
                                   </tr>
                             
 
@@ -161,14 +162,14 @@
 
     <script>
         const initialForm = {
+            stock_item: null,
             item: null,
             unit: null,
             inv_item_id: "",
             conf_unit_id: "",
             quantity: "",
-            unit_price: "",
-            customer_id:"",
-            received_amount:"",
+            sale_price: "",
+            inv_stock_item_id: "",
         };
 
         function getState() {
@@ -180,12 +181,11 @@
                 items: [],
                 customers:[],
                 total: 0,
+                received_amount: 0,
                
-                initialize(items, units,customers, payload) {
+                initialize(items, units, payload) {
                     this.inventoryItems = items;
                     this.units = units;
-                    this.customers=customers;
-                   
                     
                     // edit form
                     console.log(payload);
@@ -206,7 +206,7 @@
                         console.log("inventory item id has changed", id, _item, this.inventoryItems);
                         if (_item) {
                             this.form.item = _item;
-                            this.form.unit_price = _item.sale_price
+                            this.form.sale_price = _item.sale_price
                         }
                     });
                     this.$watch('form.conf_unit_id', id => {
@@ -216,10 +216,17 @@
                             this.form.unit = _unit;
                         }
                     });
+                    this.$watch('form.inv_stock_item_id', id => {
+                        const _stockItem = this.form.item.stock_items.find(i => i.id == id);
+                        console.log("stock item id has changed", id, _stockItem);
+                        if (_stockItem) {
+                            this.form.stock_item = _stockItem;
+                        }
+                    });
 
                 },
                 updateTotal() {
-                    const _total = this.items.reduce((prev, item) => prev + (item.quantity * item.unit_price), 0);
+                    const _total = this.items.reduce((prev, item) => prev + (item.quantity * item.sale_price), 0);
                     this.total = _total;
                 },
                 add() {
