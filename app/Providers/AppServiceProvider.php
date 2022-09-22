@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-use App\View\Components\form\CustomInput;
+use App\View\Components\Form\CustomInput;
+use App\View\Components\Form\CustomTextarea;
 use Illuminate\Support\Facades\Blade;
 
 use Illuminate\Support\ServiceProvider;
@@ -27,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
        Blade::component('form.custom-input', CustomInput::class);
+       Blade::component('form.custom-textarea', CustomTextarea::class);
     }
 }

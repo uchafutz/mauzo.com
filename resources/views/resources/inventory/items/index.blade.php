@@ -15,6 +15,7 @@
                                     <th>Image</th>
                                     <th>Name</th>
                                     <th>Description</th>
+                                    <th>In Stock</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -26,6 +27,7 @@
                                         <td><img src="{{ $inventoryItem->featured_image }}" height="50px" alt=""></td>
                                         <td>{{ $inventoryItem->name }}</td>
                                         <td>{{ $inventoryItem->description }}</td>
+                                        <td>{{ $inventoryItem->in_stock }} {{ $inventoryItem->unit->code }}</td>
                                         <td>
                                             <a href="{{ route("inventory.inventoryItems.edit", ["inventoryItem" => $inventoryItem]) }}" class="btn btn-info">Edit</a>
                                             <a href="{{ route("inventory.inventoryItems.show",["inventoryItem" =>$inventoryItem]) }}" class="btn btn-success">View item</a>

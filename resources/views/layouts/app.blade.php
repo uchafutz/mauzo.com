@@ -9,13 +9,18 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+    
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/fontawesome.min.css" />  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />  
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
@@ -38,14 +43,11 @@
                                     {{__('Inventory')}}
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li> <a class="dropdown-item"   href="{{route('inventory.inventoryItems.index')}}">{{__('Items')}}</a></li>
-                                    <li><a class="dropdown-item"
-                                            href="{{ route('inventory.inventoryCategories.index') }}">{{ __('Categories') }}</a>
-                                    </li>
-                                    <li><a class="dropdown-item"
-                                        href="{{ route('inventory.inventoryWarehouses.index') }}">{{ __('Warehouses') }}</a>
-                                    <li><a class="dropdown-item"
-                                            href="{{ route('inventory.manufacturing.index') }}">{{ __('Manufacturing') }}</a>
+                                    <li><a class="dropdown-item" href="{{ route('inventory.inventoryCategories.index') }}">{{ __('Categories') }}</a></li>
+                                    <li><a class="dropdown-item" href="{{route('inventory.inventoryItems.index')}}">{{__('Items')}}</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('purchase.purchases.index') }}">{{ __('Purchases') }}</a>
+                                    <li><a class="dropdown-item" href="{{ route('inventory.inventoryWarehouses.index') }}">{{ __('Warehouses') }}</a>
+                                    <li><a class="dropdown-item" href="{{ route('inventory.manufacturing.index') }}">{{ __('Manufacturing') }}</a>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -58,11 +60,15 @@
                                             href="{{ route('config.unitTypes.index') }}">{{ __('Unit Types') }}</a></li>
                                     <li><a class="dropdown-item" href="{{ route('config.units.index') }}"
                                             class="nav-link">{{ __('Units') }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('config.roles.index') }}"
+                                                class="nav-link">{{ __('Roles') }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('config.users.index') }}"
+                                                    class="nav-link">{{ __('Users') }}</a></li>
 
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('customer.customers.index') }}">Customer</a></li>
                                 </ul>
                             </li>
                         @endguest
@@ -114,6 +120,60 @@
             @yield('content')
         </main>
     </div>
+    
+			
+	
+
+        
+           
+   
+    <script>
+         $('.phone').on('focus',function(){
+                  phone_($(this));
+              });
+              $('.phone').on('input',function(){
+                  phone_($(this));
+              });
+              $('.phone').on('change',function(){
+                  phone_($(this));
+              });
+  
+              function phone_(element){
+                  $.mask.definitions['~'] = "[+-]";
+                  element.mask("0999999999");
+              }
+  
+              var i = 0;
+              $('#receive').on('click', '.tr_clone_add', function() {
+                  previous_no = parseInt(i?i:0);
+                  i++;
+                  next_no = i;
+                  var $tr    = $(this).closest('.dubplicate_row');
+                  var $clone = $tr.clone(true,true);
+                  $clone.children().children('.item').addClass('item'+next_no);
+                  $clone.children().children('.item').attr('data-index',next_no);
+                  $clone.children().children('.quantity').addClass('quantity'+next_no);
+                  $clone.children().children('.quantity').attr('data-index',next_no);
+  
+                  $clone.find(':text').val('');
+                  $tr.after($clone);
+                  for(j = (next_no -1); j >= 0; j--){
+                      $('.item'+next_no).removeClass('item'+j);
+                      $('.quantity'+next_no).removeClass('quantity'+j);
+                  }
+  
+              });
+  
+              $('#receive').on('click', '.tr_clone_remove', function() {
+                  numItems = $('.dubplicate_row').length;
+                  if(numItems > 1){
+                      $(this).closest('.dubplicate_row').remove();
+                  }else{
+                      alert("Must have single item row");
+                  }
+                  $("#source_account_id").change();
+              });
+    </script>
 </body>
 
 </html>

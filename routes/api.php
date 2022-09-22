@@ -1,12 +1,20 @@
 <?php
 
+use App\Http\Controllers\Config\Role\AssignRolePermissionController;
+use App\Http\Controllers\Config\RoleController;
 use App\Http\Controllers\Config\UnitTypeController;
 use App\Http\Controllers\Config\UnitController;
+use App\Http\Controllers\Config\User\AssignUserPermissionController;
+use App\Http\Controllers\Config\User\AssignUserRolesController;
+use App\Http\Controllers\Config\User\UserController;
+use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Inventory\InventoryCategoryController;
 use App\Http\Controllers\Inventory\InventoryItemController;
 use App\Http\Controllers\Inventory\InventoryItemMaterialController;
 use App\Http\Controllers\Inventory\InventoryWarehouseController;
 use App\Http\Controllers\Inventory\ManufacturingController;
+use App\Http\Controllers\Purchase\PurchaseController;
+use App\Http\Controllers\Purchase\PurchaseSubmittedController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +38,12 @@ Route::middleware("auth:sanctum")->name("api.")->group(function () {
     Route::prefix("/config")->name("config.")->group(function () {
         Route::resource("unitTypes", UnitTypeController::class);
         ROute::resource("units",UnitController::class);
+        Route::resource("roles",RoleController::class);
+        Route::post("roles/{role}/assign-role-permission",AssignRolePermissionController::class)->name("roles.assignPermissions");
+
+        Route::resource("users",UserController::class);
+        Route::post("users/{user}/assign-roles", AssignUserRolesController::class)->name("users.assignRoles");
+        Route::post("users/{user}/assign-permission",AssignUserPermissionController::class)->name("users.assignPermissions");
     });
   
   Route::prefix("/inventory")->name("inventory.")->group(function(){
@@ -39,5 +53,14 @@ Route::middleware("auth:sanctum")->name("api.")->group(function () {
        Route::resource("inventoryItems.inventoryItemMaterials",InventoryItemMaterialController::class);
        Route::resource("manufacturing", ManufacturingController::class);
   });
-  
+
+  Route::prefix("/purchase")->name("purchase.")->group(function(){
+        Route::resource("purchases",PurchaseController::class);
+        Route::post("purchases/{purchase}/purchase-submited",PurchaseSubmittedController::class)->name("purchases.purchaseSubmited");
+    });
+
+    Route::prefix("/customer")->name("customer.")->group(function(){
+        Route::resource("customers",CustomerController::class);
+      });
+
 });

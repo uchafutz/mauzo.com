@@ -18,4 +18,13 @@ class InventoryWarehouse extends Model
     protected function featuredImage(): Attribute {
         return Attribute::make(fn ($val) => Storage::url($val));
     }
+
+    public function items() {
+        return $this->belongsToMany(InventoryItem::class, "warehouse_has_items", "inv_warehouse_id", "inv_item_id")->withPivot(["in_stock"]);
+    }
+
+    public function findItem(InventoryItem $item) {
+        $item = $this->items()->where("inv_item_id", $item->id)->first();
+        return $item;
+    }
 }

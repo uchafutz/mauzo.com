@@ -37,8 +37,7 @@
                                     <option value="">Choose...</option>
                                     @foreach ($inventoryCategories as $invetoryCategory)
                                     <option value="{{$invetoryCategory->id}}"{{ (isset($invetoryCategory) && $invetoryCategory->id == $invetoryCategory->id) ? 'selected' : '' }}>{{$invetoryCategory->name}}</option>
-                                    @endforeach
-                                    
+                                    @endforeach 
                                 </select>
                                </div>
                                <x-form.custom-input name="featured_image" type="file" label="Choose file" placeholder="Choose file" value="{{ isset($inventoryItem)?$inventoryItem->featured_image : null  }}"/>
@@ -56,7 +55,7 @@
                              <div class="row row-cols-lg-auto g-3 align-items-center">
                                 <div class="col-12">
                                 <div class="form-check">
-                                    <input class="form-check-input" name="is_material" type="checkbox" value="1" id="flexCheckDefault" {{  ($inventoryItem->is_material == 1 ? ' checked' : '') }}>
+                                    <input class="form-check-input" name="is_material" type="checkbox" value="1" id="flexCheckDefault" {{  ((isset($inventoryItem) && $inventoryItem->is_material == 1) ? ' checked' : '') }}>
                                     <label class="form-check-label" for="flexCheckDefault">
                                       Is Material
                                     </label>
@@ -64,7 +63,7 @@
                                 </div>
                                 <div class="col-12">
                                   <div class="form-check">
-                                    <input class="form-check-input" name="is_product" type="checkbox" value="1" id="flexCheckDefault" {{  ($inventoryItem->is_product == 1 ? ' checked' : '') }}>
+                                    <input class="form-check-input" name="is_product" type="checkbox" value="1" id="flexCheckDefault" {{  ((isset($inventoryItem) && $inventoryItem->is_product == 1) ? ' checked' : '') }}>
                                     <label class="form-check-label" for="flexCheckDefault">
                                       Is Product
                                     </label>
@@ -72,7 +71,7 @@
                                   </div>
                                   <div class="col-12">
                                   <div class="form-check">
-                                    <input class="form-check-input" name="is_manufactured" type="checkbox" value="1" id="flexCheckDefault" {{  ($inventoryItem->is_manufactured == 1 ? ' checked' : '') }}>
+                                    <input class="form-check-input" name="is_manufactured" type="checkbox" value="1" id="flexCheckDefault" {{  ((isset($inventoryItem) && $inventoryItem->is_manufactured == 1) ? ' checked' : '') }}>
                                     <label class="form-check-label" for="flexCheckDefault">
                                       Is Manufactured
                                     </label>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\form;
+namespace App\View\Components\Form;
 
 use Illuminate\View\Component;
 
@@ -16,7 +16,7 @@ class CustomTextarea extends Component
      *
      * @return void
      */
-    public function __construct(String $label,String $name,String $placeholder,String $value="")
+    public function __construct(String $label,String $name,String $placeholder="",String $value="")
     {
         $this->name=$name;
         $this->label=$label;

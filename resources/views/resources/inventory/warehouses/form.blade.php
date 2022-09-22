@@ -16,8 +16,8 @@
                         @endisset
                         
                             @csrf
-                            <x-form.custominput type="file" name="featured_image" label="Featured Image" placeholder="Enter name" />
-                            <x-form.custominput type="text" name="name" label="Warehouse Name" placeholder="Enter the name of the warehouse" value=" {{ isset($inventoryWarehouse)?$inventoryWarehouse->name : null }}" />
+                            <x-form.custom-input type="file" name="featured_image" label="Featured Image" placeholder="Enter name" />
+                            <x-form.custom-input  type="text" name="name" label="Warehouse Name" placeholder="Enter the name of the warehouse" value=" {{ isset($inventoryWarehouse)?$inventoryWarehouse->name : null }}" />
                             <x-form.custom-textarea name="description" label="Description" placeholder="Description" value="{{ isset($inventoryWarehouse) ? $inventoryWarehouse->description : null }}" />
                             <br/>
 
