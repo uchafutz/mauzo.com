@@ -70,6 +70,21 @@
                                     <li><a class="dropdown-item" href="{{ route('customer.customers.index') }}">Customer</a></li>
                                 </ul>
                             </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    {{ __('Sales') }}
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item"
+                                            href="{{ route('sale.sales.index') }}">{{ __('Sales') }}</a></li>
+                    
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    
+                                </ul>
+                            </li>
                         @endguest
                     </ul>
 

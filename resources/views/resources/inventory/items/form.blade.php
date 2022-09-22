@@ -80,6 +80,7 @@
                              </div>
                              <br/>
                                <x-form.custom-input name="reorder_level" type="text" label="Re order" placeholder="Enter Order" value="{{ isset($inventoryItem)? $inventoryItem->reorder_level : null }}"/>
+                                <x-form.custom-input name="sale_price" type="text" label="Sale price" placeholder="Enter sale amount" value="{{ isset($inventoryItem)? $inventoryItem->sale_price : null }}"/>
                                <br/>
 
                             <button type="submit" class="btn btn-primary">Submit</button>

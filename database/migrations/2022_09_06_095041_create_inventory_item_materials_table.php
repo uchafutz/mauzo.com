@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("source_inv_items_id");
             $table->unsignedBigInteger("material_inv_items_id");
-            $table->decimal("quantity");
+            $table->float("quantity");
             $table->enum("type",["RAW","WASTAGE"]);
             $table->softDeletes();
             $table->timestamps();

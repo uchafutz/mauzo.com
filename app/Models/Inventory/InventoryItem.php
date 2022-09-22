@@ -23,7 +23,8 @@ class InventoryItem extends Model
         'is_product',
         'default_unit_id',
         'reorder_level',
-        'featured_image'
+        'featured_image',
+        'sale_price'
     ];
 
     public function inventoryCategory(){

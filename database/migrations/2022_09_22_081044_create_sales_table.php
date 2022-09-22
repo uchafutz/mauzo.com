@@ -13,14 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('units', function (Blueprint $table) {
+        Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("unit_type_id");
-            $table->String("name");
-            $table->Text("description")->nullable();
-            $table->String("code");
-            $table->String("symbol")->nullable();
-            $table->float("factor");
+            $table->string("code");
+            $table->dateTime("date");
+            $table->string("description");
+            $table->unsignedBigInteger("customer_id");
+            $table->decimal("total_amount",17,2);
+            $table->decimal("recieved_amount",17,2);
+            $table->decimal("return_amount",17,2);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -33,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('units');
+        Schema::dropIfExists('sales');
     }
 };
