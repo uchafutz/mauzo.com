@@ -5,7 +5,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ __('New Sale') }}</div>
-                    <div class="card-body" x-data="getState()" x-init="initialize({{ json_encode($items) }}, {{ json_encode($units) }}, {{ isset($sale) ? json_encode($sale->items) : json_encode([]) }})">
+                    <div class="card-body" x-data="getState()" x-init="initialize({{ json_encode($items) }}, {{ json_encode($units) }}, {{ isset($sale) ? json_encode($sale->salesItems) : json_encode([]) }})">
                         @isset($sale)
                             <form class="row g-3" action="{{ route('sale.sales.update', ['sale' => $sale]) }}" method="POST" enctype="multipart/form-data">
                             @method("patch")
@@ -134,8 +134,7 @@
                                 </tr>
                                 <tr>
                                     <td><h6>RECEIVED</h6></td>
-                                    <td>
-                                    <input type="number" name="received_amount" x-model="received_amount"  class="form-control" required></td>
+                                    <td><input type="number" name="received_amount" x-model="received_amount" value="{{ isset($sale) ? $sale->received_amount : '' }}"  class="form-control" required></td>
                                   </tr>
                                   <tr>
                                     <td ><h6>RETURN</h6></td>
@@ -188,17 +187,22 @@
                     this.units = units;
                     
                     // edit form
-                    console.log(payload);
                     for (var i = 0; i < payload.length; i++) {
                         const x = payload[i];
                         const __item = this.inventoryItems.find(i => i.id == x.inv_item_id);
                         const __unit = this.units.find(u => u.id == x.conf_unit_id);
+                        const __stock_item = __item.stock_items.find(i => i.id == x.inv_stock_item_id)
                         const _itemPayload = {
                             ...x,
+                            sale_price: x.unit_price, 
                             item: __item,
                             unit: __unit,
+                            stock_item: __stock_item,
                         }
                         this.items.push(_itemPayload);
+                    }
+                    if (payload.length > 0) {
+                        this.updateTotal();
                     }
 
                     this.$watch('form.inv_item_id', id => {
