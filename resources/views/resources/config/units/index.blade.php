@@ -10,7 +10,8 @@
                     <div class="card-body">
                        
 
-                        <a href="{{ route("config.units.create") }}" class="btn btn-primary">Add</a>
+                        <a href="{{ route("config.units.create") }}" class="btn btn-primary btn-sm"><i class="fas fa-plus">
+                        </i>Add</a>
 
                         <table class="table table-stripped">
                             <thead>
@@ -31,12 +32,16 @@
                                         <td>{{ $unit->code }}</td>
                                         <td>{{ $unit->description }}</td>
                                         <td>
-                                            <a href="{{ route("config.units.edit", ["unit" => $unit]) }}" class="btn btn-info">Edit</a>
+                                            <div class="btn-group" role="group">
+                                            <a href="{{ route("config.units.edit", ["unit" => $unit]) }}" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt">
+                                            </i>Edit</a>
                                             <form action="{{ route("config.units.destroy",["unit" => $unit]) }}" method="post">
                                                 @csrf
                                                 @method("delete")
-                                            <button type="submit" class="btn btn-danger">delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash">
+                                            </i>delete</button>
                                              </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

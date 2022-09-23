@@ -5,10 +5,11 @@
             <div class="col-md-8">
                 <div class="card"></div>
 
-                <div class="card">
-                    <div class="card-header">{{ __('View Inventory Materials') }}</div>
-                    <div class="card-body">
-                       <p>{{$inventoryItem->name}} <span><a  class="btn btn-info" href="{{route("inventory.inventoryItems.inventoryItemMaterials.create", ["inventoryItem" => $inventoryItem])}}"> Add Materials</a></span></p>
+                <div class="card card-secondary">
+                    <div class="card-header"> <h4>{{$inventoryItem->name}}</h4></div>
+                    <div class="card-body ">
+                       <p> <span><a  class="btn btn-primary" href="{{route("inventory.inventoryItems.inventoryItemMaterials.create", ["inventoryItem" => $inventoryItem])}}"><i class="fas fa-plus">
+                    </i> Add Materials</a></span></p>
                        <table class="table table-stripped">
                         <thead>
                             <tr>

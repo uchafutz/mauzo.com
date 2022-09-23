@@ -10,13 +10,17 @@
                     <div class="card-body">
                        
 
-                        <a href="{{ route("sale.sales.create") }}" class="btn btn-primary">Add</a>
+                        <a href="{{ route("sale.sales.create") }}" class="btn btn-primary btn-sm"><i class="fas fa-plus">
+                        </i>Add</a>
 
                         <table class="table table-stripped">
                             <thead>
                                 <tr>
                                     <th>S/n</th>
-                                    <th>Name</th>
+                                    <th>Code</th>
+                                     <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Descriptin</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -26,13 +30,26 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $sale->code }}</td>
-                                        <td>
-                                            <a href="{{ route("sale.sales.edit", ["sale" => $sale]) }}" class="btn btn-info">Edit</a>
+                                        <td>{{ $sale->date}}</td>
+                                        <th>{{ $sale->status}}</th>
+                                        <td>{{ $sale->description}}</td>
+                                        <td class="tex-right">
+                                            <div class="btn-group" role="group">
+                                                <a href="{{ route("sale.sales.edit", ["sale" => $sale]) }}" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt">
+                                                </i>Edit</a>
+                                            <a class="btn btn-secondary btn-sm" href="{{ route("sale.sales.show", ["sale" => $sale]) }}">
+                                                <i class="fas fa-folder">
+                                                </i>
+                                                View
+                                                </a>
+                                            
                                             <form action="{{ route("sale.sales.destroy",["sale" => $sale]) }}" method="post">
                                                 @csrf
                                                 @method("delete")
-                                            <button type="submit" class="btn btn-danger">delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash">
+                                            </i>Delete</button>
                                              </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -6,7 +6,8 @@
                 <div class="card">
                     <div class="card-header">{{ __('Purchases') }}</div>
                     <div class="card-body">
-                        <a href="{{ route("purchase.purchases.create") }}" class="btn btn-primary">Add</a>
+                        <a href="{{ route("purchase.purchases.create") }}" class="btn btn-primary btn-sm"><i class="fas fa-plus">
+                        </i>Add</a>
 
                         <table class="table table-stripped">
                             <thead>
@@ -30,18 +31,23 @@
                                     <td>{{ $purchase->status}}</td>
                                     <td>{{$purchase->description}}</td>
                                     <td>
+                                        <div class="btn-group" role="group">
                                         @if ($purchase->status=="SUBMITED")
-                                        <a href="{{ route("purchase.purchases.show",["purchase" =>$purchase]) }}" class="btn btn-success">View</a>   
+                                        <a href="{{ route("purchase.purchases.show",["purchase" =>$purchase]) }}" class="btn btn-success btn-sm"><i class="fas fa-check">
+                                        </i> Procced</a>   
                                         @else
-                                        <a href="{{ route("purchase.purchases.edit", ["purchase" => $purchase]) }}" class="btn btn-info">Edit</a>
-                                        <a href="{{ route("purchase.purchases.show",["purchase" =>$purchase]) }}" class="btn btn-success">View</a>
+                                        <a href="{{ route("purchase.purchases.edit", ["purchase" => $purchase]) }}" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt">
+                                        </i> Edit</a>
+                                        <a href="{{ route("purchase.purchases.show",["purchase" =>$purchase]) }}" class="btn btn-secondary btn-sm"><i class="fas fa-folder">
+                                        </i> View</a>
                                         <form action="{{ route("purchase.purchases.destroy", ["purchase" => $purchase]) }}" method="post">
                                             @csrf
                                             @method("delete")
-                                        <button type="submit" class="btn btn-danger">delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash">
+                                            </i> Delete</button>
                                          </form> 
                                         @endif
-                                       
+                                        </div>
                                     </td>
                                    </tr>
                                        

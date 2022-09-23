@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string("description");
             $table->unsignedBigInteger("customer_id");
             $table->decimal("total_amount",17,2);
-            $table->decimal("recieved_amount",17,2);
+            $table->decimal("received_amount",17,2);
             $table->decimal("return_amount",17,2);
             $table->softDeletes();
             $table->timestamps();

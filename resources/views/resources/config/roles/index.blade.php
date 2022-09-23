@@ -9,7 +9,8 @@
                     <div class="card-body">
                        
 
-                        <a href="{{ route("config.roles.create") }}" class="btn btn-primary">Add</a>
+                        <a href="{{ route("config.roles.create") }}" class="btn btn-primary btn-sm"><i class="fas fa-plus">
+                        </i>Add</a>
 
                         <table class="table table-stripped">
                             <thead>
@@ -30,13 +31,19 @@
                                         <td>{{ $role->display }}</td>
                                         <td>{{ $role->description }}</td>
                                         <td>
-                                            <a href="{{ route("config.roles.show", ["role" => $role]) }}" class="btn btn-primary">show</a>
-                                            <a href="{{ route("config.roles.edit", ["role" => $role]) }}" class="btn btn-info">Edit</a>
+                                            <div class="btn-group" role="group">
+                                            <a href="{{ route("config.roles.edit", ["role" => $role]) }}" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt">
+                                            </i>Edit</a>
+                                            <a href="{{ route("config.roles.show", ["role" => $role]) }}" class="btn btn-secondary btn-sm"><i class="fas fa-folder">
+                                            </i>show</a>
+                                           
                                             <form action="{{ route("config.roles.destroy",["role" => $role]) }}" method="post">
                                                 @csrf
                                                 @method("delete")
-                                            <button type="submit" class="btn btn-danger">delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash">
+                                            </i>delete</button>
                                              </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

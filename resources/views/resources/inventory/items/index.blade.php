@@ -6,7 +6,8 @@
                 <div class="card">
                     <div class="card-header">{{ __('Inventory Items') }}</div>
                     <div class="card-body">
-                        <a href="{{ route("inventory.inventoryItems.create") }}" class="btn btn-primary">Add</a>
+                        <a href="{{ route("inventory.inventoryItems.create") }}" class="btn btn-primary btn-sm"><i class="fas fa-plus">
+                        </i>Add</a>
 
                         <table class="table table-stripped">
                             <thead>
@@ -29,13 +30,18 @@
                                         <td>{{ $inventoryItem->description }}</td>
                                         <td>{{ $inventoryItem->in_stock }} {{ $inventoryItem->unit->code }}</td>
                                         <td>
-                                            <a href="{{ route("inventory.inventoryItems.edit", ["inventoryItem" => $inventoryItem]) }}" class="btn btn-info">Edit</a>
-                                            <a href="{{ route("inventory.inventoryItems.show",["inventoryItem" =>$inventoryItem]) }}" class="btn btn-success">View item</a>
+                                            <div class="btn-group" role="group">
+                                            <a href="{{ route("inventory.inventoryItems.edit", ["inventoryItem" => $inventoryItem]) }}" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt">
+                                            </i> Edit</a>
+                                            <a href="{{ route("inventory.inventoryItems.show",["inventoryItem" =>$inventoryItem]) }}" class="btn btn-secondary btn-sm"><i class="fas fa-folder">
+                                            </i>view</a>
                                             <form action="{{ route("inventory.inventoryItems.destroy", ["inventoryItem" => $inventoryItem]) }}" method="post">
                                                 @csrf
                                                 @method("delete")
-                                            <button type="submit" class="btn btn-danger">delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash">
+                                            </i> delete</button>
                                              </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

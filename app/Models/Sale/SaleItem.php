@@ -13,7 +13,7 @@ class SaleItem extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable=['sale_id','inv_item_id','conf_unit_id',"inv_stock_item_id"];
+    protected $fillable=['sale_id','inv_item_id','conf_unit_id',"inv_stock_item_id","quantity","unit_price"];
 
     public function sale(){
         return $this->belongsTo(Sale::class,'sale_id');

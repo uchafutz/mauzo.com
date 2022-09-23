@@ -3,13 +3,11 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('View Role') }}</div>
-                    <div class="card-body">
+               
                         <div class="card card-primary">
                         
                             <div class="card-body">
-                            <strong><i class="fas fa-book mr-1"></i>{{__("Role ")}}</strong>
+                            <strong><i class="fas fa-book mr-1"></i> {{__("Role")}}</strong>
                             <p class="text-muted">
                               <table class="table table-bordered">
                                 <tr>
@@ -38,7 +36,7 @@
                             </p>
                             <hr>
                             <form action="{{ route("config.roles.assignPermissions", ["role" => $role]) }}" method="post">
-                            <strong><i class="fas fa-pencil-alt mr-1"></i>{{__("Permissions")}} <button type="submit" class="btn btn-primary">Update</button></strong>
+                            <strong><i class="fas fa-pencil-alt mr-1"></i> {{__("Permissions")}} </strong>
                            
                             <hr>
                             <div class="card-body">
@@ -59,7 +57,7 @@
                                             <td><input class="form-check-input" name="permission_id[]" type="checkbox" value="{{$permission->id}}" id="flexCheckDefault" {{  ($role->permissions->contains("id", $permission->id)) ? ' checked' : '' }}></td>
                                         </tr>
                                     @endforeach
-                              
+                                    <th colspan="3" ><button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-sync"></i> Update</button></th>
                                 </tbody>
                                 </table>
                                 </form>
@@ -68,9 +66,7 @@
                             
                             </div>
                        
-                    </div>
-                </div>
-            </div>
+                   
         </div>
     </div>
 @endsection

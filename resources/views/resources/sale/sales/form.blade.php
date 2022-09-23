@@ -140,7 +140,7 @@
                                   <tr>
                                     <td ><h6>RETURN</h6></td>
                                     <td x-text="received_amount - total">.00</td>
-                                    <input type="hidden" name="returned_amount" x-bind:value="received_amount - total"  class="form-control" readonly>
+                                    <input type="hidden" name="return_amount" x-bind:value="received_amount - total"  class="form-control" readonly>
                                   </tr>
                             
 

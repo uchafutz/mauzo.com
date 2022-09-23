@@ -66,7 +66,9 @@
                                </div>
                               <br/>
                             
-                            <button type="submit" class="btn btn-lg btn-success">Submit Purchase</button>
+                              <button type="button" class="btn btn-success float-left"><i class="far fa-credit-card"></i> Submit
+                                Payment
+                                </button>
                          </form>
                         @else
                         
