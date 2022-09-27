@@ -23,13 +23,13 @@ class SaleController extends Controller
     public function index()
     {
 
-        $sales=Sale::all();
-        if(request()->wantsJson()){
+        $sales = Sale::all();
+        if (request()->wantsJson()) {
             return response([
-                "data"=>$sales
-            ],200);
+                "data" => $sales
+            ], 200);
         }
-        return view("resources.sale.sales.index",compact("sales"));
+        return view("resources.sale.sales.index", compact("sales"));
         //
     }
 
@@ -40,11 +40,10 @@ class SaleController extends Controller
      */
     public function create()
     {
-        $customers=Customer::all();
-        $items=InventoryItem::with("stockItems.warehouse")->get();
-        $units=Unit::all();
-        return view("resources.sale.sales.form",compact("customers","items","units"));
-
+        $customers = Customer::all();
+        $items = InventoryItem::with("stockItems.warehouse")->get();
+        $units = Unit::all();
+        return view("resources.sale.sales.form", compact("customers", "items", "units"));
     }
 
     /**
@@ -56,24 +55,26 @@ class SaleController extends Controller
     public function store(Request $request)
     {
 
-         //dd($request->all());
-         $this->validate($request,[
-            "date"=>["required"],
-            "items"=>["required"],
+        //dd($request->all());
+        $this->validate($request, [
+            "date" => ["required"],
+            "items" => ["required"],
         ]);
-        
+
         DB::beginTransaction();
         $sale = Sale::create($request->input());
         foreach ($request->input("items") as $item) {
             $sale->salesItems()->create($item);
         }
         DB::commit();
-        
-        if(request()->wantsJson()){
+
+
+        if (request()->wantsJson()) {
             return response(
                 [
-                    "data"=>$sale
-                ],201
+                    "data" => $sale
+                ],
+                201
             );
         }
         return redirect(route("sale.sales.index"));
@@ -88,12 +89,12 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
-        if(request()->wantsJson()){
+        if (request()->wantsJson()) {
             return response([
-                "data"=>$sale
-            ],200);
+                "data" => $sale
+            ], 200);
         }
-        return view("resources.sale.sales.show",compact("sale"));
+        return view("resources.sale.sales.show", compact("sale"));
     }
 
     /**
@@ -104,10 +105,10 @@ class SaleController extends Controller
      */
     public function edit(Sale $sale)
     {
-        $customers=Customer::all();
-        $items=InventoryItem::with("stockItems.warehouse")->get();
-        $units=Unit::all();
-        return view("resources.sale.sales.form",compact("customers","items","units","sale"));
+        $customers = Customer::all();
+        $items = InventoryItem::with("stockItems.warehouse")->get();
+        $units = Unit::all();
+        return view("resources.sale.sales.form", compact("customers", "items", "units", "sale"));
         //
     }
 
@@ -120,6 +121,7 @@ class SaleController extends Controller
      */
     public function update(Request $request, Sale $sale)
     {
+        //dd($request->all());
         DB::beginTransaction();
         $sale->update($request->input());
         foreach ($request->input("items") as $item) {
@@ -132,14 +134,15 @@ class SaleController extends Controller
         }
         DB::commit();
 
-        if(request()->wantsJson()){
+        if (request()->wantsJson()) {
             return response(
                 [
-                    "data"=>$sale
-                ],201
+                    "data" => $sale
+                ],
+                201
             );
         }
-       return redirect(route("sale.sales.index"));
+        return redirect(route("sale.sales.index"));
     }
 
     /**
@@ -151,10 +154,10 @@ class SaleController extends Controller
     public function destroy(Sale $sale)
     {
         $sale->delete();
-        if(request()->wantsJson()){
-            return response(null,204 );
+        if (request()->wantsJson()) {
+            return response(null, 204);
         }
-       return redirect(route("sale.sales.index"));
+        return redirect(route("sale.sales.index"));
         //
     }
 }
