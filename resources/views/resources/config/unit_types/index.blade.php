@@ -1,16 +1,22 @@
 @extends('layouts.app')
+@section('page_title')
+    {{ __('Unit Types') }}
+@endsection
 
+@section('page_action')
+    <a href="{{ route('config.unitTypes.create') }}" class="btn btn-primary"><i class="material-icons">add</i> Create
+        Unit Type</a>
+@endsection
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('Unit Types') }}</div>
+                    <div class="card-header"></div>
 
                     <div class="card-body">
-                       
 
-                        <a href="{{ route("config.unitTypes.create") }}" class="btn btn-primary">Add</a>
+
 
                         <table class="table table-stripped">
                             <thead>
@@ -27,7 +33,8 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $unitType->name }}</td>
                                         <td>
-                                            <a href="{{ route("config.unitTypes.edit", ["unitType" => $unitType]) }}" class="btn btn-info">Edit</a>
+                                            <a href="{{ route('config.unitTypes.edit', ['unitType' => $unitType]) }}"
+                                                class="btn btn-info">Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach
