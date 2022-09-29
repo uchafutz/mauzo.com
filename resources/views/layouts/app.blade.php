@@ -86,14 +86,14 @@
                             <a href="todo.html"><i class="material-icons-two-tone">done</i>Todo</a>
                         </li> --}}
                     <li>
-                        <a href="#"><i class="material-icons-two-tone">attach_money</i>Sales</a>
+                        <a href="{{ route('sale.sales.index') }}"><i class="material-icons-two-tone">attach_money</i>Sales</a>
                     </li>
                     <li>
                         <a href="{{ route('purchase.purchases.index') }}"><i
                                 class="material-icons-two-tone">shopping_cart</i>Purchases</a>
                     </li>
                     <li>
-                        <a href="#"><i
+                        <a href="{{ route('inventory.manufacturings.index') }}"><i
                                 class="material-icons-two-tone">precision_manufacturing</i>Manufacturing</a>
                     </li>
                     <li>

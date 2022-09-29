@@ -16,7 +16,6 @@ use App\Http\Controllers\Inventory\ManufacturingController;
 use App\Http\Controllers\Inventory\ManufacturingGenrateBOQController;
 use App\Http\Controllers\Inventory\ManufacturingMaterialStockAssignmentController;
 use App\Http\Controllers\Purchase\PurchaseController;
-use App\Http\Controllers\Inventory\InventoryItemController;
 use App\Http\Controllers\Purchase\PurchaseSubmittedController;
 use App\Http\Controllers\Config\User\AssignUserRolesController;
 use App\Http\Controllers\Config\Role\AssignRolePermissionController;
