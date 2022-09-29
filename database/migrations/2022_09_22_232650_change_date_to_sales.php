@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -13,13 +14,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('warehouse_has_items', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger("inv_warehouse_id");
-            $table->unsignedBigInteger("inv_item_id");
-            $table->float("in_stock");
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('sales', function (Blueprint $table) {
+            $table->dateTime("date")->default(Carbon::now())->change();
         });
     }
 
@@ -30,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('warehouse_has_items');
+        Schema::table('sales', function (Blueprint $table) {
+            $table->dropColumn("date");
+        });
     }
 };

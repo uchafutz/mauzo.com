@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string("destination_id");
             $table->string("destination_type");
             $table->unsignedBigInteger("inv_item_id");
-            $table->decimal("quantity");
+            $table->float("quantity");
             $table->timestamps();
             $table->softDeletes();
         });

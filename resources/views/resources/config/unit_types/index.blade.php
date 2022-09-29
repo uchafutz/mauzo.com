@@ -10,7 +10,8 @@
                     <div class="card-body">
                        
 
-                        <a href="{{ route("config.unitTypes.create") }}" class="btn btn-primary">Add</a>
+                        <a href="{{ route("config.unitTypes.create") }}" class="btn btn-primary btn-sm"><i class="fas fa-plus">
+                        </i>Add</a>
 
                         <table class="table table-stripped">
                             <thead>
@@ -27,7 +28,10 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $unitType->name }}</td>
                                         <td>
-                                            <a href="{{ route("config.unitTypes.edit", ["unitType" => $unitType]) }}" class="btn btn-info">Edit</a>
+                                            <div class="btn-group" role="group">
+                                            <a href="{{ route("config.unitTypes.edit", ["unitType" => $unitType]) }}" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt">
+                                            </i>Edit</a>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -45,7 +45,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="{{ route('inventory.inventoryCategories.index') }}">{{ __('Categories') }}</a></li>
                                     <li><a class="dropdown-item" href="{{route('inventory.inventoryItems.index')}}">{{__('Items')}}</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('purchase.purchases.index') }}">{{ __('Purchases') }}</a>
+                                  
                                     <li><a class="dropdown-item" href="{{ route('inventory.inventoryWarehouses.index') }}">{{ __('Warehouses') }}</a>
                                     <li><a class="dropdown-item" href="{{ route('inventory.manufacturings.index') }}">{{ __('Manufacturing') }}</a>
                                 </ul>
@@ -68,7 +68,50 @@
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item" href="{{ route('customer.customers.index') }}">Customer</a></li>
+                                    <li><a class="dropdown-item" href="#"></a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    {{ __('Parchases') }}
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('purchase.purchases.index') }}">{{ __('Purchases') }}</a>
+                    
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    {{ __('Sales') }}
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item"
+                                            href="{{ route('sale.sales.index') }}">{{ __('Sales') }}</a></li>
+                    
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    {{ __('Customer') }}
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('customer.customers.index') }}">{{ __('Customers') }}</a>
+                    
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    
                                 </ul>
                             </li>
                         @endguest

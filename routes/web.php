@@ -17,6 +17,7 @@ use App\Http\Controllers\Inventory\ManufacturingGenrateBOQController;
 use App\Http\Controllers\Inventory\ManufacturingMaterialStockAssignmentController;
 use App\Http\Controllers\Purchase\PurchaseController;
 use App\Http\Controllers\Purchase\PurchaseSubmittedController;
+use App\Http\Controllers\Sale\SaleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -70,6 +71,10 @@ Route::middleware("auth")->group(function () {
 
     Route::prefix("/customer")->name("customer.")->group(function(){
       Route::resource("customers",CustomerController::class);
+    });
+
+    Route::prefix("/sale")->name("sale.")->group(function(){
+        Route::resource("sales",SaleController::class);
     });
   
 });

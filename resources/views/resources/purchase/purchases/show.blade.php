@@ -8,7 +8,7 @@
                     <div class="card-body">
                         <div>
                             <h4>{{ $purchase->code }}</h4>
-                            <p>{{  $purchase->date->format("d/m/Y") }}</p>
+                            <p>{{ $purchase->date->format('d/m/Y') }}</p>
                         </div>
                         <table class="table table-stripped">
                             <thead>
@@ -23,56 +23,62 @@
                             </thead>
 
                             <tbody>
+                                @php
+                                    $total = 0;
+                                @endphp
+                                @foreach ($purchase->items as $purchaseItem)
                                     @php
-                                        $total = 0;
+                                        $amount = $purchaseItem->unit_price * $purchaseItem->quantity;
+                                        $total += $amount;
                                     @endphp
-                                   @foreach ($purchase->items as $purchaseItem)
-                                   @php
-                                       $amount = $purchaseItem->unit_price * $purchaseItem->quantity;
-                                       $total += $amount;
-                                   @endphp
-                                   <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{$purchaseItem->purchase->code}}</td>
-                                    <td>{{$purchaseItem->inventoryItem->name}}</td>
-                                    <td>{{$purchaseItem->quantity}} {{$purchaseItem->unit->code}}</td>
-                                    <td>{{ number_format($purchaseItem->unit_price) }} TZS</td>
-                                    <td align="right">{{ number_format($amount) }} TZS</td>
-                                   </tr>
-                                       
-                                   @endforeach
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $purchaseItem->purchase->code }}</td>
+                                        <td>{{ $purchaseItem->inventoryItem->name }}</td>
+                                        <td>{{ $purchaseItem->quantity }} {{ $purchaseItem->unit->code }}</td>
+                                        <td>{{ number_format($purchaseItem->unit_price) }} TZS</td>
+                                        <td align="right">{{ number_format($amount) }} TZS</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
 
                             <tfoot>
                                 <tr>
                                     <th colspan="5">Total:</th>
-                                    <td align="right"><h5>{{ number_format($total) }} TZS</h5></td>
+                                    <td align="right">
+                                        <h5>{{ number_format($total) }} TZS</h5>
+                                    </td>
                                 </tr>
                             </tfoot>
-                            
+
                         </table>
-                       
-                        @if ($purchase->status=="DRAFT")
-                        <form   action="{{route("purchase.purchases.purchaseSubmited",["purchase" =>$purchase])}}" method="post" enctype="multipart/form-data" >
-                            @csrf
-                            <div class="form-group">
-                                <label for="" class="label-control">{{__('Select Inventory warehouse')}}</label>
-                                <select name="warehouse_id" id="warehouse_id" class="form-control" required>
-                                    <option value="">Choose...</option>
-                                    @foreach ($InventoryWarehouses as $InventoryWarehouse)
-                                        <option value="{{$InventoryWarehouse->id}}">{{$InventoryWarehouse->name}}</option>
-                                    @endforeach
-                                </select>
-                               </div>
-                              <br/>
-                            
-                            <button type="submit" class="btn btn-lg btn-success">Submit Purchase</button>
-                         </form>
+
+                        @if ($purchase->status == 'DRAFT')
+                            <form action="{{ route('purchase.purchases.purchaseSubmited', ['purchase' => $purchase]) }}"
+                                method="post" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                    <label for=""
+                                        class="label-control">{{ __('Select Inventory warehouse') }}</label>
+                                    <select name="warehouse_id" id="warehouse_id" class="form-control" required>
+                                        <option value="">Choose...</option>
+                                        @foreach ($InventoryWarehouses as $InventoryWarehouse)
+                                            <option value="{{ $InventoryWarehouse->id }}">{{ $InventoryWarehouse->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <br />
+
+                                <button type="submit" class="btn btn-success float-left"><i class="far fa-credit-card"></i>
+                                    Submit
+                                    Payment
+                                </button>
+                            </form>
                         @else
-                        
                         @endif
-                        
-                        
+
+
                     </div>
                 </div>
             </div>
