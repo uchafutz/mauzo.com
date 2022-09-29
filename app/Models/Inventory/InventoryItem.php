@@ -51,6 +51,10 @@ class InventoryItem extends Model
         return $this->belongsToMany(InventoryWarehouse::class, "warehouse_has_items", "inv_item_id", "inv_warehouse_id")->withPivot(["in_stock"]);
     }
 
+    public function manufacturingMaterials() {
+        return $this->belongsToMany(ManufacturingMaterial::class, "manufacturing_material_stock_items", "stock_item_id", "manufacturing_material_id")->withPivot("quantity");
+    }
+
     public function calculateInStock() {
         $in_stock = $this->stockItems->reduce(function ($carry, $stockItem) {
             return $carry + $stockItem->in_stock;

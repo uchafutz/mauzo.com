@@ -122,7 +122,7 @@ class InventoryItemController extends Controller
       if(request()->wantsJson()){
         return response([
             "data"=>$inventoryItem
-        ],201);
+        ],200);
       }
       return redirect(route("inventory.inventoryItems.index"));
     }

@@ -12,6 +12,7 @@ use App\Http\Controllers\Inventory\InventoryCategoryController;
 use App\Http\Controllers\Inventory\InventoryItemController;
 use App\Http\Controllers\Inventory\InventoryItemMaterialController;
 use App\Http\Controllers\Inventory\InventoryWarehouseController;
+use App\Http\Controllers\Inventory\ManufacturingController;
 use App\Http\Controllers\Purchase\PurchaseController;
 use App\Http\Controllers\Purchase\PurchaseSubmittedController;
 use App\Http\Controllers\Sale\SaleController;
@@ -51,6 +52,7 @@ Route::middleware("auth:sanctum")->name("api.")->group(function () {
        Route::resource("inventoryItems",InventoryItemController::class);
        Route::resource("inventoryWarehouses", InventoryWarehouseController::class);
        Route::resource("inventoryItems.inventoryItemMaterials",InventoryItemMaterialController::class);
+       Route::resource("manufacturing", ManufacturingController::class);
   });
 
   Route::prefix("/purchase")->name("purchase.")->group(function(){
