@@ -1,8 +1,14 @@
 @extends('layouts.app')
+
+@section('page_title')
+    {{ $inventoryItem->name }}
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
+                <div class="card"></div>
                 <div class="card">
                     <div class="card-header">
                         <h4></h4>
@@ -121,7 +127,7 @@
                                     <th>Name</th>
                                     <th>Quantity</th>
                                     <th>Type</th>
-                                    <th>Actions</th>
+                                    <th width="100px">Actions</th>
                                 </tr>
                             </thead>
 
@@ -134,15 +140,18 @@
                                             {{ $inventoryItemMaterial->materialItem->unit->name }}</td>
                                         <td>{{ $inventoryItemMaterial->type }}</td>
                                         <td>
-                                            <a href="{{ route('inventory.inventoryItems.inventoryItemMaterials.edit', ['inventoryItemMaterial' => $inventoryItemMaterial, 'inventoryItem' => $inventoryItem]) }}"
-                                                class="btn btn-info">Edit</a>
-                                            <form
-                                                action="{{ route('inventory.inventoryItems.inventoryItemMaterials.destroy', ['inventoryItemMaterial' => $inventoryItemMaterial, 'inventoryItem' => $inventoryItem]) }}"
-                                                method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger">delete</button>
-                                            </form>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="{{ route('inventory.inventoryItems.inventoryItemMaterials.edit', ['inventoryItemMaterial' => $inventoryItemMaterial, 'inventoryItem' => $inventoryItem]) }}"
+                                                    class="btn btn-outline-info"><i class="material-icons">edit</i></a>
+                                                <form
+                                                    action="{{ route('inventory.inventoryItems.inventoryItemMaterials.destroy', ['inventoryItemMaterial' => $inventoryItemMaterial, 'inventoryItem' => $inventoryItem]) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-outline-danger"><i
+                                                            class="material-icons">delete_outline</i></button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

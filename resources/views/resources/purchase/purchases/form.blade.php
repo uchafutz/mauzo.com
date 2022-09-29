@@ -1,10 +1,18 @@
 @extends('layouts.app')
+
+@section('page_title')
+    @isset($purchase)
+        Update Purchase
+    @else
+        New Purchase
+    @endisset
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('New Purchase') }}</div>
                     <div class="card-body" x-data="getState()" x-init="initialize({{ json_encode($items) }}, {{ json_encode($units) }}, {{ isset($purchase) ? json_encode($purchase->items) : json_encode([]) }})">
                         @isset($purchase)
                             <form class="row g-3" action="{{ route('purchase.purchases.update', ['purchase' => $purchase]) }}"

@@ -1,8 +1,13 @@
 @extends('layouts.app')
+
+@section('page_title')
+    {{ $purchase->code }}
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">{{ __('Purchase') }}</div>
                     <div class="card-body">
@@ -58,27 +63,24 @@
                                 method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label for=""
-                                        class="label-control">{{ __('Select Inventory warehouse') }}</label>
-                                    <select name="warehouse_id" id="warehouse_id" class="form-control" required>
-                                        <option value="">Choose...</option>
-                                        @foreach ($InventoryWarehouses as $InventoryWarehouse)
-                                            <option value="{{ $InventoryWarehouse->id }}">{{ $InventoryWarehouse->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <div class="col-md-4">
+                                        <label for=""
+                                            class="label-control">{{ __('Select Inventory warehouse') }}</label>
+                                        <select name="warehouse_id" id="warehouse_id" class="form-control" required>
+                                            <option value="">Choose...</option>
+                                            @foreach ($InventoryWarehouses as $InventoryWarehouse)
+                                                <option value="{{ $InventoryWarehouse->id }}">
+                                                    {{ $InventoryWarehouse->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                                 <br />
 
-                                <button type="submit" class="btn btn-success float-left"><i class="far fa-credit-card"></i>
-                                    Submit
-                                    Payment
-                                </button>
+                                <button type="submit" class="btn btn-lg btn-success">Submit Purchase</button>
                             </form>
                         @else
                         @endif
-
-
                     </div>
                 </div>
             </div>

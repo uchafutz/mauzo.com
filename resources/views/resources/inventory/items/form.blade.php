@@ -1,11 +1,17 @@
 @extends('layouts.app')
+@section('page_title')
+    @isset($inventoryItem)
+        Update InventoryItem
+    @else
+        New InventoryItem
+    @endisset
+@endsection
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Add inventoryItem') }}</div>
-
+                    <div class="card-header"></div>
                     <div class="card-body" x-data="getState()" x-init="initialize({{ json_encode($units) }}, {{ json_encode($unitTypes) }}, {{ isset($inventoryItem) ? json_encode($inventoryItem) : null }})">
 
                         @isset($inventoryItem)
@@ -113,6 +119,7 @@
             </div>
         </div>
     </div>
+    
     <script>
         const initialForm = {
             unit_type_id: "",

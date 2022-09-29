@@ -1,14 +1,21 @@
 @extends('layouts.app')
+@section('page_title')
+    {{ __('Roles') }}
+@endsection
+
+@section('page_action')
+    <a href="{{ route('config.roles.create') }}" class="btn btn-primary"><i class="material-icons">add</i> Create
+        Role</a>
+@endsection
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('Roles') }}</div>
+                    <div class="card-header"></div>
 
                     <div class="card-body">
                        
-
                         <a href="{{ route("config.roles.create") }}" class="btn btn-primary btn-sm"><i class="fas fa-plus">
                         </i>Add</a>
 
@@ -19,7 +26,7 @@
                                     <th>Name</th>
                                     <th>Display</th>
                                     <th>Description</th>
-                                    <th>Actions</th>
+                                    <th width="100px">Actions</th>
                                 </tr>
                             </thead>
 
@@ -31,18 +38,20 @@
                                         <td>{{ $role->display }}</td>
                                         <td>{{ $role->description }}</td>
                                         <td>
-                                            <div class="btn-group" role="group">
-                                            <a href="{{ route("config.roles.edit", ["role" => $role]) }}" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt">
-                                            </i>Edit</a>
-                                            <a href="{{ route("config.roles.show", ["role" => $role]) }}" class="btn btn-secondary btn-sm"><i class="fas fa-folder">
-                                            </i>show</a>
-                                           
-                                            <form action="{{ route("config.roles.destroy",["role" => $role]) }}" method="post">
-                                                @csrf
-                                                @method("delete")
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash">
-                                            </i>delete</button>
-                                             </form>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="{{ route('config.roles.show', ['role' => $role]) }}"
+                                                    class="btn btn-outline-success"><i
+                                                        class="material-icons">visibility</i></a>
+                                                <a href="{{ route('config.roles.edit', ['role' => $role]) }}"
+                                                    class="btn btn-outline-info"><i class="material-icons">edit</i></a>
+                                                <form action="{{ route('config.roles.destroy', ['role' => $role]) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-outline-danger"><i
+                                                            class="material-icons">delete_outline</i></button>
+
+                                                </form>
                                             </div>
                                         </td>
                                     </tr>

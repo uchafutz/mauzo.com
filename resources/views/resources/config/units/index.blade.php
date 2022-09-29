@@ -1,18 +1,20 @@
 @extends('layouts.app')
+@section('page_title')
+    {{ __('Units') }}
+@endsection
 
+@section('page_action')
+    <a href="{{ route('config.units.create') }}" class="btn btn-primary"><i class="material-icons">add</i> Create
+        Unit</a>
+@endsection
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('Units') }}</div>
+                    <div class="card-header"></div>
 
                     <div class="card-body">
-                       
-
-                        <a href="{{ route("config.units.create") }}" class="btn btn-primary btn-sm"><i class="fas fa-plus">
-                        </i>Add</a>
-
                         <table class="table table-stripped">
                             <thead>
                                 <tr>
@@ -20,7 +22,7 @@
                                     <th>Name</th>
                                     <th>Code</th>
                                     <th>Description</th>
-                                    <th>Actions</th>
+                                    <th width="100px">Actions</th>
                                 </tr>
                             </thead>
 
@@ -32,15 +34,16 @@
                                         <td>{{ $unit->code }}</td>
                                         <td>{{ $unit->description }}</td>
                                         <td>
-                                            <div class="btn-group" role="group">
-                                            <a href="{{ route("config.units.edit", ["unit" => $unit]) }}" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt">
-                                            </i>Edit</a>
-                                            <form action="{{ route("config.units.destroy",["unit" => $unit]) }}" method="post">
-                                                @csrf
-                                                @method("delete")
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash">
-                                            </i>delete</button>
-                                             </form>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="{{ route('config.units.edit', ['unit' => $unit]) }}"
+                                                    class="btn btn-outline-info"><i class="material-icons">edit</i></a>
+                                                <form action="{{ route('config.units.destroy', ['unit' => $unit]) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-outline-danger"><i
+                                                            class="material-icons">delete_outline</i></button>
+                                                </form>
                                             </div>
                                         </td>
                                     </tr>
