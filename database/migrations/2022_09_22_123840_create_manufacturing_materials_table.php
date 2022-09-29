@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('purchase_items', function (Blueprint $table) {
+        Schema::create('manufacturing_materials', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("inv_item_id");
-            $table->unsignedBigInteger("conf_unit_id");
-            $table->unsignedBigInteger("purchase_id");
+            // protected $fillable = ["manufacturing_id", "inventory_item_material_id", "quantity", "inventory_stock_item_id"];
+            $table->unsignedBigInteger("manufacturing_id");
+            $table->unsignedBigInteger("inventory_item_material_id");
             $table->float("quantity");
-            $table->decimal("unit_price",17,2);
+            $table->unsignedBigInteger("inventory_stock_item_id")->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchase_items');
+        Schema::dropIfExists('manufacturing_materials');
     }
 };

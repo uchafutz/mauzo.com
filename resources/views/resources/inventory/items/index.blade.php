@@ -14,8 +14,6 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-
-
                         <table class="table table-stripped">
                             <thead>
                                 <tr>

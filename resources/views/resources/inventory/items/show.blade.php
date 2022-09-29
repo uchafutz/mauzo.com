@@ -9,13 +9,117 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card"></div>
-
                 <div class="card">
-                    <div class="card-header">{{ __('View Inventory Materials') }}</div>
+                    <div class="card-header">
+                        <h4></h4>
+                    </div>
                     <div class="card-body">
-                        <p><span><a class="btn btn-info"
-                                    href="{{ route('inventory.inventoryItems.inventoryItemMaterials.create', ['inventoryItem' => $inventoryItem]) }}">
-                                    Add Materials</a></span></p>
+                        <strong><i class="fas fa-book mr-1"></i>{{ __(' Items Details') }}</strong>
+                        <p class="text-muted">
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>Name</td>
+                                <td>{{ $inventoryItem->name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Image</td>
+                                <td><img src="{{ $inventoryItem->featured_image }}" height="50px" alt="" /></td>
+                            </tr>
+                            <tr>
+                                <td>Descriptin</td>
+                                <td>{{ $inventoryItem->description }}</td>
+                            </tr>
+                            <tr>
+                                <td>Unit</td>
+                                <td>{{ $inventoryItem->unitType->name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Unit of Measurement </td>
+                                <td>{{ $inventoryItem->unit->name }}</td>
+                            </tr>
+                            <tr>
+                                <td>Stock</td>
+                                <td>{{ $inventoryItem->in_stock }} {{ $inventoryItem->unit->code }}</td>
+                            </tr>
+                            <tr>
+                                <td>Item </td>
+                                <td>
+                                    <div class="row row-cols-lg-auto g-3 align-items-center">
+                                        <div class="col-12">
+                                            <div class="form-check">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    Is Material
+                                                    @if ($inventoryItem->is_material == 1)
+                                                        <span class="text-primary">
+                                                            True
+                                                        </span>
+                                                    @else
+                                                        <span class="text-danger">
+                                                            False
+                                                        </span>
+                                                    @endif
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-check">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    Is Product
+                                                    @if ($inventoryItem->is_product == 1)
+                                                        <span class="text-primary">
+                                                            True
+                                                        </span>
+                                                    @else
+                                                        <span class="text-danger">
+                                                            False
+                                                        </span>
+                                                    @endif
+
+
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-check">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    Is Manufactured
+                                                    @if ($inventoryItem->is_manufactured == 1)
+                                                        <span class="text-primary">
+                                                            True
+                                                        </span>
+                                                    @else
+                                                        <span class="text-danger">
+                                                            False
+                                                        </span>
+                                                    @endif
+
+
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Inventory Item Category</td>
+                                <td>{{ $inventoryItem->inventoryCategory->name }}</td>
+                            </tr>
+                        </table>
+                        </p>
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="card card-secondary">
+                    <div class="card-header">
+                        <h4></h4>
+                    </div>
+                    <div class="card-body ">
+
+                        <p> <span><a class="btn btn-primary"
+                                    href="{{ route('inventory.inventoryItems.inventoryItemMaterials.create', ['inventoryItem' => $inventoryItem]) }}"><i
+                                        class="fas fa-plus">
+                                    </i> Add Materials</a></span></p>
                         <table class="table table-stripped">
                             <thead>
                                 <tr>

@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('units', function (Blueprint $table) {
+        Schema::create('manufacturings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("unit_type_id");
-            $table->String("name");
-            $table->Text("description")->nullable();
-            $table->String("code");
-            $table->String("symbol")->nullable();
-            $table->float("factor");
+            $table->unsignedBigInteger("inventory_item_id");
+            $table->unsignedBigInteger("config_unit_id");
+            $table->decimal("quantity")->default(0);
+            $table->enum("status", ['CREATED', 'BOQ', 'PROCESSED'])->default("CREATED");
             $table->softDeletes();
             $table->timestamps();
         });
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('units');
+        Schema::dropIfExists('manufacturings');
     }
 };

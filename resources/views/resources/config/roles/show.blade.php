@@ -6,9 +6,7 @@
     <div class="container">
         <div class="row justify-content">
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('View Role') }}</div>
-                    <div class="card-body">
+               
                         <div class="card card-primary">
 
                             <div class="card-body">
@@ -74,7 +72,6 @@
                                 </form>
 
                             </div>
-
                         </div>
 
                     </div>

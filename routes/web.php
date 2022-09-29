@@ -8,15 +8,20 @@ use App\Http\Controllers\Config\UnitController;
 use App\Http\Controllers\Config\UnitTypeController;
 use App\Http\Controllers\Config\User\UserController;
 use App\Http\Controllers\Customer\CustomerController;
+use App\Http\Controllers\Inventory\InventoryCategoryController;
+use App\Http\Controllers\Inventory\InventoryItemController;
+use App\Http\Controllers\Inventory\InventoryItemMaterialController;
+use App\Http\Controllers\Inventory\InventoryWarehouseController;
+use App\Http\Controllers\Inventory\ManufacturingController;
+use App\Http\Controllers\Inventory\ManufacturingGenrateBOQController;
+use App\Http\Controllers\Inventory\ManufacturingMaterialStockAssignmentController;
 use App\Http\Controllers\Purchase\PurchaseController;
 use App\Http\Controllers\Inventory\InventoryItemController;
 use App\Http\Controllers\Purchase\PurchaseSubmittedController;
 use App\Http\Controllers\Config\User\AssignUserRolesController;
-use App\Http\Controllers\Inventory\InventoryCategoryController;
-use App\Http\Controllers\Inventory\InventoryWarehouseController;
-use App\Http\Controllers\Inventory\InventoryItemMaterialController;
 use App\Http\Controllers\Config\Role\AssignRolePermissionController;
 use App\Http\Controllers\Config\User\AssignUserPermissionController;
+use App\Http\Controllers\Sale\SaleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +59,10 @@ Route::middleware("auth")->group(function () {
         Route::resource("inventoryCategories", InventoryCategoryController::class);
         Route::resource("inventoryItems", InventoryItemController::class);
         Route::resource("inventoryWarehouses", InventoryWarehouseController::class);
-        Route::resource("inventoryItems.inventoryItemMaterials", InventoryItemMaterialController::class);
+        Route::resource("inventoryItems.inventoryItemMaterials",InventoryItemMaterialController::class);
+        Route::resource("manufacturings", ManufacturingController::class);
+        Route::post("manufacturings/{manufacturing}/generate-boq", ManufacturingGenrateBOQController::class)->name("manufacturings.generateBOQ");
+        Route::post("manufacturings/{manufacturing}/material/{manufacturingMaterial}/assign-stock-items", ManufacturingMaterialStockAssignmentController::class)->name("manufacturings.materials.assignStock");
     });
 
     Route::prefix("/purchase")->name("purchase.")->group(function () {
@@ -65,4 +73,9 @@ Route::middleware("auth")->group(function () {
     Route::prefix("/customer")->name("customer.")->group(function () {
         Route::resource("customers", CustomerController::class);
     });
+
+    Route::prefix("/sale")->name("sale.")->group(function(){
+        Route::resource("sales",SaleController::class);
+    });
+  
 });

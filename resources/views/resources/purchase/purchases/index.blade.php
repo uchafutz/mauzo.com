@@ -29,7 +29,6 @@
                             </thead>
 
                             <tbody>
-
                                 @foreach ($purchases as $purchase)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
@@ -62,21 +61,9 @@
                                                     </form>
                                                 @endif
                                             </div>
-
-
-
-
-
-
-
-
-
-
-
                                         </td>
                                     </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
                     </div>

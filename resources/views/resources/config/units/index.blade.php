@@ -15,9 +15,6 @@
                     <div class="card-header"></div>
 
                     <div class="card-body">
-
-
-
                         <table class="table table-stripped">
                             <thead>
                                 <tr>

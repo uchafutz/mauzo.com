@@ -33,7 +33,6 @@
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>
-                                            
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <a href="{{ route('config.users.show', ['user' => $user]) }}"
                                                     class="btn btn-outline-success"><i

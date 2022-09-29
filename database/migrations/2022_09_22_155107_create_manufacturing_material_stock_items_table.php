@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('units', function (Blueprint $table) {
+        Schema::create('manufacturing_material_stock_items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("unit_type_id");
-            $table->String("name");
-            $table->Text("description")->nullable();
-            $table->String("code");
-            $table->String("symbol")->nullable();
-            $table->float("factor");
+            $table->unsignedBigInteger("manufacturing_material_id");
+            $table->unsignedBigInteger("stock_item_id");
+            $table->float("quantity");
+            $table->json("stock_item_snapshot")->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('units');
+        Schema::dropIfExists('manufacturing_material_stock_items');
     }
 };

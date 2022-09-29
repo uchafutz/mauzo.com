@@ -23,7 +23,8 @@ class InventoryItem extends Model
         'is_product',
         'default_unit_id',
         'reorder_level',
-        'featured_image'
+        'featured_image',
+        'sale_price'
     ];
 
     public function inventoryCategory(){
@@ -48,6 +49,10 @@ class InventoryItem extends Model
 
     public function warehouses() {
         return $this->belongsToMany(InventoryWarehouse::class, "warehouse_has_items", "inv_item_id", "inv_warehouse_id")->withPivot(["in_stock"]);
+    }
+
+    public function manufacturingMaterials() {
+        return $this->belongsToMany(ManufacturingMaterial::class, "manufacturing_material_stock_items", "stock_item_id", "manufacturing_material_id")->withPivot("quantity");
     }
 
     public function calculateInStock() {

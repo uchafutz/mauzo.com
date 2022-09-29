@@ -15,6 +15,9 @@
                     <div class="card-header"></div>
 
                     <div class="card-body">
+                       
+                        <a href="{{ route("config.roles.create") }}" class="btn btn-primary btn-sm"><i class="fas fa-plus">
+                        </i>Add</a>
 
                         <table class="table table-stripped">
                             <thead>
