@@ -8,8 +8,8 @@
 @endsection
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
+        <div class="row justify-content">
+            <div class="col-md-8">
                 <div class="card">
                     <div class="card-header"></div>
 
@@ -28,16 +28,18 @@
                                 <x-form.custom-input name="name" type="text" label="Name Unit" placeholder="Unit name"
                                     value="{{ isset($unit) ? $unit->name : null }}" />
                                 <div class="form-group">
-                                    <label for="" class="label-control">Unit Type</label>
-                                    <select name="unit_type_id"
-                                        class="form-control @error('unit_type_id') is-invalid @enderror">
-                                        @foreach ($unitTypes as $unitType)
-                                            <option
-                                                value="{{ old('unit_type_id') ?? (isset($unitType->id) ? $unitType->id : '') }}"
-                                                {{ isset($unit) && $unit->unit_type_id == $unitType->id ? 'selected' : null }}>
-                                                {{ $unitType->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="col-md-6">
+                                        <label for="" class="label-control">Unit Type</label>
+                                        <select name="unit_type_id"
+                                            class="form-control @error('unit_type_id') is-invalid @enderror">
+                                            @foreach ($unitTypes as $unitType)
+                                                <option
+                                                    value="{{ old('unit_type_id') ?? (isset($unitType->id) ? $unitType->id : '') }}"
+                                                    {{ isset($unit) && $unit->unit_type_id == $unitType->id ? 'selected' : null }}>
+                                                    {{ $unitType->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     @error('unit_types')
                                         <p class="invalid-feedback">{{ $message }}</p>
                                     @enderror

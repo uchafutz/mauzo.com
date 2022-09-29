@@ -11,25 +11,27 @@ class InventoryStockTransaction extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable=[
-     'source_id',
-     'source_type',
-     'destination_id',
-     'destination_type',
-     'inv_item_id',
-     'quantity'
+    protected $fillable = [
+        'source_id',
+        'source_type',
+        'destination_id',
+        'destination_type',
+        'inv_item_id',
+        'quantity'
     ];
 
-    public function source() {
+    public function source()
+    {
         return $this->morphTo();
     }
 
-    public function destination() {
+    public function destination()
+    {
         return $this->morphTo();
     }
 
-    public function item() {
+    public function item()
+    {
         return $this->belongsTo(InventoryItem::class);
     }
-
 }

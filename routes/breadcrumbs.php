@@ -6,6 +6,8 @@ use App\Models\Config\UnitType;
 use App\Models\Customer\Customer;
 use App\Models\Inventory\InventoryCategory;
 use App\Models\Inventory\InventoryItem;
+use App\Models\Inventory\InventoryItemMaterial;
+use App\Models\Inventory\InventoryWarehouse;
 use App\Models\Purchase\Purchase;
 use App\Models\User;
 use Diglactic\Breadcrumbs\Breadcrumbs;
@@ -25,7 +27,7 @@ Breadcrumbs::for('purchase.purchases.create', function ($trail) {
 });
 
 Breadcrumbs::for('purchase.purchases.edit', function ($trail, Purchase $purchase) {
-    $trail->parent('purchase.purchases.index');
+    $trail->parent('purchase.purchases.show', $purchase);
     $trail->push('Edit', route('purchase.purchases.edit', ['purchase' => $purchase]));
 });
 
@@ -67,8 +69,18 @@ Breadcrumbs::for('inventory.inventoryItems.edit', function ($trail, InventoryIte
 });
 
 Breadcrumbs::for('inventory.inventoryItems.show', function ($trail, InventoryItem $inventoryItem) {
-    $trail->parent('pinventory.inventoryItems.index');
-    $trail->push($inventoryItem->code, route('inventory.inventoryItems.show', ['inventoryItems' => $inventoryItem]));
+    $trail->parent('inventory.inventoryItems.index');
+    $trail->push($inventoryItem->name, route('inventory.inventoryItems.show', ['inventoryItem' => $inventoryItem]));
+});
+
+Breadcrumbs::for('inventory.inventoryItems.inventoryItemMaterials.create', function ($trail, InventoryItem $inventoryItem) {
+    $trail->parent('inventory.inventoryItems.show', $inventoryItem);
+    $trail->push("Add Material", route('inventory.inventoryItems.inventoryItemMaterials.create', ['inventoryItem' => $inventoryItem]));
+});
+
+Breadcrumbs::for('inventory.inventoryItems.inventoryItemMaterials.edit', function ($trail, InventoryItem $inventoryItem, InventoryItemMaterial $inventoryItemMaterial) {
+    $trail->parent('inventory.inventoryItems.show', $inventoryItem);
+    $trail->push("Update Material - " . $inventoryItemMaterial->materialItem->name, route('inventory.inventoryItems.inventoryItemMaterials.edit', ['inventoryItem' => $inventoryItem, 'inventoryItemMaterial' => $inventoryItemMaterial]));
 });
 
 //inventorCategory
@@ -111,7 +123,7 @@ Breadcrumbs::for('config.users.edit', function ($trail, User $user) {
 });
 Breadcrumbs::for('config.users.show', function ($trail, User $user) {
     $trail->parent('config.users.index');
-    $trail->push($user->code, route('config.users.show', ['user' => $user]));
+    $trail->push($user->name, route('config.users.show', ['user' => $user]));
 });
 
 ///roles
@@ -153,13 +165,13 @@ Breadcrumbs::for('config.units.edit', function ($trail, Unit $unit) {
 });
 Breadcrumbs::for('config.units.show', function ($trail, Unit $unit) {
     $trail->parent('config.units.index');
-    $trail->push($unit->code, route('config.units.show', ['unit' => $unit]));
+    $trail->push($unit->name, route('config.units.show', ['unit' => $unit]));
 });
 
 //unitTypes
 Breadcrumbs::for('config.unitTypes.index', function ($trail) {
     $trail->parent('home');
-    $trail->push('UnitType', route('config.unitTypes.index'));
+    $trail->push('Unit Type', route('config.unitTypes.index'));
 });
 
 Breadcrumbs::for('config.unitTypes.create', function ($trail) {
@@ -173,5 +185,22 @@ Breadcrumbs::for('config.unitTypes.edit', function ($trail, UnitType $unitType) 
 });
 Breadcrumbs::for('config.unitTypes.show', function ($trail, UnitType $unitType) {
     $trail->parent('config.unitTypes.index');
-    $trail->push($unitType->code, route('config.unitTypes.show', ['unitType' => $unitType]));
+    $trail->push($unitType->name, route('config.unitTypes.show', ['unitType' => $unitType]));
+});
+
+///inventoryWarehouses
+
+Breadcrumbs::for('inventory.inventoryWarehouses.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Inventory Warehouse', route('inventory.inventoryWarehouses.index'));
+});
+
+Breadcrumbs::for('inventory.inventoryWarehouses.create', function ($trail) {
+    $trail->parent('inventory.inventoryWarehouses.index');
+    $trail->push('Create', route('inventory.inventoryWarehouses.create'));
+});
+
+Breadcrumbs::for('inventory.inventoryWarehouses.edit', function ($trail, InventoryWarehouse $inventoryWarehouse) {
+    $trail->parent('inventory.inventoryWarehouses.index');
+    $trail->push('Edit', route('inventory.inventoryWarehouses.edit', ['inventoryWarehouse' => $inventoryWarehouse]));
 });

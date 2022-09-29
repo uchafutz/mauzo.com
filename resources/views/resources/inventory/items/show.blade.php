@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page_title')
-    {{ $inventoryItem->code }}
+    {{ $inventoryItem->name }}
 @endsection
 
 @section('content')
@@ -13,7 +13,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('View Inventory Materials') }}</div>
                     <div class="card-body">
-                        <p>{{ $inventoryItem->name }} <span><a class="btn btn-info"
+                        <p><span><a class="btn btn-info"
                                     href="{{ route('inventory.inventoryItems.inventoryItemMaterials.create', ['inventoryItem' => $inventoryItem]) }}">
                                     Add Materials</a></span></p>
                         <table class="table table-stripped">

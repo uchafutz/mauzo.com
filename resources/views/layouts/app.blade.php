@@ -104,7 +104,7 @@
                                 <a href="{{ route('inventory.inventoryItems.index') }}">Items</a>
                             </li>
                             <li>
-                                <a href="">Warehouses</a>
+                                <a href="{{ route('inventory.inventoryWarehouses.index') }}">Warehouses</a>
                             </li>
                         </ul>
                     </li>

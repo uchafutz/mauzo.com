@@ -12,23 +12,25 @@ class InventoryCategory extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable=[
+    protected $fillable = [
         'parent_id',
         'name',
         'description',
         'featured_image'
     ];
 
-    public function parent() {
+    public function parent()
+    {
         return $this->belongsTo(InventoryCategory::class, "parent_id");
     }
 
-    public function children() {
+    public function children()
+    {
         return $this->hasMany(InventoryCategory::class, "parent_id");
     }
 
-    protected function featuredImage():Attribute{
-        return Attribute::make(fn($val)=>Storage::url($val));
-
+    protected function featuredImage(): Attribute
+    {
+        return Attribute::make(fn ($val) => Storage::url($val));
     }
 }

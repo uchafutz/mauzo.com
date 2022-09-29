@@ -8,10 +8,10 @@
 @endsection
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
+        <div class="row justify-content">
+            <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Add inventoryItem') }}</div>
+                    <div class="card-header"></div>
 
                     <div class="card-body">
 
@@ -30,48 +30,54 @@
                                     value="{{ isset($inventoryItem) ? $inventoryItem->name : null }}" />
                                 <div class="form-group">
                                     <label for="" class="label-control">Select Unit type</label>
-                                    <select name="unit_type_id" id="unit_type_id"
-                                        class="form-control  @error('unit_type_id') is-invalid @enderror">
-                                        <option value=""></option>
-                                        <option value="">Choose...</option>
-                                        @foreach ($unitTypes as $unitType)
-                                            <option value="{{ $unitType->id }}"
-                                                {{ isset($unitType) && $unitType->id == $unitType->id ? 'selected' : '' }}>
-                                                {{ $unitType->name }}</option>
-                                        @endforeach
+                                    <div class="col-md-6">
+                                        <select name="unit_type_id" id="unit_type_id"
+                                            class="form-control  @error('unit_type_id') is-invalid @enderror">
+                                            <option value=""></option>
+                                            <option value="">Choose...</option>
+                                            @foreach ($unitTypes as $unitType)
+                                                <option value="{{ $unitType->id }}"
+                                                    {{ isset($unitType) && $unitType->id == $unitType->id ? 'selected' : '' }}>
+                                                    {{ $unitType->name }}</option>
+                                            @endforeach
 
-                                    </select>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <x-form.custom-textarea name="description" label="Description" placeholder="Description"
                                     value="{{ isset($inventoryItem) ? $inventoryItem->description : null }}" />
                                 <div class="form-group">
-                                    <label for="" class="label-control">Select Inventory category</label>
-                                    <select name="inventory_category_id" id="inventory_category_id"
-                                        class="form-control  @error('inventory_category_id') is-invalid @enderror">
-                                        <option value="">Choose...</option>
-                                        @foreach ($inventoryCategories as $invetoryCategory)
-                                            <option
-                                                value="{{ $invetoryCategory->id }}"{{ isset($invetoryCategory) && $invetoryCategory->id == $invetoryCategory->id ? 'selected' : '' }}>
-                                                {{ $invetoryCategory->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="col-md-6">
+                                        <label for="" class="label-control">Select Inventory category</label>
+                                        <select name="inventory_category_id" id="inventory_category_id"
+                                            class="form-control  @error('inventory_category_id') is-invalid @enderror">
+                                            <option value="">Choose...</option>
+                                            @foreach ($inventoryCategories as $invetoryCategory)
+                                                <option
+                                                    value="{{ $invetoryCategory->id }}"{{ isset($invetoryCategory) && $invetoryCategory->id == $invetoryCategory->id ? 'selected' : '' }}>
+                                                    {{ $invetoryCategory->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                                 <x-form.custom-input name="featured_image" type="file" label="Choose file"
                                     placeholder="Choose file"
                                     value="{{ isset($inventoryItem) ? $inventoryItem->featured_image : null }}" />
                                 <div class="form-group">
-                                    <label for="" class="label-control">Select Unit</label>
-                                    <select name="default_unit_id" id="default_unit_id"
-                                        class="form-control  @error('default_unit_id') is-invalid @enderror">
-                                        <option value="">Choose...</option>
-                                        @foreach ($units as $unit)
-                                            <option
-                                                value="{{ $unit->id }}"{{ isset($unit) && $unit->id == $unit->id ? 'selected' : '' }}>
-                                                {{ $unit->name }}</option>
-                                        @endforeach
+                                    <div class="col-md-6">
+                                        <label for="" class="label-control">Select Unit</label>
+                                        <select name="default_unit_id" id="default_unit_id"
+                                            class="form-control  @error('default_unit_id') is-invalid @enderror">
+                                            <option value="">Choose...</option>
+                                            @foreach ($units as $unit)
+                                                <option
+                                                    value="{{ $unit->id }}"{{ isset($unit) && $unit->id == $unit->id ? 'selected' : '' }}>
+                                                    {{ $unit->name }}</option>
+                                            @endforeach
 
-                                    </select>
+                                        </select>
+                                    </div>
                                 </div>
                                 <br />
                                 <div class="row row-cols-lg-auto g-3 align-items-center">

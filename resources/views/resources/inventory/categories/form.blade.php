@@ -8,10 +8,10 @@
 @endsection
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
+        <div class="row justify-content">
+            <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Add inventoryCategory') }}</div>
+                    <div class="card-header"></div>
 
                     <div class="card-body">
 
@@ -32,14 +32,16 @@
                                 <div class="form-group">
                                     <label for=""
                                         class="label-control">{{ __('Select Inventory category') }}</label>
-                                    <select name="parent_id" id="parent_id" class="form-control">
-                                        <option value="">Choose...</option>
-                                        @foreach ($inventoryCategories as $inventoryCategoryVariant)
-                                            <option value="{{ $inventoryCategoryVariant->id }}"
-                                                {{ isset($inventoryCategory) && $inventoryCategory->parent_id == $inventoryCategoryVariant->id ? 'selected' : '' }}>
-                                                {{ $inventoryCategoryVariant->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="col-md-6">
+                                        <select name="parent_id" id="parent_id" class="form-control">
+                                            <option value="">Choose...</option>
+                                            @foreach ($inventoryCategories as $inventoryCategoryVariant)
+                                                <option value="{{ $inventoryCategoryVariant->id }}"
+                                                    {{ isset($inventoryCategory) && $inventoryCategory->parent_id == $inventoryCategoryVariant->id ? 'selected' : '' }}>
+                                                    {{ $inventoryCategoryVariant->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <x-form.custom-textarea name="description" label="Description" placeholder="Description"
