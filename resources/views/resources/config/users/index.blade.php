@@ -22,7 +22,7 @@
                                     <th>S/n</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Actions</th>
+                                    <th width="100px">Actions</th>
                                 </tr>
                             </thead>
 
@@ -33,16 +33,21 @@
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>
-                                            <a href="{{ route('config.users.show', ['user' => $user]) }}"
-                                                class="btn btn-primary">view</a>
-                                            <a href="{{ route('config.users.edit', ['user' => $user]) }}"
-                                                class="btn btn-info">Edit</a>
-                                            <form action="{{ route('config.users.destroy', ['user' => $user]) }}"
-                                                method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger">delete</button>
-                                            </form>
+                                            
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="{{ route('config.users.show', ['user' => $user]) }}"
+                                                    class="btn btn-outline-success"><i
+                                                        class="material-icons">visibility</i></a>
+                                                <a href="{{ route('config.users.edit', ['user' => $user]) }}"
+                                                    class="btn btn-outline-info"><i class="material-icons">edit</i></a>
+                                                <form action="{{ route('config.users.destroy', ['user' => $user]) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-outline-danger"><i
+                                                            class="material-icons">delete_outline</i></button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -23,7 +23,7 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
-                                    <th>Actions</th>
+                                    <th width="100px">Actions</th>
                                 </tr>
                             </thead>
 
@@ -35,15 +35,18 @@
                                         <td>{{ $customer->email }}</td>
                                         <td>{{ $customer->phone }}</td>
                                         <td>
-                                            <a href="{{ route('customer.customers.edit', ['customer' => $customer]) }}"
-                                                class="btn btn-info">Edit</a>
-                                            <form
-                                                action="{{ route('customer.customers.destroy', ['customer' => $customer]) }}"
-                                                method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger">delete</button>
-                                            </form>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="{{ route('customer.customers.edit', ['customer' => $customer]) }}"
+                                                    class="btn btn-outline-primary"><i class="material-icons">edit</i></a>
+                                                <form
+                                                    action="{{ route('customer.customers.destroy', ['customer' => $customer]) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-outline-danger"><i
+                                                            class="material-icons">delete_outline</i></button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -9,8 +9,8 @@
 @endsection
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
+        <div class="row justify-content">
+            <div class="col-md-8">
                 <div class="card">
                     <div class="card-header"></div>
 
@@ -23,7 +23,7 @@
                                 <tr>
                                     <th>S/n</th>
                                     <th>Name</th>
-                                    <th>Actions</th>
+                                    <th width="100px">Actions</th>
                                 </tr>
                             </thead>
 
@@ -33,8 +33,10 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $unitType->name }}</td>
                                         <td>
-                                            <a href="{{ route('config.unitTypes.edit', ['unitType' => $unitType]) }}"
-                                                class="btn btn-info">Edit</a>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="{{ route('config.unitTypes.edit', ['unitType' => $unitType]) }}"
+                                                    class="btn btn-outline-info"><i class="material-icons">edit</i></a>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

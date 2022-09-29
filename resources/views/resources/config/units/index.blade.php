@@ -25,7 +25,7 @@
                                     <th>Name</th>
                                     <th>Code</th>
                                     <th>Description</th>
-                                    <th>Actions</th>
+                                    <th width="100px">Actions</th>
                                 </tr>
                             </thead>
 
@@ -37,14 +37,17 @@
                                         <td>{{ $unit->code }}</td>
                                         <td>{{ $unit->description }}</td>
                                         <td>
-                                            <a href="{{ route('config.units.edit', ['unit' => $unit]) }}"
-                                                class="btn btn-info">Edit</a>
-                                            <form action="{{ route('config.units.destroy', ['unit' => $unit]) }}"
-                                                method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger">delete</button>
-                                            </form>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="{{ route('config.units.edit', ['unit' => $unit]) }}"
+                                                    class="btn btn-outline-info"><i class="material-icons">edit</i></a>
+                                                <form action="{{ route('config.units.destroy', ['unit' => $unit]) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-outline-danger"><i
+                                                            class="material-icons">delete_outline</i></button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

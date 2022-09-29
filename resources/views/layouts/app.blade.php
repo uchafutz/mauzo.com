@@ -26,9 +26,16 @@
         href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
     <link href="{{ asset('neptune/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('neptune/plugins/perfectscroll/perfect-scrollbar.css') }}" rel="stylesheet">
     <link href="{{ asset('neptune/plugins/pace/pace.css') }}" rel="stylesheet">
+    <link href=".{{ asset('neptune/plugins/highlight/styles/github-gist.css') }}" rel="stylesheet">
+
+
+    <!-- Theme Styles -->
 
 
     <!-- Theme Styles -->
@@ -413,7 +420,8 @@
                                         <i class="material-icons">add</i>
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="addDropdownLink">
-                                        <li><a class="dropdown-item" href="#">New Purchase</a></li>
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('purchase.purchases.create') }}">New Purchase</a></li>
                                         <li><a class="dropdown-item" href="#">Manufacture Item</a></li>
                                         <li><a class="dropdown-item" href="#">New Sale</a></li>
                                     </ul>
@@ -601,10 +609,12 @@
     <!-- Javascripts -->
     <script src="{{ asset('neptune/plugins/jquery/jquery-3.5.1.min.js') }}"></script>
     <script src="{{ asset('neptune/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('neptune/plugins/bootstrap/js/popper.min.js') }}"></script>
     <script src="{{ asset('neptune/plugins/perfectscroll/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('neptune/plugins/pace/pace.min.js') }}"></script>
     <script src="{{ asset('neptune/plugins/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('neptune/js/main.min.js') }}"></script>
+    <script src="{{ asset('neptune/plugins/highlight/highlight.pack.js') }}"></script>
     <script src="{{ asset('neptune/js/custom.js') }}"></script>
     <script src="{{ asset('neptune/js/pages/dashboard.js') }}"></script>
 </body>

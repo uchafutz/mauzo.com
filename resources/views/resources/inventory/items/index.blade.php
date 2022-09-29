@@ -24,7 +24,7 @@
                                     <th>Name</th>
                                     <th>Description</th>
                                     <th>In Stock</th>
-                                    <th>Actions</th>
+                                    <th width="100px">Actions</th>
                                 </tr>
                             </thead>
 
@@ -38,17 +38,21 @@
                                         <td>{{ $inventoryItem->description }}</td>
                                         <td>{{ $inventoryItem->in_stock }} {{ $inventoryItem->unit->code }}</td>
                                         <td>
-                                            <a href="{{ route('inventory.inventoryItems.edit', ['inventoryItem' => $inventoryItem]) }}"
-                                                class="btn btn-info">Edit</a>
-                                            <a href="{{ route('inventory.inventoryItems.show', ['inventoryItem' => $inventoryItem]) }}"
-                                                class="btn btn-success">View item</a>
-                                            <form
-                                                action="{{ route('inventory.inventoryItems.destroy', ['inventoryItem' => $inventoryItem]) }}"
-                                                method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger">delete</button>
-                                            </form>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="{{ route('inventory.inventoryItems.edit', ['inventoryItem' => $inventoryItem]) }}"
+                                                    class="btn btn-outline-info"><i class="material-icons">edit</i></a>
+                                                <a href="{{ route('inventory.inventoryItems.show', ['inventoryItem' => $inventoryItem]) }}"
+                                                    class="btn btn-outline-success"><i
+                                                        class="material-icons">visibility</i></a>
+                                                <form
+                                                    action="{{ route('inventory.inventoryItems.destroy', ['inventoryItem' => $inventoryItem]) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-outline-danger"><i
+                                                            class="material-icons">delete_outline</i></button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

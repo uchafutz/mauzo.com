@@ -23,7 +23,7 @@
                                     <th>Name</th>
                                     <th>Display</th>
                                     <th>Description</th>
-                                    <th>Actions</th>
+                                    <th width="100px">Actions</th>
                                 </tr>
                             </thead>
 
@@ -35,16 +35,21 @@
                                         <td>{{ $role->display }}</td>
                                         <td>{{ $role->description }}</td>
                                         <td>
-                                            <a href="{{ route('config.roles.show', ['role' => $role]) }}"
-                                                class="btn btn-primary">show</a>
-                                            <a href="{{ route('config.roles.edit', ['role' => $role]) }}"
-                                                class="btn btn-info">Edit</a>
-                                            <form action="{{ route('config.roles.destroy', ['role' => $role]) }}"
-                                                method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger">delete</button>
-                                            </form>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="{{ route('config.roles.show', ['role' => $role]) }}"
+                                                    class="btn btn-outline-success"><i
+                                                        class="material-icons">visibility</i></a>
+                                                <a href="{{ route('config.roles.edit', ['role' => $role]) }}"
+                                                    class="btn btn-outline-info"><i class="material-icons">edit</i></a>
+                                                <form action="{{ route('config.roles.destroy', ['role' => $role]) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-outline-danger"><i
+                                                            class="material-icons">delete_outline</i></button>
+
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -144,7 +144,7 @@ Breadcrumbs::for('config.roles.edit', function ($trail, Role $role) {
 });
 Breadcrumbs::for('config.roles.show', function ($trail, Role $role) {
     $trail->parent('config.roles.index');
-    $trail->push($role->code, route('config.roles.show', ['role' => $role]));
+    $trail->push($role->name, route('config.roles.show', ['role' => $role]));
 });
 //
 

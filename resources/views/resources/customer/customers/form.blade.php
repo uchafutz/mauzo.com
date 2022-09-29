@@ -1,10 +1,17 @@
 @extends('layouts.app')
+@section('page_title')
+    @isset($customer)
+        Update Customer
+    @else
+        New Customer
+    @endisset
+@endsection
 @section('content')
     <div class="container">
         <div class="row justify-content">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Add Customer') }}</div>
+                    <div class="card-header"></div>
 
                     <div class="card-body">
 

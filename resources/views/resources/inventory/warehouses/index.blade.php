@@ -23,7 +23,7 @@
                                     <th>Image</th>
                                     <th>Name</th>
                                     <th>Description</th>
-                                    <th>Actions</th>
+                                    <th width="100px">Actions</th>
                                 </tr>
                             </thead>
 
@@ -36,15 +36,18 @@
                                         <td>{{ $inventoryWarehouse->name }}</td>
                                         <td>{{ $inventoryWarehouse->description }}</td>
                                         <td>
-                                            <a href="{{ route('inventory.inventoryWarehouses.edit', ['inventoryWarehouse' => $inventoryWarehouse]) }}"
-                                                class="btn btn-info">Edit</a>
-                                            <form
-                                                action="{{ route('inventory.inventoryWarehouses.destroy', ['inventoryWarehouse' => $inventoryWarehouse]) }}"
-                                                method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger">delete</button>
-                                            </form>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="{{ route('inventory.inventoryWarehouses.edit', ['inventoryWarehouse' => $inventoryWarehouse]) }}"
+                                                    class="btn btn-outline-info"><i class="material-icons">edit</i></a>
+                                                <form
+                                                    action="{{ route('inventory.inventoryWarehouses.destroy', ['inventoryWarehouse' => $inventoryWarehouse]) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-outline-danger"><i
+                                                            class="material-icons">delete_outline</i></button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
