@@ -19,9 +19,9 @@ return new class extends Migration
             $table->unsignedBigInteger("source_id");
             $table->string("source_type");
             $table->unsignedBigInteger("inv_warehouse_id");
-            $table->decimal("quantity");
-            $table->decimal("unit_cost");
-            $table->decimal("in_stock");
+            $table->float("quantity");
+            $table->decimal("unit_cost",17,2);
+            $table->float("in_stock");
             $table->softDeletes();
             $table->timestamps();
         });

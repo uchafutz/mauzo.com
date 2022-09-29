@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('warehouse_has_items', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger("inv_warehouse_id");
-            $table->unsignedBigInteger("inv_item_id");
-            $table->float("in_stock");
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('sales', function (Blueprint $table) {
+            $table->enum('status',["DRAFT","PAID"])->default("DRAFT");
         });
     }
 
@@ -30,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('warehouse_has_items');
+        Schema::table('sales', function (Blueprint $table) {
+            $table->dropColumn("status");
+        });
     }
 };

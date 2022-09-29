@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger("inv_item_id");
             $table->unsignedBigInteger("conf_unit_id");
             $table->unsignedBigInteger("purchase_id");
-            $table->decimal("quantity");
-            $table->decimal("unit_price");
+            $table->float("quantity");
+            $table->decimal("unit_price",17,2);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -10,13 +10,16 @@
                     <div class="card-body">
                        
 
-                        <a href="{{ route("customer.customers.create") }}" class="btn btn-primary">Add</a>
+                        <a href="{{ route("customer.customers.create") }}" class="btn btn-primary btn-sm"><i class="fas fa-plus">
+                        </i>Add</a>
 
                         <table class="table table-stripped">
                             <thead>
                                 <tr>
                                     <th>S/n</th>
                                     <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Phone</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -26,13 +29,19 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $customer->name }}</td>
+                                        <td>{{ $customer->address}}</td>
+                                        <td>{{ $customer->phone}}</td>
                                         <td>
-                                            <a href="{{ route("customer.customers.edit", ["customer" => $customer]) }}" class="btn btn-info">Edit</a>
+                                            <div class="btn-group" role="group">
+                                            <a href="{{ route("customer.customers.edit", ["customer" => $customer]) }}" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt">
+                                            </i>Edit</a>
                                             <form action="{{ route("customer.customers.destroy",["customer" => $customer]) }}" method="post">
                                                 @csrf
                                                 @method("delete")
-                                            <button type="submit" class="btn btn-danger">delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash">
+                                            </i> delete</button>
                                              </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

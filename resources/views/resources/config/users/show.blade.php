@@ -3,9 +3,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('View User') }}</div>
-                    <div class="card-body">
+               
                         <div class="card card-primary">
                         
                             <div class="card-body">
@@ -29,7 +27,7 @@
                             <p class="text-muted">
                                 <form action="{{ route("config.users.assignRoles", ["user" => $user]) }}" method="post">
                                     @csrf
-                                <table class="table table-bordered">
+                                <table class="table table-bordered pull-right" style="width: 100% !important;" align="right">
                                     @foreach ($roles as $role)
                                       <tr>
                                         <th>{{ $loop->iteration }}</th>
@@ -37,13 +35,17 @@
                                         <th><input class="form-check-input" name="role_id[]" type="checkbox" value="{{$role->id}}" id="flexCheckDefault" {{  ($user->roles->contains('name', $role->name) ? ' checked' : '') }}></th>
                                         </tr>
                                     @endforeach
+                                    <th colspan="3" ><button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-sync"></i> Update</button></th>
                                   </table>
-                                  <button type="submit" class="btn btn-primary">Update</button>
+                                  
+                                  
+                                 
                                 </form>
                             </p>
                             <hr>
+                            
                             <form action="{{ route("config.users.assignPermissions", ["user" => $user]) }}" method="post">
-                            <strong><i class="fas fa-pencil-alt mr-1"></i>{{__("Permissions")}} <button type="submit" class="btn btn-primary">Update</button></strong>
+                            <strong><i class="fas fa-pencil-alt mr-1"></i>{{__("Permissions")}}</strong>
                            
                             <hr>
                             <div class="card-body">
@@ -63,16 +65,14 @@
                                 <td><input class="form-check-input" name="permission_id[]" type="checkbox" value="{{$permission->id}}" id="flexCheckDefault" {{  ($user->permissions->contains('name', $permission->name) ? ' checked' : '') }}></td>
                                 </tr>
                                 @endforeach
-                            </tbody>
+                                <th colspan="3"> <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-sync"></i> Update</button></th>
+                                </tbody>
                                 </table>
                                 </form>
                     
                             </div>
                             
-                            </div>
-                       
-                    </div>
-                </div>
+                  
             </div>
         </div>
     </div>
