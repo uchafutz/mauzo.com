@@ -35,7 +35,7 @@
                                         <td>{{ $sale->code }}</td>
                                         <td>{{ $sale->date->format("m-d-Y") }}</td>
                                         <td>{{ number_format($sale->total_amount, null, null, " ") }} TZS</td>
-                                        <th class="{{ $sale->status == 'DRAFT' ? 'text-warning' : 'text-primary' }}">{{ $sale->status}}</th>
+                                        <th class="{{ $sale->status == 'DRAFT' ? 'text-warning' : 'text-success' }}">{{ $sale->status}}</th>
                                         <td class="tex-right">
                                             <div class="btn-group" role="group">
                                                 <a class="btn btn-outline-success" href="{{ route("sale.sales.show", ["sale" => $sale]) }}"><i class="material-icons">visibility</i></a>

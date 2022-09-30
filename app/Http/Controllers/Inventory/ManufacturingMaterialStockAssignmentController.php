@@ -24,9 +24,13 @@ class ManufacturingMaterialStockAssignmentController extends Controller
             // "items.*.stock_item_snapshot" => ["required"],
         ]);
 
+        DB::beginTransaction();
+        $payload = [];
         foreach ($request->input("items") as $item) {
-            $manufacturingMaterial->stockItems()->attach($item['stock_item_id'], ['quantity' => $item['quantity']]);
+            $payload[$item['stock_item_id']] = ['quantity' => $item['quantity']];
         }
+        $manufacturingMaterial->stockItems()->sync($payload);
+        DB::commit();
 
         return redirect(route("inventory.manufacturings.show", ["manufacturing" => $manufacturing]));
     }

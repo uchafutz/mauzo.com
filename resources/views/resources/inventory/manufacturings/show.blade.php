@@ -1,9 +1,22 @@
 @extends('layouts.app')
 
+@section('page_title')
+    {{ $manufacturing->item->name . ' M' . str_pad($manufacturing->id, 3, "0", STR_PAD_LEFT) }}
+@endsection
+
+@section('page_action')
+    @if ($manufacturing->status == 'DRAFT')
+        <a href="{{ route("inventory.manufacturings.edit", ["manufacturing" => $manufacturing]) }}" class="btn btn-primary"><i class="material-icons">edit</i> Edit</a>
+    @endif
+    @if ($manufacturing->status == 'BOQ')
+        <a href="{{ route("inventory.manufacturings.edit", ["manufacturing" => $manufacturing]) }}" class="btn btn-success btn-lg"><i class="material-icons">send</i> Submit</a>
+    @endif
+@endsection
+
 @section('content')
     <div class="container" x-data="getModalState()">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="d-flex mb-2">
                     <div class="flex-grow-1"></div>
                     @if ($manufacturing->status == "CREATED")
@@ -102,6 +115,7 @@
                                         <th>Material Type</th>
                                         <th>Quantinty</th>
                                         <th>Current Stock</th>
+                                        <th>Assigned Stock</th>
                                         <th>Actions</th>
                                     </thead>
 
@@ -114,8 +128,22 @@
                                                 <td>{{ $material->quantity }} {{ $material->material->materialItem->unit->code }}</td>
                                                 <td>{{ $material->material->materialItem->in_stock }} {{ $material->material->materialItem->unit->code }} <sup class="{{ $material->material->type == 'RAW' ? 'text-danger' : 'text-success' }}"> {{ $material->material->type == 'RAW' ? '-' : '+' }}{{ $material->quantity }} {{ $material->material->materialItem->unit->code }}</sup> </td>
                                                 <td>
-                                                    @if ($material->material->type == "RAW" && $material->stockItems->count() == 0)
-                                                        <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" x-on:click="setValues('{{ route('inventory.manufacturings.materials.assignStock', ['manufacturing' => $manufacturing, 'manufacturingMaterial' => $material]) }}', '{{ $material->quantity }}', {{ json_encode($material->material->materialItem->stockItems()->with('warehouse')->get()) }})">Assign Stock</button>
+                                                    @if ($material->material->type == "RAW")
+                                                        <div class="">
+                                                            @if ($material->stockItems->count() > 0)
+                                                                <p>{{ $material->stockItems->reduce(fn ($carry, $val) => $carry + $val->pivot->quantity, 0) }} KG from  <br>{{ $material->stockItems->count() }} Stock Items</p>
+                                                            @else
+                                                                NILL
+                                                            @endif
+                                                            
+                                                        </div>
+                                                        @else
+                                                        N/A
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($material->material->type == "RAW")
+                                                        <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" x-on:click="setValues('{{ route('inventory.manufacturings.materials.assignStock', ['manufacturing' => $manufacturing, 'manufacturingMaterial' => $material]) }}', '{{ $material->quantity }}', {{ json_encode($material->material->materialItem->stockItems()->with('warehouse')->get()) }}, {{ json_encode($material->stockItems) }})">Assign Stock</button>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -131,9 +159,9 @@
         </div>
 
          <!-- Modal -->
-        <div class="modal modal-lg fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <form x-bind:action="url" method="post">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <form x-bind:action="url" method="post" x-ref="form">
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
@@ -141,6 +169,9 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
+                            <div x-show="error" class="alert alert-danger alert-style-light">
+                                Sorry, Quantity Required and Quantity Contributed have not balanced
+                            </div>
                         <h5>Total Quantity Required: <span x-text="quantity_required"></span></h5>
                         <h5 class="text-green">Total Quantity Contributed: <span x-text="stock_items.reduce((c, i) => c + parseInt(i.contribution),0)"></span></h5>
                         <table class="table">
@@ -163,7 +194,7 @@
                                         <td x-text="item.in_stock"></td>
                                         <td>
                                             <input type="hidden" x-bind:name="item.stock_item_name" x-bind:value="item.id">
-                                            <input type="number" class="form-control" x-bind:name="item.contribution_name" x-model="stock_items[i].contribution">
+                                            <input type="number" class="form-control" x-bind:name="item.contribution_name" x-bind:max="item.in_stock" x-model="stock_items[i].contribution">
                                         </td>
                                     </tr>
                                 </template>
@@ -172,7 +203,7 @@
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button x-on:click.prevent="submit()" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </form>
@@ -186,21 +217,45 @@
                 url: "",
                 quantity_required: 0,
                 stock_items: [],
-                setValues(url, quantity_required, stock_items) {
+                payload: [],
+                error: false,
+                setValues(url, quantity_required, stock_items, payload) {
                     this.url = url;
                     this.quantity_required = quantity_required;
+                    this.payload = payload;
                     const _items = stock_items.map((i, index) => {
+                        _payload = payload.find(sitem => sitem.id == i.id);
                         return {
                             ...i, 
-                            "contribution": 0,
+                            "contribution": payload && _payload ? _payload.pivot.quantity : 0,
                             "stock_item_name": "items[:i][stock_item_id]".replace(':i', index),
                             "contribution_name": "items[:i][quantity]".replace(':i', index),
                         };
+                        
                     });
                     console.debug(_items);
                     this.stock_items = _items
+                    
+                    this.stock_items.map((i, index) => {
+                        let _should_watch = 'stock_items[:i].contribution'.replace(":i", index);
+                        this.$watch(_should_watch, (value) => {
+                            if (value > stock_items[index].in_stock) {
+                                this.stock_items[index].contribution = stock_items[index].in_stock;
+                            }
+                        });
+                    });
                 },
-                
+                submit() {
+                    let items_contributed = this.stock_items.reduce((c, i) => c + parseInt(i.contribution),0)
+                    if (items_contributed != this.quantity_required) {
+                        this.error = true;
+                        setTimeout(() => {
+                            this.error = false;
+                        }, 10000);
+                        return;
+                    }
+                    this.$refs.form.submit();
+                }
             }
         }
     </script>

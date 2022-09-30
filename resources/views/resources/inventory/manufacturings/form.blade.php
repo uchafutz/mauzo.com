@@ -1,9 +1,17 @@
 @extends('layouts.app')
 
+@section('page_title')
+    @isset($manufacturing)
+        Update Manufacturing
+        @else
+        New Manufacturing
+    @endisset
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card" x-data="getState()" x-init="init({{ json_encode($inventoryItems) }}, {{ json_encode($units) }}, {{ isset($manufacturing) ? json_encode($manufacturing) : null }} )">
                     <div class="card-header">{{ __('Manufacturing Form') }}</div>
 
