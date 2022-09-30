@@ -12,6 +12,7 @@ use App\Models\Sale\Sale;
 use App\Models\Sale\SaleItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class SaleController extends Controller
 {
@@ -52,19 +53,41 @@ class SaleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    private function validateRequest(Request $request) {
+        $messages = [];
+        if ($request->input("items")) {
+            foreach ($request->input('items') as $key => $val) {
+                $position = $key + 1;
+                $in_stock = $val["inv_stock_item_in_stock"];
+                $messages["items.$key.quantity"] = "The item No #{$position} quantity must be less than or equal to {$in_stock}";
+            }
+        }
+
+        Validator::make($request->input(), [
+            "date" => ["required"],
+            "return_amount" => ["required", "min:0"],
+            "items" => ["required"],
+            "items.*.inv_stock_item_in_stock" => ["required"],
+            "items.*.quantity" => ["required", "lte:items.*.inv_stock_item_in_stock"],
+        ], $messages)->validate();
+    }
+
     public function store(Request $request)
     {
 
-        //dd($request->all());
-        $this->validate($request, [
-            "date" => ["required"],
-            "items" => ["required"],
-        ]);
+        // dd($request->all());
+        $this->validateRequest($request);
 
         DB::beginTransaction();
         $sale = Sale::create($request->input());
         foreach ($request->input("items") as $item) {
-            $sale->salesItems()->create($item);
+            $saleItem = $sale->salesItems()->create($item);
+            $saleItem->stockItems()->create([
+                'stock_item_id' => $item["inv_stock_item_id"],
+                'quantity' => $item["quantity"],
+                'stock_item_snapshot' => json_encode(InventoryStockItem::find($item['inv_stock_item_id']))
+            ]);
         }
         DB::commit();
 
@@ -121,15 +144,28 @@ class SaleController extends Controller
      */
     public function update(Request $request, Sale $sale)
     {
-        //dd($request->all());
+        // dd($request->all());
+        // return redirect()->back();
+        $this->validateRequest($request);
         DB::beginTransaction();
         $sale->update($request->input());
         foreach ($request->input("items") as $item) {
             if ($item["id"]) {
                 $saleItem = SaleItem::find($item['id']);
                 $saleItem->update($item);
+                $saleItem->stockItems()->delete();
+                $saleItem->stockItems()->create([
+                    'stock_item_id' => $item["inv_stock_item_id"],
+                    'quantity' => $item["quantity"],
+                    'stock_item_snapshot' => json_encode(InventoryStockItem::find($item['inv_stock_item_id']))
+                ]);
             } else {
-                $sale->salesItems()->create($item);
+                $saleItem = $sale->salesItems()->create($item);
+                $saleItem->stockItems()->create([
+                    'stock_item_id' => $item["inv_stock_item_id"],
+                    'quantity' => $item["quantity"],
+                    'stock_item_snapshot' => json_encode(InventoryStockItem::find($item['inv_stock_item_id']))
+                ]);
             }
         }
         DB::commit();

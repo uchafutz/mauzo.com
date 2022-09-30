@@ -17,7 +17,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $units=Unit::all();
+        $units=Unit::orderBy('unit_type_id')->orderBy('factor')->paginate(10);
         if(request()->wantsJson()){
             return response([
                 'data'=>$units,

@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('page_title')
     @isset($inventoryItem)
-        Update InventoryItem
+        Update Item
     @else
-        New InventoryItem
+        New Item
     @endisset
 @endsection
 @section('content')
@@ -29,7 +29,7 @@
                                     value="{{ isset($inventoryItem) ? $inventoryItem->name : null }}" />
                                 <div class="form-group">
                                     <label for="" class="label-control">Select Unit type</label>
-                                    <select x-model="form.unit_type_id" id="unit_type_id"
+                                    <select name="unit_type_id" x-model="form.unit_type_id" id="unit_type_id"
                                         class="form-control  @error('unit_type_id') is-invalid @enderror">
                                         <option value="">Choose...</option>
                                         <template x-for="unitType in unitTypes">
@@ -64,7 +64,7 @@
                                         <template
                                             x-for="unit in units.filter(u => form.unit_type_id ? form.unit_type_id == u.unit_type_id : true)">
                                             <option x-bind:value="unit.id" x-text="unit.name"
-                                                x-bind:selected="unitType.id == form.unit_type_id"
+                                                x-bind:selected="unit.id == form.conf_unit_id"
                                                 x-bind:selected="unit.id == form.conf_unit_id"></option>
                                         </template>
 

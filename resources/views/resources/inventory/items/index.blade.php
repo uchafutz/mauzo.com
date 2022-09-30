@@ -20,8 +20,9 @@
                                     <th>S/n</th>
                                     <th>Image</th>
                                     <th>Name</th>
-                                    <th>Description</th>
+                                    <th>R-Level</th>
                                     <th>In Stock</th>
+                                    <th>Selling Price</th>
                                     <th width="100px">Actions</th>
                                 </tr>
                             </thead>
@@ -33,8 +34,10 @@
                                         <td><img src="{{ $inventoryItem->featured_image }}" height="50px" alt="">
                                         </td>
                                         <td>{{ $inventoryItem->name }}</td>
-                                        <td>{{ $inventoryItem->description }}</td>
-                                        <td>{{ $inventoryItem->in_stock }} {{ $inventoryItem->unit->code }}</td>
+                                        <td>{{ $inventoryItem->reorder_level }}</td>
+                                        <td class="{{ $inventoryItem->in_stock > $inventoryItem->reorder_level ? 'text-success' : 'text-danger' }}" >{{ $inventoryItem->in_stock ?? 0 }} {{ $inventoryItem->unit->code }}</td>
+                                        
+                                        <td>{{ number_format($inventoryItem->sale_price, 2, null, " ") }} TZS</td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <a href="{{ route('inventory.inventoryItems.edit', ['inventoryItem' => $inventoryItem]) }}"

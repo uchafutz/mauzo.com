@@ -32,7 +32,7 @@
                                 <div class="form-group">
                                     <label for=""
                                         class="label-control">{{ __('Select Inventory category') }}</label>
-                                    <div class="col-md-6">
+
                                         <select name="parent_id" id="parent_id" class="form-control">
                                             <option value="">Choose...</option>
                                             @foreach ($inventoryCategories as $inventoryCategoryVariant)
@@ -41,7 +41,6 @@
                                                     {{ $inventoryCategoryVariant->name }}</option>
                                             @endforeach
                                         </select>
-                                    </div>
                                 </div>
 
                                 <x-form.custom-textarea name="description" label="Description" placeholder="Description"

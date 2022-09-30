@@ -1,8 +1,17 @@
 @extends('layouts.app')
+
+@section('page_title')
+    {{ $sale->code }}
+@endsection
+
+@section('page_action')
+    <a href="{{ route('sale.sales.edit', ['sale' => $sale]) }}" class="btn btn-primary"><i class="material-icons">edit</i> Edit</a>
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">{{ __('Sale') }}</div>
                     <div class="card-body">
@@ -72,11 +81,11 @@
                         </table>
 
                         @if ($sale->status == 'DRAFT')
-                            <form action="" method="post" enctype="multipart/form-data">
+                            <form action="{{ route("sale.sales.submit", ['sale' => $sale]) }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <br />
-                                <button type="button" class="btn btn-success float-left"><i class="far fa-credit-card"></i>
-                                    Prossed Invoice
+                                <button type="submit" class="btn btn-success float-left"><i class="material-icons">send</i>
+                                    Submit Sale
                                 </button>
                             </form>
                         @else

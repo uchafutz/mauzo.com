@@ -19,9 +19,10 @@
                             <thead>
                                 <tr>
                                     <th>S/n</th>
+                                    <th>Type</th>
                                     <th>Name</th>
                                     <th>Code</th>
-                                    <th>Description</th>
+                                    <th>Factor</th>
                                     <th width="100px">Actions</th>
                                 </tr>
                             </thead>
@@ -30,9 +31,10 @@
                                 @foreach ($units as $unit)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $unit->unitType->name }}</td>
                                         <td>{{ $unit->name }}</td>
                                         <td>{{ $unit->code }}</td>
-                                        <td>{{ $unit->description }}</td>
+                                        <td>{{ $unit->factor }}</td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <a href="{{ route('config.units.edit', ['unit' => $unit]) }}"
@@ -50,6 +52,8 @@
                                 @endforeach
                             </tbody>
                         </table>
+
+                        {{ $units->links() }}
                     </div>
                 </div>
             </div>

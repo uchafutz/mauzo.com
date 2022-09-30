@@ -28,7 +28,6 @@
                                 <x-form.custom-input name="name" type="text" label="Name Unit" placeholder="Unit name"
                                     value="{{ isset($unit) ? $unit->name : null }}" />
                                 <div class="form-group">
-                                    <div class="col-md-6">
                                         <label for="" class="label-control">Unit Type</label>
                                         <select name="unit_type_id"
                                             class="form-control @error('unit_type_id') is-invalid @enderror">
@@ -39,7 +38,6 @@
                                                     {{ $unitType->name }}</option>
                                             @endforeach
                                         </select>
-                                    </div>
                                     @error('unit_types')
                                         <p class="invalid-feedback">{{ $message }}</p>
                                     @enderror

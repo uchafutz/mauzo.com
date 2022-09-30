@@ -13,7 +13,7 @@ class SaleItem extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable=['sale_id','inv_item_id','conf_unit_id',"inv_stock_item_id","quantity","unit_price"];
+    protected $fillable=['sale_id','inv_item_id','conf_unit_id',"quantity","unit_price"];
 
     public function sale(){
         return $this->belongsTo(Sale::class,'sale_id');
@@ -25,7 +25,7 @@ class SaleItem extends Model
     public function unit(){
         return $this->belongsTo(Unit::class,'conf_unit_id');
     }
-    public function stock(){
-        return $this->belongsTo(InventoryStockItem::class,'inv_stock_item_id');
+    public function stockItems(){
+        return $this->hasMany(SaleItemStockItem::class, 'sale_item_id');
     }
 }

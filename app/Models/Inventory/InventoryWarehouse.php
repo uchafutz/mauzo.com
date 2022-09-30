@@ -27,4 +27,14 @@ class InventoryWarehouse extends Model
         $item = $this->items()->where("inv_item_id", $item->id)->first();
         return $item;
     }
+
+    public function updateItemInstock(InventoryItem $item, $in_stock) {
+        $warehouseItem = $this->findItem($item);
+        if (!$warehouseItem) {
+            // Create Warehouse item
+            $this->items()->attach($item->id, ["in_stock" => $in_stock]);
+        } else {
+            $this->items()->sync([$item->id => ["in_stock" => $in_stock]], false);
+        }
+    }
 }
