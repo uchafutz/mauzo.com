@@ -50,6 +50,19 @@
                                 @enderror
                             </div>
                             <x-form.custom-input name="quantity" type="number" label="Quantity" placeholder="Quantity" value="{{ isset($manufacturing) ? $manufacturing->quantity : null }}"/>
+                            
+                            <div class="form-group">
+                                <label for="" class="label-control">Default Warehouse</label>
+                                <select name="warehouse_id"  class="form-control @error('warehouse_id') is-invalid @enderror">
+                                    <option value="">Choose...</option>
+                                    @foreach ($warehouses as $warehouse)
+                                        <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('config_unit_id')
+                                    <p class="invalid-feedback">{{ $message }}</p>
+                                @enderror
+                            </div>
                             <br/>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>

@@ -27,7 +27,9 @@ class ManufacturingMaterialStockAssignmentController extends Controller
         DB::beginTransaction();
         $payload = [];
         foreach ($request->input("items") as $item) {
-            $payload[$item['stock_item_id']] = ['quantity' => $item['quantity']];
+            if ($item['quantity']) {
+                $payload[$item['stock_item_id']] = ['quantity' => $item['quantity']];
+            }
         }
         $manufacturingMaterial->stockItems()->sync($payload);
         DB::commit();

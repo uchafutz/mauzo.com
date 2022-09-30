@@ -9,7 +9,10 @@
         <a href="{{ route("inventory.manufacturings.edit", ["manufacturing" => $manufacturing]) }}" class="btn btn-primary"><i class="material-icons">edit</i> Edit</a>
     @endif
     @if ($manufacturing->status == 'BOQ')
-        <a href="{{ route("inventory.manufacturings.edit", ["manufacturing" => $manufacturing]) }}" class="btn btn-success btn-lg"><i class="material-icons">send</i> Submit</a>
+        <form action="{{ route('inventory.manufacturings.submit', ['manufacturing' => $manufacturing]) }}" method="post">
+            @csrf
+            <button type="submit" class="btn btn-success btn-lg"><i class="material-icons">send</i> Submit</button>
+        </form>
     @endif
 @endsection
 
@@ -42,6 +45,12 @@
                             <th>Status</th>
                             <td>
                                 {{ $manufacturing->status }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Warehouse</th>
+                            <td>
+                                {{ $manufacturing->warehouse->name }}
                             </td>
                         </tr>
                     </table>
@@ -114,9 +123,13 @@
                                         <th>Material</th>
                                         <th>Material Type</th>
                                         <th>Quantinty</th>
-                                        <th>Current Stock</th>
+                                        @if ($manufacturing->status != "PROCESSED")
+                                            <th>Current Stock</th>
+                                        @endif
                                         <th>Assigned Stock</th>
-                                        <th>Actions</th>
+                                        @if ($manufacturing->status != "PROCESSED")
+                                            <th>Actions</th>
+                                        @endif
                                     </thead>
 
                                     <tbody>
@@ -126,7 +139,9 @@
                                                 <td>{{ $material->material->materialItem->name }}</td>
                                                 <td>{{ $material->material->type }}</td>
                                                 <td>{{ $material->quantity }} {{ $material->material->materialItem->unit->code }}</td>
-                                                <td>{{ $material->material->materialItem->in_stock }} {{ $material->material->materialItem->unit->code }} <sup class="{{ $material->material->type == 'RAW' ? 'text-danger' : 'text-success' }}"> {{ $material->material->type == 'RAW' ? '-' : '+' }}{{ $material->quantity }} {{ $material->material->materialItem->unit->code }}</sup> </td>
+                                                @if ($manufacturing->status != "PROCESSED")
+                                                    <td>{{ $material->material->materialItem->in_stock }} {{ $material->material->materialItem->unit->code }} <sup class="{{ $material->material->type == 'RAW' ? 'text-danger' : 'text-success' }}"> {{ $material->material->type == 'RAW' ? '-' : '+' }}{{ $material->quantity }} {{ $material->material->materialItem->unit->code }}</sup> </td>
+                                                @endif
                                                 <td>
                                                     @if ($material->material->type == "RAW")
                                                         <div class="">
@@ -141,11 +156,14 @@
                                                         N/A
                                                     @endif
                                                 </td>
-                                                <td>
-                                                    @if ($material->material->type == "RAW")
-                                                        <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" x-on:click="setValues('{{ route('inventory.manufacturings.materials.assignStock', ['manufacturing' => $manufacturing, 'manufacturingMaterial' => $material]) }}', '{{ $material->quantity }}', {{ json_encode($material->material->materialItem->stockItems()->with('warehouse')->get()) }}, {{ json_encode($material->stockItems) }})">Assign Stock</button>
-                                                    @endif
-                                                </td>
+                                                
+                                                @if ($manufacturing->status != "PROCESSED")
+                                                    <td>
+                                                        @if ($material->material->type == "RAW")
+                                                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" x-on:click="setValues('{{ route('inventory.manufacturings.materials.assignStock', ['manufacturing' => $manufacturing, 'manufacturingMaterial' => $material]) }}', '{{ $material->quantity }}', {{ json_encode($material->material->materialItem->stockItems()->with('warehouse')->get()) }}, {{ json_encode($material->stockItems) }})">Assign Stock</button>
+                                                        @endif
+                                                    </td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                     </tbody>
