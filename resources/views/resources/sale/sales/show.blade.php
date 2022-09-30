@@ -1,8 +1,17 @@
 @extends('layouts.app')
+
+@section('page_title')
+    {{ $sale->code }}
+@endsection
+
+@section('page_action')
+    <a href="{{ route('sale.sales.edit', ['sale' => $sale]) }}" class="btn btn-primary"><i class="material-icons">edit</i> Edit</a>
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">{{ __('Sale') }}</div>
                     <div class="card-body">

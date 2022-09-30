@@ -9,6 +9,7 @@ use App\Models\Inventory\InventoryItem;
 use App\Models\Inventory\InventoryItemMaterial;
 use App\Models\Inventory\InventoryWarehouse;
 use App\Models\Purchase\Purchase;
+use App\Models\Sale\Sale;
 use App\Models\User;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 
@@ -203,4 +204,25 @@ Breadcrumbs::for('inventory.inventoryWarehouses.create', function ($trail) {
 Breadcrumbs::for('inventory.inventoryWarehouses.edit', function ($trail, InventoryWarehouse $inventoryWarehouse) {
     $trail->parent('inventory.inventoryWarehouses.index');
     $trail->push('Edit', route('inventory.inventoryWarehouses.edit', ['inventoryWarehouse' => $inventoryWarehouse]));
+});
+
+// sales
+Breadcrumbs::for('sale.sales.index', function ($trail) {
+    $trail->parent("home");
+    $trail->push('Sales', route('sale.sales.index'));
+});
+
+Breadcrumbs::for('sale.sales.create', function ($trail) {
+    $trail->parent("sale.sales.index");
+    $trail->push('Record Sale', route('sale.sales.create'));
+});
+
+Breadcrumbs::for('sale.sales.show', function ($trail, Sale $sale) {
+    $trail->parent("sale.sales.index");
+    $trail->push($sale->code, route('sale.sales.show', ['sale' => $sale]));
+});
+
+Breadcrumbs::for('sale.sales.edit', function ($trail, Sale $sale) {
+    $trail->parent("sale.sales.show", $sale);
+    $trail->push("Update Sale", route('sale.sales.edit', ['sale' => $sale]));
 });

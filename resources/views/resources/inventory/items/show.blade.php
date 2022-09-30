@@ -10,12 +10,8 @@
             <div class="col-md-12">
                 <div class="card"></div>
                 <div class="card">
-                    <div class="card-header">
-                        <h4></h4>
-                    </div>
                     <div class="card-body">
-                        <strong><i class="fas fa-book mr-1"></i>{{ __(' Items Details') }}</strong>
-                        <p class="text-muted">
+                        <h3><i class="material-icons">library_books</i>{{ __(' Items Details') }}</h3>
                         <table class="table table-bordered">
                             <tr>
                                 <td>Name</td>
@@ -39,65 +35,52 @@
                             </tr>
                             <tr>
                                 <td>Stock</td>
-                                <td>{{ $inventoryItem->in_stock }} {{ $inventoryItem->unit->code }}</td>
+                                <td>{{ $inventoryItem->in_stock ?? 0 }} {{ $inventoryItem->unit->code }}</td>
                             </tr>
                             <tr>
-                                <td>Item </td>
+                                <td>Selling Price</td>
+                                <td>{{ number_format($inventoryItem->sale_price, 2, null, " ") }} TZS</td>
+                            </tr>
+                            <tr>
+                                <td>Is Material</td>
                                 <td>
-                                    <div class="row row-cols-lg-auto g-3 align-items-center">
-                                        <div class="col-12">
-                                            <div class="form-check">
-                                                <label class="form-check-label" for="flexCheckDefault">
-                                                    Is Material
-                                                    @if ($inventoryItem->is_material == 1)
-                                                        <span class="text-primary">
-                                                            True
-                                                        </span>
-                                                    @else
-                                                        <span class="text-danger">
-                                                            False
-                                                        </span>
-                                                    @endif
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-check">
-                                                <label class="form-check-label" for="flexCheckDefault">
-                                                    Is Product
-                                                    @if ($inventoryItem->is_product == 1)
-                                                        <span class="text-primary">
-                                                            True
-                                                        </span>
-                                                    @else
-                                                        <span class="text-danger">
-                                                            False
-                                                        </span>
-                                                    @endif
-
-
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-check">
-                                                <label class="form-check-label" for="flexCheckDefault">
-                                                    Is Manufactured
-                                                    @if ($inventoryItem->is_manufactured == 1)
-                                                        <span class="text-primary">
-                                                            True
-                                                        </span>
-                                                    @else
-                                                        <span class="text-danger">
-                                                            False
-                                                        </span>
-                                                    @endif
-
-
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @if ($inventoryItem->is_material == 1)
+                                        <span class="text-success">
+                                            YES
+                                        </span>
+                                    @else
+                                        <span class="text-warning">
+                                            NO
+                                        </span>
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Is Product</td>
+                                <td>
+                                    @if ($inventoryItem->is_product == 1)
+                                        <span class="text-success">
+                                            YES
+                                        </span>
+                                    @else
+                                        <span class="text-warning">
+                                            NO
+                                        </span>
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Is Manufactured</td>
+                                <td>
+                                    @if ($inventoryItem->is_manufactured == 1)
+                                        <span class="text-success">
+                                            YES
+                                        </span>
+                                    @else
+                                        <span class="text-warning">
+                                            NO
+                                        </span>
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
@@ -105,8 +88,6 @@
                                 <td>{{ $inventoryItem->inventoryCategory->name }}</td>
                             </tr>
                         </table>
-                        </p>
-                        <hr>
                     </div>
                 </div>
 
@@ -117,9 +98,7 @@
                     <div class="card-body ">
 
                         <p> <span><a class="btn btn-primary"
-                                    href="{{ route('inventory.inventoryItems.inventoryItemMaterials.create', ['inventoryItem' => $inventoryItem]) }}"><i
-                                        class="fas fa-plus">
-                                    </i> Add Materials</a></span></p>
+                                    href="{{ route('inventory.inventoryItems.inventoryItemMaterials.create', ['inventoryItem' => $inventoryItem]) }}"><i class="material-icons">add</i> Add Materials</a></span></p>
                         <table class="table table-stripped">
                             <thead>
                                 <tr>
