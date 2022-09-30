@@ -29,12 +29,12 @@
                                 <i class="material-icons-outlined">paid</i>
                             </div>
                             <div class="widget-stats-content flex-fill">
-                                <span class="widget-stats-title">Today's Sales</span>
-                                <span class="widget-stats-amount">$38,211</span>
-                                <span class="widget-stats-info">471 Orders Total</span>
+                                <span class="widget-stats-title">Total Sales</span>
+                                <span class="widget-stats-amount">{{ number_format($saleTotal) }}</span>
+                                <span class="widget-stats-info">{{ number_format($saleOrder) }} Sales</span>
                             </div>
-                            <div class="widget-stats-indicator widget-stats-indicator-negative align-self-start">
-                                <i class="material-icons">keyboard_arrow_down</i> 4%
+                            <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
+                                <i class="material-icons">keyboard_arrow_up</i> {{ $saleOrder / 100 }}%
                             </div>
                         </div>
                     </div>
@@ -45,15 +45,17 @@
                     <div class="card-body">
                         <div class="widget-stats-container d-flex">
                             <div class="widget-stats-icon widget-stats-icon-warning">
-                                <i class="material-icons-outlined">person</i>
+                                <i class="material-icons-outlined">shopping_cart</i>
                             </div>
                             <div class="widget-stats-content flex-fill">
-                                <span class="widget-stats-title">Active Users</span>
-                                <span class="widget-stats-amount">23,491</span>
-                                <span class="widget-stats-info">790 unique this month</span>
+                                <span class="widget-stats-title">Total Purchases</span>
+                                <span class="widget-stats-amount">{{ number_format($purchaseTotal) }}.00</span>
+                                <span class="widget-stats-info">
+                                    <b>{{ $purchaseOrder }}</b> Purchases
+                                </span>
                             </div>
-                            <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
-                                <i class="material-icons">keyboard_arrow_up</i> 12%
+                            <div class="widget-stats-indicator widget-stats-indicator-negative align-self-start">
+                                <i class="material-icons">keyboard_arrow_down</i> 12%
                             </div>
                         </div>
                     </div>
@@ -64,12 +66,13 @@
                     <div class="card-body">
                         <div class="widget-stats-container d-flex">
                             <div class="widget-stats-icon widget-stats-icon-danger">
-                                <i class="material-icons-outlined">file_download</i>
+                                <i class="material-icons-outlined">warehouse</i>
                             </div>
                             <div class="widget-stats-content flex-fill">
-                                <span class="widget-stats-title">Downloads</span>
-                                <span class="widget-stats-amount">140,390</span>
-                                <span class="widget-stats-info">87 items downloaded</span>
+                                <span class="widget-stats-title">Total Inventory Items</span>
+                                <span class="widget-stats-amount">{{ number_format($inventoryTotal) }}</span>
+                                <span class="widget-stats-info"><b>{{ number_format($inventoryProduct) }}</b>
+                                    Products</span>
                             </div>
                             <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
                                 <i class="material-icons">keyboard_arrow_up</i> 7%
@@ -99,22 +102,18 @@
                         <div class="col-xl-4">
                             <div class="widget-stats-large-info-container">
                                 <div class="card-header">
-                                    <h5 class="card-title">Top Transaction<span class="badge badge-info badge-style-light">
+                                    <h5 class="card-title">Top Products<span class="badge badge-info badge-style-light">
                                         </span></h5>
                                 </div>
                                 <div class="card-body">
                                     <p class="card-description"></p>
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Neptune - v1.0<span class="float-end text-success">14%<i
-                                                    class="material-icons align-middle">keyboard_arrow_up</i></span></li>
-                                        <li class="list-group-item">Space - v1.2<span class="float-end text-danger">7%<i
-                                                    class="material-icons align-middle">keyboard_arrow_down</i></span></li>
-                                        <li class="list-group-item">Lime - v1.0.3<span class="float-end text-success">21%<i
-                                                    class="material-icons align-middle">keyboard_arrow_up</i></span></li>
-                                        <li class="list-group-item">Circl - v2.3<span class="float-end text-success">17%<i
-                                                    class="material-icons align-middle">keyboard_arrow_up</i></span></li>
-                                        <li class="list-group-item">Connect - v1.7<span class="float-end text-danger">3%<i
-                                                    class="material-icons align-middle">keyboard_arrow_down</i></span></li>
+                                        @foreach ($itemsTops as $itemTop)
+                                            <li class="list-group-item">{{ $itemTop->name }}<span
+                                                    class="float-end text-success">14%<i
+                                                        class="material-icons align-middle">keyboard_arrow_up</i></span>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>

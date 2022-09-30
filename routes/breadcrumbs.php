@@ -8,6 +8,7 @@ use App\Models\Inventory\InventoryCategory;
 use App\Models\Inventory\InventoryItem;
 use App\Models\Inventory\InventoryItemMaterial;
 use App\Models\Inventory\InventoryWarehouse;
+use App\Models\Inventory\Manufacturing;
 use App\Models\Purchase\Purchase;
 use App\Models\Sale\Sale;
 use App\Models\User;
@@ -225,4 +226,25 @@ Breadcrumbs::for('sale.sales.show', function ($trail, Sale $sale) {
 Breadcrumbs::for('sale.sales.edit', function ($trail, Sale $sale) {
     $trail->parent("sale.sales.show", $sale);
     $trail->push("Update Sale", route('sale.sales.edit', ['sale' => $sale]));
+});
+
+//manufacturings
+Breadcrumbs::for('inventory.manufacturings.index', function ($trail) {
+    $trail->parent("home");
+    $trail->push('Manufacturing', route('inventory.manufacturings.index'));
+});
+
+Breadcrumbs::for('inventory.manufacturings.create', function ($trail) {
+    $trail->parent("inventory.manufacturings.index");
+    $trail->push('New Manufacturing', route('inventory.manufacturings.create'));
+});
+
+Breadcrumbs::for('inventory.manufacturings.show', function ($trail, Manufacturing $manufacturing) {
+    $trail->parent("inventory.manufacturings.index");
+    $trail->push($manufacturing->inventory_item_id, route('inventory.manufacturings.show', ['manufacturing' => $manufacturing]));
+});
+
+Breadcrumbs::for('inventory.manufacturings.edit', function ($trail, Manufacturing $manufacturing) {
+    $trail->parent("inventory.manufacturings.show", $manufacturing);
+    $trail->push("Update Manufacturing", route('inventory.manufacturings.edit', ['manufacturing' => $manufacturing]));
 });

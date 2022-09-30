@@ -1,7 +1,12 @@
 @extends('layouts.app')
-
 @section('page_title')
-    Manufacturing
+    {{ __('Manufacturing') }}
+@endsection
+
+@section('page_action')
+    <a href="{{ route('inventory.manufacturings.create') }}" class="btn btn-primary"><i class="material-icons">add</i>
+        Create
+        Manufacturing</a>
 @endsection
 
 @section('content')
@@ -9,12 +14,11 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('Manufacturings') }}</div>
+                    <div class="card-header"></div>
 
                     <div class="card-body">
-                       
 
-                        <a href="{{ route("inventory.manufacturings.create") }}" class="btn btn-primary">Add</a>
+
 
                         <table class="table table-stripped">
                             <thead>
@@ -23,7 +27,7 @@
                                     <th>Item</th>
                                     <th>Quantity</th>
                                     <th>Status</th>
-                                    <th>Actions</th>
+                                    <th width="100px">Actions</th>
                                 </tr>
                             </thead>
 
@@ -35,13 +39,21 @@
                                         <td>{{ $manufacturing->quantity }} {{ $manufacturing->unit->code }}</td>
                                         <td>{{ $manufacturing->status }}</td>
                                         <td>
-                                            <a href="{{ route("inventory.manufacturings.show", ["manufacturing" => $manufacturing]) }}" class="btn btn-success">View</a>
-                                            <a href="{{ route("inventory.manufacturings.edit", ["manufacturing" => $manufacturing]) }}" class="btn btn-info">Edit</a>
-                                            <form action="{{ route("inventory.manufacturings.destroy", ["manufacturing" => $manufacturing]) }}" method="post">
-                                                @csrf
-                                                @method("delete")
-                                            <button type="submit" class="btn btn-danger">delete</button>
-                                             </form>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="{{ route('inventory.manufacturings.show', ['manufacturing' => $manufacturing]) }}"
+                                                    class="btn btn-outline-success"><i
+                                                        class="material-icons">visibility</i></a>
+                                                <a href="{{ route('inventory.manufacturings.edit', ['manufacturing' => $manufacturing]) }}"
+                                                    class="btn btn-outline-info"><i class="material-icons">edit</i></a>
+                                                <form
+                                                    action="{{ route('inventory.manufacturings.destroy', ['manufacturing' => $manufacturing]) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-outline-danger"><i
+                                                            class="material-icons">delete_outline</i></button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

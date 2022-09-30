@@ -38,7 +38,8 @@ class CreateStockTransaction
 
         // update warehouse stock item in_stock
         $warehouseItem = $stockItem->warehouse->findItem($stockItem->item);
-        $stockItem->warehouse->updateItemInstock($stockItem->item, $warehouseItem->pivot->in_stock + $stockItem->quantity);
+        $in_stock = $warehouseItem ? $warehouseItem->pivot->in_stock + $stockItem->quantity : $stockItem->quantity;
+        $stockItem->warehouse->updateItemInstock($stockItem->item, $in_stock);
 
         // update inventory item instock
         $stockItem->item->updateInStock();
