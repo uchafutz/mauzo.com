@@ -21,6 +21,7 @@ use App\Http\Controllers\Config\User\AssignUserRolesController;
 use App\Http\Controllers\Config\Role\AssignRolePermissionController;
 use App\Http\Controllers\Config\User\AssignUserPermissionController;
 use App\Http\Controllers\Sale\SaleController;
+use App\Http\Controllers\Sale\SaleSubmitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +76,7 @@ Route::middleware("auth")->group(function () {
 
     Route::prefix("/sale")->name("sale.")->group(function(){
         Route::resource("sales",SaleController::class);
+        Route::post("sales/{sale}/sale-submited", SaleSubmitController::class)->name("sales.submit");
     });
   
 });

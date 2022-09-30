@@ -81,11 +81,11 @@
                         </table>
 
                         @if ($sale->status == 'DRAFT')
-                            <form action="" method="post" enctype="multipart/form-data">
+                            <form action="{{ route("sale.sales.submit", ['sale' => $sale]) }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <br />
-                                <button type="button" class="btn btn-success float-left"><i class="far fa-credit-card"></i>
-                                    Prossed Invoice
+                                <button type="submit" class="btn btn-success float-left"><i class="material-icons">send</i>
+                                    Submit Sale
                                 </button>
                             </form>
                         @else
