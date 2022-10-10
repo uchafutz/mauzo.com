@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Inventory;
 use App\Http\Controllers\Controller;
 use App\Models\Config\Unit;
 use App\Models\Inventory\InventoryItem;
+use App\Models\Inventory\InventoryWarehouse;
 use App\Models\Inventory\Manufacturing;
 use Illuminate\Http\Request;
 
@@ -39,7 +40,8 @@ class ManufacturingController extends Controller
         //
         $inventoryItems = InventoryItem::where("is_manufactured", true)->get();
         $units = Unit::all();
-        return view("resources.inventory.manufacturings.form", compact("inventoryItems", "units"));
+        $warehouses = InventoryWarehouse::all();
+        return view("resources.inventory.manufacturings.form", compact("inventoryItems", "units", "warehouses"));
     }
 
     /**
@@ -96,7 +98,8 @@ class ManufacturingController extends Controller
     {
         $inventoryItems = InventoryItem::where("is_manufactured", true)->get();
         $units = Unit::all();
-        return view("resources.inventory.manufacturings.form", compact("inventoryItems", "units", "manufacturing"));
+        $warehouses = InventoryWarehouse::all();
+        return view("resources.inventory.manufacturings.form", compact("inventoryItems", "units", "manufacturing", "warehouses"));
     }
 
     /**

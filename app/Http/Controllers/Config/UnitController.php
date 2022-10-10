@@ -21,11 +21,9 @@ class UnitController extends Controller
         if(request()->wantsJson()){
             return response([
                 'data'=>$units,
-
             ],200);
         }
         return view("resources.config.units.index", compact("units"));
-
     }
 
     /**

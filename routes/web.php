@@ -20,6 +20,7 @@ use App\Http\Controllers\Purchase\PurchaseSubmittedController;
 use App\Http\Controllers\Config\User\AssignUserRolesController;
 use App\Http\Controllers\Config\Role\AssignRolePermissionController;
 use App\Http\Controllers\Config\User\AssignUserPermissionController;
+use App\Http\Controllers\Inventory\ManufacturingSubmitController;
 use App\Http\Controllers\Sale\SaleController;
 use App\Http\Controllers\Sale\SaleSubmitController;
 
@@ -63,6 +64,7 @@ Route::middleware("auth")->group(function () {
         Route::resource("manufacturings", ManufacturingController::class);
         Route::post("manufacturings/{manufacturing}/generate-boq", ManufacturingGenrateBOQController::class)->name("manufacturings.generateBOQ");
         Route::post("manufacturings/{manufacturing}/material/{manufacturingMaterial}/assign-stock-items", ManufacturingMaterialStockAssignmentController::class)->name("manufacturings.materials.assignStock");
+        Route::post("manufacturings/{manufacturing}/submit", ManufacturingSubmitController::class)->name("manufacturings.submit");
     });
 
     Route::prefix("/purchase")->name("purchase.")->group(function () {

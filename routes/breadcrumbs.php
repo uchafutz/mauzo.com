@@ -228,10 +228,11 @@ Breadcrumbs::for('sale.sales.edit', function ($trail, Sale $sale) {
     $trail->push("Update Sale", route('sale.sales.edit', ['sale' => $sale]));
 });
 
-//manufacturings
+
+// Manufacturing
 Breadcrumbs::for('inventory.manufacturings.index', function ($trail) {
     $trail->parent("home");
-    $trail->push('Manufacturing', route('inventory.manufacturings.index'));
+    $trail->push('Manufacturings', route('inventory.manufacturings.index'));
 });
 
 Breadcrumbs::for('inventory.manufacturings.create', function ($trail) {
@@ -241,10 +242,10 @@ Breadcrumbs::for('inventory.manufacturings.create', function ($trail) {
 
 Breadcrumbs::for('inventory.manufacturings.show', function ($trail, Manufacturing $manufacturing) {
     $trail->parent("inventory.manufacturings.index");
-    $trail->push($manufacturing->inventory_item_id, route('inventory.manufacturings.show', ['manufacturing' => $manufacturing]));
+    $trail->push($manufacturing->item->name . ' M' . str_pad($manufacturing->id, 3, "0", STR_PAD_LEFT), route('inventory.manufacturings.show', ['manufacturing' => $manufacturing]));
 });
 
-Breadcrumbs::for('inventory.manufacturings.edit', function ($trail, Manufacturing $manufacturing) {
+Breadcrumbs::for('inventory.manufacturings.edit', function ($trail,  Manufacturing $manufacturing) {
     $trail->parent("inventory.manufacturings.show", $manufacturing);
-    $trail->push("Update Manufacturing", route('inventory.manufacturings.edit', ['manufacturing' => $manufacturing]));
+    $trail->push('Update', route('inventory.manufacturings.edit', ['manufacturing' => $manufacturing]));
 });

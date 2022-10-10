@@ -70,8 +70,8 @@
                     <li class="sidebar-title">
                         Main Menu
                     </li>
-                    <li class="active-page">
-                        <a href="{{ route('home') }}" class="active"><i
+                    <li class="{{ (request()->is('home')) ? 'active-page' : '' }}">
+                        <a href="{{ route('home') }}" class=""><i
                                 class="material-icons-two-tone">dashboard</i>Dashboard</a>
                     </li>
                     {{-- <li>
@@ -86,51 +86,53 @@
                         <li>
                             <a href="todo.html"><i class="material-icons-two-tone">done</i>Todo</a>
                         </li> --}}
-                    <li>
+                    <li class="{{ (request()->is('sale/sales*')) ? 'active-page' : '' }}">
                         <a href="{{ route('sale.sales.index') }}"><i class="material-icons-two-tone">attach_money</i>Sales</a>
                     </li>
-                    <li>
+                    <li  class="{{ (request()->is('purchase/purchases*')) ? 'active-page' : '' }}">
                         <a href="{{ route('purchase.purchases.index') }}"><i
                                 class="material-icons-two-tone">shopping_cart</i>Purchases</a>
                     </li>
-                    <li>
+                    <li class="{{ (request()->is('inventory/manufacturings*')) ? 'active-page' : '' }}">
                         <a href="{{ route('inventory.manufacturings.index') }}"><i
                                 class="material-icons-two-tone">precision_manufacturing</i>Manufacturing</a>
                     </li>
-                    <li>
+                    <li  class="{{ (request()->is('customer/customers*')) ? 'active-page' : '' }}">
                         <a href="{{ route('customer.customers.index') }}"><i
                                 class="material-icons-two-tone">groups</i>Customers</a>
                     </li>
-                    <li>
-                        <a href=""><i class="material-icons-two-tone">warehouse</i>Inventory<i
-                                class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                    <li  class="{{ (request()->is('inventory*')) ? 'active-page' : '' }}">
+                        <a href="">
+                            <i class="material-icons-two-tone">warehouse</i>
+                            Inventory
+                            <i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
                         <ul class="sub-menu">
                             <li>
-                                <a href="{{ route('inventory.inventoryCategories.index') }}">Categories</a>
+                                <a  class="{{ (request()->is('inventory/inventoryCategories*')) ? 'active' : '' }}" href="{{ route('inventory.inventoryCategories.index') }}">Categories</a>
                             </li>
                             <li>
-                                <a href="{{ route('inventory.inventoryItems.index') }}">Items</a>
+                                <a class="{{ (request()->is('inventory/inventoryItems*')) ? 'active' : '' }}" href="{{ route('inventory.inventoryItems.index') }}">Items</a>
                             </li>
                             <li>
-                                <a href="{{ route('inventory.inventoryWarehouses.index') }}">Warehouses</a>
+                                <a  class="{{ (request()->is('inventory/inventoryWarehouses*')) ? 'active' : '' }}" href="{{ route('inventory.inventoryWarehouses.index') }}">Warehouses</a>
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li class="{{ (request()->is('config*')) ? 'active-page' : '' }}">
                         <a href=""><i class="material-icons-two-tone">settings</i>Settings<i
                                 class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
                         <ul class="sub-menu">
                             <li>
-                                <a href="{{ route('config.users.index') }}">Users</a>
+                                <a class="{{ (request()->is('config/users*')) ? 'active' : '' }}" href="{{ route('config.users.index') }}">Users</a>
                             </li>
                             <li>
-                                <a href="{{ route('config.roles.index') }}">Roles</a>
+                                <a class="{{ (request()->is('config/roles*')) ? 'active' : '' }}" href="{{ route('config.roles.index') }}">Roles</a>
                             </li>
                             <li>
-                                <a href="{{ route('config.units.index') }}">Units</a>
+                                <a class="{{ (request()->is('config/units*')) ? 'active' : '' }}" href="{{ route('config.units.index') }}">Units</a>
                             </li>
                             <li>
-                                <a href="{{ route('config.unitTypes.index') }}">Unit Types</a>
+                                <a class="{{ (request()->is('config/unitTypes*')) ? 'active' : '' }}" href="{{ route('config.unitTypes.index') }}">Unit Types</a>
                             </li>
                         </ul>
                     </li>

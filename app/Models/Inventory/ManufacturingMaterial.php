@@ -24,4 +24,9 @@ class ManufacturingMaterial extends Model
     public function stockItems() {
         return $this->belongsToMany(InventoryStockItem::class, "manufacturing_material_stock_items", "manufacturing_material_id", "stock_item_id")->withPivot("quantity");
     }
+
+    // @TODO: WORK ON THE NAMING
+    public function stockItemsMorph(){
+        return $this->morphMany(InventoryStockItem::class, 'source');
+    }
 }
