@@ -4,18 +4,17 @@
     Manufacturing
 @endsection
 
+@section('page_action')
+    <a href="{{ route("inventory.manufacturings.create") }}" class="btn btn-primary"><i class="material-icons">add</i> Manufacture Item</a>
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">{{ __('Manufacturings') }}</div>
-
                     <div class="card-body">
-                       
-
-                        <a href="{{ route("inventory.manufacturings.create") }}" class="btn btn-primary">Add</a>
-
                         <table class="table table-stripped">
                             <thead>
                                 <tr>
@@ -23,7 +22,7 @@
                                     <th>Item</th>
                                     <th>Quantity</th>
                                     <th>Status</th>
-                                    <th>Actions</th>
+                                    <th width="100px">Actions</th>
                                 </tr>
                             </thead>
 
@@ -33,15 +32,28 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $manufacturing->item->name }}</td>
                                         <td>{{ $manufacturing->quantity }} {{ $manufacturing->unit->code }}</td>
-                                        <td>{{ $manufacturing->status }}</td>
-                                        <td>
-                                            <a href="{{ route("inventory.manufacturings.show", ["manufacturing" => $manufacturing]) }}" class="btn btn-success">View</a>
-                                            <a href="{{ route("inventory.manufacturings.edit", ["manufacturing" => $manufacturing]) }}" class="btn btn-info">Edit</a>
-                                            <form action="{{ route("inventory.manufacturings.destroy", ["manufacturing" => $manufacturing]) }}" method="post">
-                                                @csrf
-                                                @method("delete")
-                                            <button type="submit" class="btn btn-danger">delete</button>
-                                             </form>
+                                        @switch($manufacturing->status)
+                                            @case('DRAFT')
+                                                <td class="text-warning">{{ $manufacturing->status }}</td>
+                                                @break
+                                            @case('BOQ')
+                                                <td class="text-primary">{{ $manufacturing->status }}</td>
+                                                @break
+                                            @default
+                                                <td class="text-success">{{ $manufacturing->status }}</td>
+                                        @endswitch
+                                        <td class="text-right">
+                                            <div class="btn-group" role="group">
+                                                <a href="{{ route("inventory.manufacturings.show", ["manufacturing" => $manufacturing]) }}" class="btn btn-outline-success"><i class="material-icons">visibility</i></a>
+                                                @if ($manufacturing->status == 'DRAFT')
+                                                    <a href="{{ route("inventory.manufacturings.edit", ["manufacturing" => $manufacturing]) }}" class="btn btn-outline-info"><i class="material-icons">edit</i></a>
+                                                    <form action="{{ route("inventory.manufacturings.destroy", ["manufacturing" => $manufacturing]) }}" method="post">
+                                                        @csrf
+                                                        @method("delete")
+                                                        <button type="submit" class="btn btn-outline-danger"><i class="material-icons">delete_outline</i></button>
+                                                    </form>
+                                                @endif
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

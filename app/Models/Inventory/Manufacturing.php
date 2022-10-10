@@ -12,7 +12,7 @@ class Manufacturing extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ["inventory_item_id", "config_unit_id", "quantity", "status"];
+    protected $fillable = ["inventory_item_id", "config_unit_id", "quantity", "status", "warehouse_id"];
 
     public function item() {
         return $this->belongsTo(InventoryItem::class, "inventory_item_id");
@@ -24,5 +24,13 @@ class Manufacturing extends Model
 
     public function materials() {
         return $this->hasMany(ManufacturingMaterial::class, "manufacturing_id");
+    }
+
+    public function warehouse() {
+        return $this->belongsTo(InventoryWarehouse::class, "warehouse_id");
+    }
+
+    public function stockItems() {
+        return $this->morphMany(InventoryStockItem::class,'source');
     }
 }
