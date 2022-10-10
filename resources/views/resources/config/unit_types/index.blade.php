@@ -1,5 +1,12 @@
 @extends('layouts.app')
+@section('page_title')
+    {{ __('Unit Type') }}
+@endsection
 
+@section('page_action')
+    <a href="{{ route('config.unitTypes.create') }}" class="btn btn-primary"><i class="material-icons">add</i> Create
+        Unit Type</a>
+@endsection
 @section('content')
     <div class="container">
         <div class="row justify-content">
