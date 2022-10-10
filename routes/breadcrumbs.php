@@ -228,6 +228,7 @@ Breadcrumbs::for('sale.sales.edit', function ($trail, Sale $sale) {
     $trail->push("Update Sale", route('sale.sales.edit', ['sale' => $sale]));
 });
 
+
 // Manufacturing
 Breadcrumbs::for('inventory.manufacturings.index', function ($trail) {
     $trail->parent("home");

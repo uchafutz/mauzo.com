@@ -1,7 +1,12 @@
 @extends('layouts.app')
-
 @section('page_title')
-    Manufacturing
+    {{ __('Manufacturing') }}
+@endsection
+
+@section('page_action')
+    <a href="{{ route('inventory.manufacturings.create') }}" class="btn btn-primary"><i class="material-icons">add</i>
+        Create
+        Manufacturing</a>
 @endsection
 
 @section('page_action')

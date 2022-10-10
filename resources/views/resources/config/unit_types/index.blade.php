@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('page_title')
-    {{ __('Unit Types') }}
+    {{ __('Unit Type') }}
 @endsection
 
 @section('page_action')
@@ -20,7 +20,7 @@
                                 <tr>
                                     <th>S/n</th>
                                     <th>Name</th>
-                                    <th width="100px">Actions</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
 

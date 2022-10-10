@@ -22,8 +22,10 @@
             <div class="col-md-12">
                 <div class="d-flex mb-2">
                     <div class="flex-grow-1"></div>
-                    @if ($manufacturing->status == "CREATED")
-                        <form action="{{ route("inventory.manufacturings.generateBOQ", ['manufacturing' => $manufacturing]) }}" method="post">
+                    @if ($manufacturing->status == 'CREATED')
+                        <form
+                            action="{{ route('inventory.manufacturings.generateBOQ', ['manufacturing' => $manufacturing]) }}"
+                            method="post">
                             @csrf
                             <button class="btn btn-lg btn-primary">Generate BOQ</button>
                         </form>
@@ -108,15 +110,40 @@
                         </div>
                     </div>
                 </div>
-               </div>
 
-               @if ($manufacturing->status != "CREATED")
                 <div class="row mt-2">
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
-                                <h3 class="card-title">Bill of Quantinty</h3>
+                                <h5 class="card-title">Raw Materials</h5>
+                                <p>The raw materials required to produce 1 {{ $manufacturing->item->unit->code }}</p>
+                                <table class="table">
+                                    <thead>
+                                        <th>Item</th>
+                                        <th>Quantity</th>
+                                    </thead>
 
+                                    <tbody>
+                                        @foreach ($manufacturing->item->materials as $material)
+                                            @if ($material->type == 'RAW')
+                                                <tr>
+                                                    <td>{{ $material->materialItem->name }}</td>
+                                                    <td>{{ $material->quantity }} {{ $material->materialItem->unit->code }}
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Waste</h5>
+                                <p>The waste materials generated while producing 1 {{ $manufacturing->item->unit->code }}
+                                </p>
                                 <table class="table">
                                     <thead>
                                         <th>s/n</th>
@@ -172,10 +199,57 @@
                         </div>
                     </div>
                 </div>
-               @endif
+
+                @if ($manufacturing->status != 'CREATED')
+                    <div class="row mt-2">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title">Bill of Quantinty</h3>
+
+                                    <table class="table">
+                                        <thead>
+                                            <th>s/n</th>
+                                            <th>Material</th>
+                                            <th>Material Type</th>
+                                            <th>Quantinty</th>
+                                            <th>Current Stock</th>
+                                            <th>Actions</th>
+                                        </thead>
+
+                                        <tbody>
+                                            @foreach ($manufacturing->materials as $material)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $material->material->materialItem->name }}</td>
+                                                    <td>{{ $material->material->type }}</td>
+                                                    <td>{{ $material->quantity }}
+                                                        {{ $material->material->materialItem->unit->code }}</td>
+                                                    <td>{{ $material->material->materialItem->in_stock }}
+                                                        {{ $material->material->materialItem->unit->code }} <sup
+                                                            class="{{ $material->material->type == 'RAW' ? 'text-danger' : 'text-success' }}">
+                                                            {{ $material->material->type == 'RAW' ? '-' : '+' }}{{ $material->quantity }}
+                                                            {{ $material->material->materialItem->unit->code }}</sup> </td>
+                                                    <td>
+                                                        @if ($material->material->type == 'RAW' && $material->stockItems->count() == 0)
+                                                            <button class="btn btn-info btn-sm" data-bs-toggle="modal"
+                                                                data-bs-target="#exampleModal"
+                                                                x-on:click="setValues('{{ route('inventory.manufacturings.materials.assignStock', ['manufacturing' => $manufacturing, 'manufacturingMaterial' => $material]) }}', '{{ $material->quantity }}', {{ json_encode($material->material->materialItem->stockItems()->with('warehouse')->get()) }})">Assign
+                                                                Stock</button>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
-
+        
          <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
@@ -183,8 +257,8 @@
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Assign Stock Items</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h5 class="modal-title" id="exampleModalLabel">Assign Stock Items</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div x-show="error" class="alert alert-danger alert-style-light">

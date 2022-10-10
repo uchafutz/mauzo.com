@@ -19,15 +19,14 @@ class InventoryItemController extends Controller
      */
     public function index()
     {
-        $inventoryItems=InventoryItem::all();
-        if(request()->wantsJson()){
+        $inventoryItems = InventoryItem::all();
+        if (request()->wantsJson()) {
             return response([
-                "data"=>$inventoryItems
-            ],200);
+                "data" => $inventoryItems
+            ], 200);
         }
 
-        return view("resources.inventory.items.index",compact("inventoryItems"));
-       
+        return view("resources.inventory.items.index", compact("inventoryItems"));
     }
 
     /**
@@ -37,10 +36,10 @@ class InventoryItemController extends Controller
      */
     public function create()
     {
-        $unitTypes=UnitType::all();
-        $inventoryCategories=InventoryCategory::all();
-        $units=Unit::all();
-        return view("resources.inventory.items.form",compact("unitTypes","inventoryCategories","units"));
+        $unitTypes = UnitType::all();
+        $inventoryCategories = InventoryCategory::all();
+        $units = Unit::all();
+        return view("resources.inventory.items.form", compact("unitTypes", "inventoryCategories", "units"));
     }
 
     /**
@@ -51,26 +50,26 @@ class InventoryItemController extends Controller
      */
     public function store(Request $request)
     {
-        
-      $request->validate([
-            "name"=>["required","unique:inventory_items,name"], 
-             "unit_type_id"=>["required"],
-             "inventory_category_id"=>["required"],
-             "default_unit_id"=>["required"],
-          
+
+        $request->validate([
+            "name" => ["required", "unique:inventory_items,name"],
+            "unit_type_id" => ["required"],
+            "inventory_category_id" => ["required"],
+            "default_unit_id" => ["required"],
+
         ]);
-      $inventoryItem=new InventoryItem();
-      $inventoryItem->fill($request->input());
-      if(request()->hasFile("featured_image")){
-        $inventoryItem->featured_image=Utility::uploadFile("featured_image");
-      }
-      $inventoryItem->save();
-      if(request()->wantsJson()){
-        return response([
-            "data"=>$inventoryItem
-        ],201);
-      }
-      return redirect(route("inventory.inventoryItems.index"));
+        $inventoryItem = new InventoryItem();
+        $inventoryItem->fill($request->input());
+        if (request()->hasFile("featured_image")) {
+            $inventoryItem->featured_image = Utility::uploadFile("featured_image");
+        }
+        $inventoryItem->save();
+        if (request()->wantsJson()) {
+            return response([
+                "data" => $inventoryItem
+            ], 201);
+        }
+        return redirect(route("inventory.inventoryItems.index"));
     }
 
     /**
@@ -83,15 +82,13 @@ class InventoryItemController extends Controller
 
     {
 
-        
-        if(request()->wantsJson()){
+
+        if (request()->wantsJson()) {
             return response([
-                "data"=>$inventoryItem
-            ],200);
+                "data" => $inventoryItem
+            ], 200);
         }
-        return view("resources.inventory.items.show",compact("inventoryItem"));
-
-
+        return view("resources.inventory.items.show", compact("inventoryItem"));
     }
 
     /**
@@ -102,11 +99,11 @@ class InventoryItemController extends Controller
      */
     public function edit(InventoryItem $inventoryItem)
     {
-        $unitTypes=UnitType::all();
-        $inventoryCategories=InventoryCategory::all();
-        $units=Unit::all();
-        
-        return view("resources.inventory.items.form",compact("inventoryItem","units","inventoryCategories","unitTypes"));
+        $unitTypes = UnitType::all();
+        $inventoryCategories = InventoryCategory::all();
+        $units = Unit::all();
+
+        return view("resources.inventory.items.form", compact("inventoryItem", "units", "inventoryCategories", "unitTypes"));
     }
 
     /**
@@ -118,13 +115,19 @@ class InventoryItemController extends Controller
      */
     public function update(Request $request, InventoryItem $inventoryItem)
     {
-     $inventoryItem->update($request->input());
-      if(request()->wantsJson()){
-        return response([
-            "data"=>$inventoryItem
-        ],200);
-      }
-      return redirect(route("inventory.inventoryItems.index"));
+
+        $inventoryItem->fill($request->input());
+        if (request()->hasFile("featured_image")) {
+            $inventoryItem->featured_image = Utility::uploadFile("featured_image");
+        }
+        $inventoryItem->update();
+
+        if (request()->wantsJson()) {
+            return response([
+                "data" => $inventoryItem
+            ], 200);
+        }
+        return redirect(route("inventory.inventoryItems.index"));
     }
 
     /**
@@ -136,8 +139,8 @@ class InventoryItemController extends Controller
     public function destroy(InventoryItem $inventoryItem)
     {
         $inventoryItem->delete();
-        if(request()->wantsJson()){
-            return response(null,204);
+        if (request()->wantsJson()) {
+            return response(null, 204);
         }
         return redirect(route("inventory.inventoryItems.index"));
     }

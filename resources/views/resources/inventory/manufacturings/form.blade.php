@@ -16,7 +16,7 @@
                     <div class="card-header">{{ __('Manufacturing Form') }}</div>
 
                     <div class="card-body">
-                       
+
                         @isset($manufacturing)
                             <form action="{{ route("inventory.manufacturings.update", ["manufacturing" => $manufacturing]) }}" method="POST" enctype="multipart/form-data">
                                 @method("patch")
