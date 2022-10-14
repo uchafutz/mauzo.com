@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sale;
 
 use App\Http\Controllers\Controller;
+use App\Models\Config\Organization;
 use App\Models\Config\Unit;
 use App\Models\Customer\Customer;
 use App\Models\Inventory\InventoryItem;
@@ -54,7 +55,8 @@ class SaleController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    private function validateRequest(Request $request) {
+    private function validateRequest(Request $request)
+    {
         $messages = [];
         if ($request->input("items")) {
             foreach ($request->input('items') as $key => $val) {
@@ -112,12 +114,13 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
+        $organizations = Organization::all();
         if (request()->wantsJson()) {
             return response([
                 "data" => $sale
             ], 200);
         }
-        return view("resources.sale.sales.show", compact("sale"));
+        return view("resources.sale.sales.show", compact("sale", "organizations"));
     }
 
     /**

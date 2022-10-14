@@ -24,6 +24,7 @@
                                     <th>Date</th>
                                     <th>Status</th>
                                     <th>Description</th>
+
                                     <th width="100px">Actions</th>
                                 </tr>
                             </thead>
@@ -36,6 +37,7 @@
                                         <td>{{ $purchase->date }}</td>
                                         <td>{{ $purchase->status }}</td>
                                         <td>{{ $purchase->description }}</td>
+
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 @if ($purchase->status == 'SUBMITED')

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Config\Organization;
 use App\Models\Config\Role;
 use App\Models\Config\Unit;
 use App\Models\Config\UnitType;
@@ -248,4 +249,20 @@ Breadcrumbs::for('inventory.manufacturings.show', function ($trail, Manufacturin
 Breadcrumbs::for('inventory.manufacturings.edit', function ($trail,  Manufacturing $manufacturing) {
     $trail->parent("inventory.manufacturings.show", $manufacturing);
     $trail->push('Update', route('inventory.manufacturings.edit', ['manufacturing' => $manufacturing]));
+});
+
+//organization
+Breadcrumbs::for('config.organizations.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Organization', route('config.organizations.index'));
+});
+
+Breadcrumbs::for('config.organizations.create', function ($trail) {
+    $trail->parent('config.organizations.index');
+    $trail->push('Create', route('config.organizations.create'));
+});
+
+Breadcrumbs::for('config.organizations.edit', function ($trail, Organization $organization) {
+    $trail->parent('config.organizations.index');
+    $trail->push('Edit', route('config.organizations.edit', ['organization' => $organization]));
 });

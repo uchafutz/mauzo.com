@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Config\OrganizationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\Config\User\AssignUserRolesController;
 use App\Http\Controllers\Config\Role\AssignRolePermissionController;
 use App\Http\Controllers\Config\User\AssignUserPermissionController;
 use App\Http\Controllers\Inventory\ManufacturingSubmitController;
+use App\Http\Controllers\Sale\Invoice\RequestInvoice;
 use App\Http\Controllers\Sale\SaleController;
 use App\Http\Controllers\Sale\SaleSubmitController;
 
@@ -49,6 +51,7 @@ Route::middleware("auth")->group(function () {
         Route::resource("unitTypes", UnitTypeController::class);
         Route::resource("units", UnitController::class);
         Route::resource("roles", RoleController::class);
+        Route::resource("organizations", OrganizationController::class);
         Route::post("roles/{role}/assign-role-permission", AssignRolePermissionController::class)->name("roles.assignPermissions");
 
         Route::resource("users", UserController::class);
@@ -60,7 +63,7 @@ Route::middleware("auth")->group(function () {
         Route::resource("inventoryCategories", InventoryCategoryController::class);
         Route::resource("inventoryItems", InventoryItemController::class);
         Route::resource("inventoryWarehouses", InventoryWarehouseController::class);
-        Route::resource("inventoryItems.inventoryItemMaterials",InventoryItemMaterialController::class);
+        Route::resource("inventoryItems.inventoryItemMaterials", InventoryItemMaterialController::class);
         Route::resource("manufacturings", ManufacturingController::class);
         Route::post("manufacturings/{manufacturing}/generate-boq", ManufacturingGenrateBOQController::class)->name("manufacturings.generateBOQ");
         Route::post("manufacturings/{manufacturing}/material/{manufacturingMaterial}/assign-stock-items", ManufacturingMaterialStockAssignmentController::class)->name("manufacturings.materials.assignStock");
@@ -76,9 +79,9 @@ Route::middleware("auth")->group(function () {
         Route::resource("customers", CustomerController::class);
     });
 
-    Route::prefix("/sale")->name("sale.")->group(function(){
-        Route::resource("sales",SaleController::class);
+    Route::prefix("/sale")->name("sale.")->group(function () {
+        Route::resource("sales", SaleController::class);
         Route::post("sales/{sale}/sale-submited", SaleSubmitController::class)->name("sales.submit");
+        Route::get("sales/{sale}/{type}", RequestInvoice::class)->name("sales.invoice");
     });
-  
 });
