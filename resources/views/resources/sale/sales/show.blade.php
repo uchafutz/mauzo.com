@@ -6,13 +6,14 @@
 
 @section('page_action')
     @if ($sale->status == 'DRAFT')
-        <a href="{{ route('sale.sales.invoice', ['sale' => $sale, 'type' => 'Profroma']) }}" class="btn btn-outline-info"><i
+        <a href="{{ route('sale.sales.invoice', ['sale' => $sale, 'type' => 'Profroma']) }}" class="btn btn-outline-info "><i
                 class="material-icons-outlined">file_download</i> Profroma </a>
+                <div class="px-1"></div>
         <a href="{{ route('sale.sales.edit', ['sale' => $sale]) }}" class="btn btn-primary"><i class="material-icons">edit</i>
             Edit</a>
     @else
         <a href="{{ route('sale.sales.invoice', ['sale' => $sale->id, 'type' => 'Invoice']) }}"
-            class="btn btn-outline-danger">
+            class="btn btn-outline-success">
             <i class="material-icons-outlined">file_download</i>
             Invoice</a>
     @endif
@@ -31,13 +32,13 @@
                                     From:
                                     <address>
                                         <strong>Company Name.</strong><br>
-                                        @foreach ($organizations as $organization)
-                                            <td>
-                                                {{ $organization->name }}.<br />
-                                                {{ $organization->phone }}<br />
-                                                {{ $organization->address }}
-                                            </td>
-                                        @endforeach
+                                        @if ($organization)
+                                        <td>
+                                            {{ $organization->name }}.<br />
+                                            {{ $organization->phone }}<br />
+                                            {{ $organization->address }}
+                                        </td>
+                                        @endif
                                         <b></b>
                                     </address>
                                 </div>
@@ -46,9 +47,13 @@
                                     To:
                                     <address>
                                         <strong>Customer Name</strong><br>
-                                        {{ $sale->customer->name }}.<br />
-                                        {{ $sale->customer->phone }}<br />
-                                        {{ $sale->Customer->email }}
+                                        @if ($sale->customer)
+                                            {{ $sale->customer->name }}.<br />
+                                            {{ $sale->customer->phone }}<br />
+                                            {{ $sale->Customer->email }}
+                                        @else
+                                            DEFAULT CUSTOMER
+                                        @endif
                                     </address>
                                 </div>
 

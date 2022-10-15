@@ -69,7 +69,7 @@
                                 <i class="material-icons-outlined">warehouse</i>
                             </div>
                             <div class="widget-stats-content flex-fill">
-                                <span class="widget-stats-title">Total Inventory Items</span>
+                                <span class="widget-stats-title">Total Items</span>
                                 <span class="widget-stats-amount">{{ number_format($inventoryTotal) }}</span>
                                 <span class="widget-stats-info"><b>{{ number_format($inventoryProduct) }}</b>
                                     Products</span>

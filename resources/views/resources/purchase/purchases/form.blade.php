@@ -28,7 +28,7 @@
                                         value="{{ isset($purchase) ? $purchase->date->format('Y-m-d') : date('Y-m-d') }}" />
                                 </div>
                                 <div class="col-12">
-                                    <x-form.custom-textarea name="description" label="Purchase Descriptin"
+                                    <x-form.custom-textarea name="description" label="Purchase Description"
                                         value="{{ isset($purchase) ? $purchase->description : '' }}" />
                                 </div>
 
