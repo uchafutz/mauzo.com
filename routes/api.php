@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Config\OrganizationController;
 use App\Http\Controllers\Config\Role\AssignRolePermissionController;
 use App\Http\Controllers\Config\RoleController;
 use App\Http\Controllers\Config\UnitTypeController;
@@ -35,38 +36,38 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware("auth:sanctum")->name("api.")->group(function () {
-    
+
     Route::prefix("/config")->name("config.")->group(function () {
         Route::resource("unitTypes", UnitTypeController::class);
-        ROute::resource("units",UnitController::class);
-        Route::resource("roles",RoleController::class);
-        Route::post("roles/{role}/assign-role-permission",AssignRolePermissionController::class)->name("roles.assignPermissions");
+        ROute::resource("units", UnitController::class);
+        Route::resource("roles", RoleController::class);
+        Route::resource("organizations", OrganizationController::class);
+        Route::post("roles/{role}/assign-role-permission", AssignRolePermissionController::class)->name("roles.assignPermissions");
 
-        Route::resource("users",UserController::class);
+        Route::resource("users", UserController::class);
         Route::post("users/{user}/assign-roles", AssignUserRolesController::class)->name("users.assignRoles");
-        Route::post("users/{user}/assign-permission",AssignUserPermissionController::class)->name("users.assignPermissions");
-    });
-  
-  Route::prefix("/inventory")->name("inventory.")->group(function(){
-       Route::resource("inventoryCategories",InventoryCategoryController::class);
-       Route::resource("inventoryItems",InventoryItemController::class);
-       Route::resource("inventoryWarehouses", InventoryWarehouseController::class);
-       Route::resource("inventoryItems.inventoryItemMaterials",InventoryItemMaterialController::class);
-       Route::resource("manufacturing", ManufacturingController::class);
-  });
-
-  Route::prefix("/purchase")->name("purchase.")->group(function(){
-        Route::resource("purchases",PurchaseController::class);
-        Route::post("purchases/{purchase}/purchase-submited",PurchaseSubmittedController::class)->name("purchases.purchaseSubmited");
+        Route::post("users/{user}/assign-permission", AssignUserPermissionController::class)->name("users.assignPermissions");
     });
 
-    Route::prefix("/customer")->name("customer.")->group(function(){
-        Route::resource("customers",CustomerController::class);
-      });
-
-
-    Route::prefix("/sale")->name("sale.")->group(function(){
-        Route::resource("sales",SaleController::class);
+    Route::prefix("/inventory")->name("inventory.")->group(function () {
+        Route::resource("inventoryCategories", InventoryCategoryController::class);
+        Route::resource("inventoryItems", InventoryItemController::class);
+        Route::resource("inventoryWarehouses", InventoryWarehouseController::class);
+        Route::resource("inventoryItems.inventoryItemMaterials", InventoryItemMaterialController::class);
+        Route::resource("manufacturing", ManufacturingController::class);
     });
 
+    Route::prefix("/purchase")->name("purchase.")->group(function () {
+        Route::resource("purchases", PurchaseController::class);
+        Route::post("purchases/{purchase}/purchase-submited", PurchaseSubmittedController::class)->name("purchases.purchaseSubmited");
+    });
+
+    Route::prefix("/customer")->name("customer.")->group(function () {
+        Route::resource("customers", CustomerController::class);
+    });
+
+
+    Route::prefix("/sale")->name("sale.")->group(function () {
+        Route::resource("sales", SaleController::class);
+    });
 });
