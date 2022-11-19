@@ -151,7 +151,7 @@
                                     {{ $sale->customer->name }}.<br />
                                     {{ $sale->customer->phone }}<br />
                                     {{ $sale->Customer->email }}
-                                @else 
+                                @else
                                     DEFAULT CUSTOMER
                                 @endif
                             </td>

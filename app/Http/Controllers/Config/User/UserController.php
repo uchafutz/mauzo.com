@@ -19,14 +19,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users=User::all();
-        if(request()->wantsJson()){
+        $users = User::all();
+        if (request()->wantsJson()) {
             return response([
-                "data"=>$users
-            ],200);
+                "data" => $users
+            ], 200);
         }
-        return view("resources.config.users.index",compact("users"));
-        
+        return view("resources.config.users.index", compact("users"));
     }
 
     /**
@@ -36,7 +35,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        
+
         return view("resources.config.users.form");
     }
 
@@ -48,25 +47,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
-            "name"=>["required"],
-            "email"=>["required","unique:users,email"],   
+            "name" => ["required"],
+            "email" => ["required", "unique:users,email"],
+
         ]);
-        $data=[];
-        $data["name"]=$request->name;
-        $data["email"]=$request->email;
-        $data["password"]=Random::generate();
-        $user=User::create($data);
+
+        $data = [];
+        $data["name"] = $request->name;
+        $data["email"] = $request->email;
+        $data["password"] = Random::generate();
+        $user = User::create($data);
 
         UserCreated::dispatch($user);
-        
-        if(request()->wantsJson()){
+
+        if (request()->wantsJson()) {
             return response([
-                "data"=>$user
-            ],201);
+                "data" => $user
+            ], 201);
         }
 
-       return redirect(route("config.users.index"));
+        return redirect(route("config.users.index"));
     }
 
     /**
@@ -77,14 +79,14 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $roles=Role::all();
-        $permissions=Permission::all();
-        if(request()->wantsJson()){
+        $roles = Role::all();
+        $permissions = Permission::all();
+        if (request()->wantsJson()) {
             return response([
-                "data"=>$user
-            ],200);
+                "data" => $user
+            ], 200);
         }
-        return view("resources.config.users.show",compact("user","roles","permissions"));
+        return view("resources.config.users.show", compact("user", "roles", "permissions"));
     }
 
     /**
@@ -97,7 +99,7 @@ class UserController extends Controller
     {
         //
 
-        return view("resources.config.users.form",compact("user"));
+        return view("resources.config.users.form", compact("user"));
     }
 
     /**
@@ -110,10 +112,10 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $user->update($request->input());
-        if(request()->wantsJson()){
+        if (request()->wantsJson()) {
             return response([
-                "data"=>$user
-            ],200);
+                "data" => $user
+            ], 200);
         }
         return redirect(route("config.users.index"));
     }
@@ -127,8 +129,8 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        if(request()->wantsJson()){
-            return response(null,204);
+        if (request()->wantsJson()) {
+            return response(null, 204);
         }
         return redirect(route("config.users.index"));
     }

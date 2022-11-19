@@ -10,7 +10,8 @@
 @endsection
 
 @section('page_action')
-    <a href="{{ route("inventory.manufacturings.create") }}" class="btn btn-primary"><i class="material-icons">add</i> Manufacture Item</a>
+    <a href="{{ route('inventory.manufacturings.create') }}" class="btn btn-primary"><i class="material-icons">add</i>
+        Manufacture Item</a>
 @endsection
 
 @section('content')
@@ -35,27 +36,35 @@
                                 @foreach ($manufacturings as $manufacturing)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $manufacturing->item->name }}</td>
+                                        <td>{{ $manufacturing->item->name ?? null }}</td>
                                         <td>{{ $manufacturing->quantity }} {{ $manufacturing->unit->code }}</td>
                                         @switch($manufacturing->status)
                                             @case('DRAFT')
                                                 <td class="text-warning">{{ $manufacturing->status }}</td>
-                                                @break
+                                            @break
+
                                             @case('BOQ')
                                                 <td class="text-primary">{{ $manufacturing->status }}</td>
-                                                @break
+                                            @break
+
                                             @default
                                                 <td class="text-success">{{ $manufacturing->status }}</td>
                                         @endswitch
                                         <td class="text-right">
                                             <div class="btn-group" role="group">
-                                                <a href="{{ route("inventory.manufacturings.show", ["manufacturing" => $manufacturing]) }}" class="btn btn-outline-success"><i class="material-icons">visibility</i></a>
+                                                <a href="{{ route('inventory.manufacturings.show', ['manufacturing' => $manufacturing]) }}"
+                                                    class="btn btn-outline-success"><i
+                                                        class="material-icons">visibility</i></a>
                                                 @if ($manufacturing->status == 'DRAFT')
-                                                    <a href="{{ route("inventory.manufacturings.edit", ["manufacturing" => $manufacturing]) }}" class="btn btn-outline-info"><i class="material-icons">edit</i></a>
-                                                    <form action="{{ route("inventory.manufacturings.destroy", ["manufacturing" => $manufacturing]) }}" method="post">
+                                                    <a href="{{ route('inventory.manufacturings.edit', ['manufacturing' => $manufacturing]) }}"
+                                                        class="btn btn-outline-info"><i class="material-icons">edit</i></a>
+                                                    <form
+                                                        action="{{ route('inventory.manufacturings.destroy', ['manufacturing' => $manufacturing]) }}"
+                                                        method="post">
                                                         @csrf
-                                                        @method("delete")
-                                                        <button type="submit" class="btn btn-outline-danger"><i class="material-icons">delete_outline</i></button>
+                                                        @method('delete')
+                                                        <button type="submit" class="btn btn-outline-danger"><i
+                                                                class="material-icons">delete_outline</i></button>
                                                     </form>
                                                 @endif
                                             </div>
