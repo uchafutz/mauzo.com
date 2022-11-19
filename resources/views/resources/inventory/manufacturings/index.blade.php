@@ -26,6 +26,7 @@
                                 <tr>
                                     <th>S/n</th>
                                     <th>Item</th>
+                                    <th>Operator</th>
                                     <th>Quantity</th>
                                     <th>Status</th>
                                     <th width="100px">Actions</th>
@@ -37,6 +38,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $manufacturing->item->name ?? null }}</td>
+                                        <td>{{ $manufacturing->users->name ?? null }}</td>
                                         <td>{{ $manufacturing->quantity }} {{ $manufacturing->unit->code }}</td>
                                         @switch($manufacturing->status)
                                             @case('DRAFT')

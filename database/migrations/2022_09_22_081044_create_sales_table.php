@@ -17,11 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string("code");
             $table->dateTime("date");
-            $table->string("description");
+            $table->string("description")->nullable();
             $table->unsignedBigInteger("customer_id");
-            $table->decimal("total_amount",17,2);
-            $table->decimal("received_amount",17,2);
-            $table->decimal("return_amount",17,2);
+            $table->decimal("total_amount", 17, 2);
+            $table->decimal("received_amount", 17, 2);
+            $table->decimal("return_amount", 17, 2);
             $table->softDeletes();
             $table->timestamps();
         });

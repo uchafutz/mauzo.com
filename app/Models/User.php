@@ -6,6 +6,8 @@ namespace App\Models;
 
 use App\Models\Config\Permission;
 use App\Models\Config\Role;
+use App\Models\Inventory\Manufacturing;
+use App\Models\Purchase\Purchase;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -57,5 +59,20 @@ class User extends Authenticatable
     public function permissions()
     {
         return $this->belongsToMany(Permission::class, 'users_has_permissions', 'user_id', 'permission_id');
+    }
+
+    public function sales()
+    {
+        return $this->hasMany(Sales::class, 'user_id');
+    }
+
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class, 'user_id');
+    }
+
+    public function manufacturings()
+    {
+        return $this->hasMany(Manufacturing::class, 'user_id');
     }
 }

@@ -188,6 +188,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
+                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" required>
                                     <div class="col-md-12">
                                         <x-form.custom-input type="date" name="date" label="Sale Date"
                                             value="{{ isset($sale) ? $sale->date->format('Y-m-d') : date('Y-m-d') }}" />
@@ -216,12 +217,13 @@
                                 <input type="hidden" name="total_amount" x-bind:value="total">
                                 <input type="hidden" name="return_amount" x-bind:value="received_amount - total">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <input class="form-check-input" type="checkbox" value=""
+                                        id="flexCheckDefault">
                                     <label class="form-check-label" for="flexCheckDefault">
-                                      Sale on Credit
+                                        Sale on Credit
                                     </label>
-                                  </div>
-                                  
+                                </div>
+
                                 <div class="row mt-2">
                                     <div class="col-lg-12">
                                         @isset($sale)

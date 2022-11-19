@@ -21,6 +21,7 @@
                                 <tr>
                                     <th>S/n</th>
                                     <th>Code</th>
+                                    <th>Operator</th>
                                     <th>Date</th>
                                     <th>Total</th>
                                     <th>Status</th>
@@ -34,6 +35,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $sale->code }}</td>
+                                        <td>{{ $sale->users->name ?? null }}</td>
                                         <td>{{ $sale->date->format('m-d-Y') }}</td>
                                         <td>{{ number_format($sale->total_amount, null, null, ' ') }} TZS</td>
                                         <th class="{{ $sale->status == 'DRAFT' ? 'text-warning' : 'text-success' }}">

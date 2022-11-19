@@ -23,6 +23,7 @@
                                     enctype="multipart/form-data">
                                 @endisset
                                 @csrf
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" required>
                                 <div class="col-md-6">
                                     <x-form.custom-input type="date" name="date" label="Purchase Date"
                                         value="{{ isset($purchase) ? $purchase->date->format('Y-m-d') : date('Y-m-d') }}" />
