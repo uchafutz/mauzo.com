@@ -32,7 +32,7 @@ class ConsumeMaterial
         foreach ($manufacturing->materials as $material) {
             if ($material->material->type == 'RAW') {
                 foreach ($material->stockItems as $stockItem) {
-                    $qty = $stockItem->quantity;
+                    $qty = $stockItem->pivot->quantity;
                     $stockItem->in_stock = $stockItem->in_stock - $qty;
                     $stockItem->update();
 

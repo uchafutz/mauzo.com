@@ -149,7 +149,7 @@
                                                                     x-on:click="setValues(
                                                                         '{{ route('inventory.manufacturings.materials.assignStock', ['manufacturing' => $manufacturing, 'manufacturingMaterial' => $material]) }}', 
                                                                         '{{ $material->quantity }}', 
-                                                                        {!! json_encode($material->material->materialItem->stockItems()->with('warehouse')->get()) !!}
+                                                                        {{ json_encode($material->material->materialItem->stockItems()->with('warehouse')->get()) }}
                                                                     )">Assign
                                                                     Stock</button>
                                                             @endif
@@ -182,7 +182,7 @@
                                 Sorry, Quantity Required and Quantity Contributed have not balanced
                             </div>
                         <h5>Total Quantity Required: <span x-text="quantity_required"></span></h5>
-                        <h5 class="text-green">Total Quantity Contributed: <span x-text="stock_items.reduce((c, i) => c + parseInt(i.contribution),0)"></span></h5>
+                        <h5 class="text-green">Total Quantity Contributed: <span x-text="stock_items.reduce((c, i) => c + parseFloat(i.contribution),0)"></span></h5>
                         <table class="table">
                             <thead>
                                 <th>S/N</th>
@@ -203,7 +203,7 @@
                                         <td x-text="item.in_stock"></td>
                                         <td>
                                             <input type="hidden" x-bind:name="item.stock_item_name" x-bind:value="item.id">
-                                            <input type="number" class="form-control" x-bind:name="item.contribution_name" x-bind:max="item.in_stock" x-model="stock_items[i].contribution">
+                                            <input type="number" step="0.01" class="form-control" x-bind:name="item.contribution_name" x-bind:max="item.in_stock" x-model="stock_items[i].contribution">
                                         </td>
                                     </tr>
                                 </template>
@@ -228,7 +228,8 @@
                 stock_items: [],
                 payload: [],
                 error: false,
-                setValues(url, quantity_required, stock_items, payload) {
+                setValues(url, quantity_required, stock_items, payload = []) {
+                    console.log(url, quantity_required, stock_items, payload);
                     this.url = url;
                     this.quantity_required = quantity_required;
                     this.payload = payload;
@@ -255,7 +256,7 @@
                     });
                 },
                 submit() {
-                    let items_contributed = this.stock_items.reduce((c, i) => c + parseInt(i.contribution),0)
+                    let items_contributed = this.stock_items.reduce((c, i) => c + parseFloat(i.contribution),0)
                     if (items_contributed != this.quantity_required) {
                         this.error = true;
                         setTimeout(() => {
