@@ -414,6 +414,8 @@
         </div>
 
         <div class="app-container">
+            @guest
+            @else
             <div class="search">
                 <form>
                     <input class="form-control" type="text" placeholder="Type here..." aria-label="Search">
@@ -591,6 +593,7 @@
                     </div>
                 </nav>
             </div>
+            @endguest
             <div class="app-content">
                 <div class="content-wrapper">
 

@@ -30,12 +30,27 @@
                                 <div class="form-group">
                                     <label for="" class="label-control">Select Unit type</label>
                                     <select name="unit_type_id" x-model="form.unit_type_id" id="unit_type_id"
-                                        class="form-control  @error('unit_type_id') is-invalid @enderror">
+                                        class="form-control  @error('unit_type_id') is-invalid @enderror" @isset($inventoryItem) disabled @endisset>
                                         <option value="">Choose...</option>
                                         <template x-for="unitType in unitTypes">
                                             <option x-bind:value="unitType.id" x-text="unitType.name"
                                                 x-bind:selected="unitType.id == form.unit_type_id"></option>
                                         </template>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="" class="label-control">Select Unit</label>
+                                    <select name="default_unit_id" id="default_unit_id"
+                                        class="form-control  @error('default_unit_id') is-invalid @enderror" @isset($inventoryItem) disabled @endisset>
+                                        <option value="">Choose...</option>
+                                        <template
+                                            x-for="unit in units.filter(u => form.unit_type_id ? form.unit_type_id == u.unit_type_id : true)">
+                                            <option x-bind:value="unit.id" x-text="unit.name"
+                                                x-bind:selected="unit.id == form.conf_unit_id"
+                                                x-bind:selected="unit.id == form.conf_unit_id"></option>
+                                        </template>
+
                                     </select>
                                 </div>
 
@@ -56,20 +71,7 @@
                                 <x-form.custom-input name="featured_image" type="file" label="Choose file"
                                     placeholder="Choose file"
                                     value="{{ isset($inventoryItem) ? $inventoryItem->featured_image : null }}" />
-                                <div class="form-group">
-                                    <label for="" class="label-control">Select Unit</label>
-                                    <select name="default_unit_id" id="default_unit_id"
-                                        class="form-control  @error('default_unit_id') is-invalid @enderror">
-                                        <option value="">Choose...</option>
-                                        <template
-                                            x-for="unit in units.filter(u => form.unit_type_id ? form.unit_type_id == u.unit_type_id : true)">
-                                            <option x-bind:value="unit.id" x-text="unit.name"
-                                                x-bind:selected="unit.id == form.conf_unit_id"
-                                                x-bind:selected="unit.id == form.conf_unit_id"></option>
-                                        </template>
-
-                                    </select>
-                                </div>
+                                
                                 <br />
                                 <div class="row row-cols-lg-auto g-3 align-items-center">
                                     <div class="col-12">
