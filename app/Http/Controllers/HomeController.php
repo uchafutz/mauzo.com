@@ -41,8 +41,8 @@ class HomeController extends Controller
         $inventoryProduct = InventoryItem::where('is_product', 1)->count();
 
         //Inventory Items
-        $itemsTops = InventoryItem::join('sale_items', 'sale_items.inv_item_id', 'inventory_items.id')->select(DB::raw('DISTINCT(sale_items.inv_item_id)'), 'name',)->groupBy('sale_items.inv_item_id')->get();
-
+        $itemsTops = InventoryItem::join('sale_items', 'sale_items.inv_item_id', 'inventory_items.id')->select(DB::raw('DISTINCT(sale_items.inv_item_id)'), 'name',)->groupBy('sale_items.inv_item_id', 'inventory_items.name')->get();
+        // $itemsTops = [];
         //dd($itemsTops);
         return view('home', compact('saleTotal', 'saleOrder', 'purchaseTotal', 'purchaseOrder', 'inventoryTotal', 'inventoryProduct', 'itemsTops'));
     }

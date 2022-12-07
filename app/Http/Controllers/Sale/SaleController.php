@@ -114,13 +114,13 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
-        $organizations = Organization::all();
+        $organization = Organization::first();
         if (request()->wantsJson()) {
             return response([
                 "data" => $sale
             ], 200);
         }
-        return view("resources.sale.sales.show", compact("sale", "organizations"));
+        return view("resources.sale.sales.show", compact("sale", "organization"));
     }
 
     /**

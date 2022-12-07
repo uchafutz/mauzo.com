@@ -36,7 +36,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-8">
                                         <label for="" class="label-control">Inventory Item</label>
                                         <select class="form-control" x-model="form.inv_item_id">
                                             <option value="">Choose Item...</option>
@@ -46,7 +46,7 @@
                                             </template>
                                         </select>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <label for="" class="label-control">Unit of Meansure</label>
                                         <select class="form-control" x-model="form.conf_unit_id">
                                             <option value="">Choose Unit</option>
@@ -66,7 +66,7 @@
                                         <input type="number" placeholder="Unit Amount" x-model="form.sale_price"
                                             class="quantity border form-control">
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <label for="" class="label-control">Stock Item</label>
                                         <select class="form-control" x-model="form.inv_stock_item_id">
                                             <option value="">Choose warehouse...</option>
@@ -74,8 +74,8 @@
                                                 <option x-bind:value="stock.id">
                                                     <span x-text="stock.warehouse.name"></span>
                                                     <ul>
-                                                        <li>"<span x-text="stock.in_stock"></span></li>
-                                                        <li>"<span x-text="stock.unit_cost"></span></li>
+                                                        <li>instock: <span x-text="form.unit ? stock.in_stock / form.unit.factor : stock.in_stock"></span>,</li>
+                                                        <li>cost: <span x-text="form.unit ? stock.unit_cost * form.unit.factor : stock.unit_cost"></span></li>
                                                     </ul>
                                                 </option>
                                             </template>
@@ -138,10 +138,10 @@
                                                 <td class="text-nowrap" x-text="item.unit.name"></td>
                                                 <td x-text="item.quantity"></td>
                                                 <td class="text-nowrap" x-text="item.stock_item.warehouse.name"></td>
-                                                <td x-text="item.stock_item.in_stock"></td>
-                                                <td x-text="item.stock_item.unit_cost"></td>
+                                                <td x-text="item.stock_item.in_stock/item.unit.factor"></td>
+                                                <td x-text="item.stock_item.unit_cost*item.unit.factor"></td>
                                                 <td x-text="item.sale_price"></td>
-                                                <td x-text="item.sale_price - item.stock_item.unit_cost"></td>
+                                                <td x-text="(item.sale_price - item.stock_item.unit_cost*item.unit.factor)"></td>
                                                 <td class="d-flex">
                                                     <button type="button" class="btn btn-sm btn-outline-info mr-2"
                                                         x-on:click="select(index)">Edit</button>
@@ -188,6 +188,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
+                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" required>
                                     <div class="col-md-12">
                                         <x-form.custom-input type="date" name="date" label="Sale Date"
                                             value="{{ isset($sale) ? $sale->date->format('Y-m-d') : date('Y-m-d') }}" />
@@ -203,7 +204,7 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-12">
-                                        <x-form.custom-textarea name="description" label="Sale Descriptin"
+                                        <x-form.custom-textarea name="description" label="Sale Description"
                                             value="{{ isset($sale) ? $sale->description : '' }}" />
                                     </div>
                                     <div class="col-md-12">
@@ -215,6 +216,13 @@
 
                                 <input type="hidden" name="total_amount" x-bind:value="total">
                                 <input type="hidden" name="return_amount" x-bind:value="received_amount - total">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value=""
+                                        id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Sale on Credit
+                                    </label>
+                                </div>
 
                                 <div class="row mt-2">
                                     <div class="col-lg-12">
@@ -344,7 +352,9 @@
                             console.log("unit id has changed", id, _unit, this.units);
                             if (_unit) {
                                 this.form.unit = _unit;
+                                this.form.sale_price = this.form.item.sale_price * _unit.factor;
                             }
+                            
                         });
 
                         this.$watch('form.inv_stock_item_id', id => {

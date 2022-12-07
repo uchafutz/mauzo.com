@@ -36,10 +36,12 @@ class GenerateItems
         $totalCost = $manufacturing->materials->reduce(function($carry, $material) {
             $total = 0;
             foreach ($material->stockItems as $stockItem) {
-                $total +=  $stockItem->pivot->quantity * $stockItem->unit_price;
+                $total +=  $stockItem->pivot->quantity * $stockItem->unit_cost;
             }
             return $carry + $total;
         }, 0);
+
+        
 
         $unitCost = $totalCost/$convertedQuantity;
 

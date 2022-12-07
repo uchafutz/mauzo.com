@@ -21,6 +21,7 @@
                                 <tr>
                                     <th>S/n</th>
                                     <th>Code</th>
+                                    <th>Operator</th>
                                     <th>Date</th>
                                     <th>Status</th>
                                     <th>Description</th>
@@ -34,6 +35,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $purchase->code }}</td>
+                                        <td>{{ $purchase->users->name ?? null }}</td>
                                         <td>{{ $purchase->date }}</td>
                                         <td>{{ $purchase->status }}</td>
                                         <td>{{ $purchase->description }}</td>

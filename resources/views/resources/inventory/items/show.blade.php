@@ -22,7 +22,7 @@
                                 <td><img src="{{ $inventoryItem->featured_image }}" height="50px" alt="" /></td>
                             </tr>
                             <tr>
-                                <td>Descriptin</td>
+                                <td>Description</td>
                                 <td>{{ $inventoryItem->description }}</td>
                             </tr>
                             <tr>

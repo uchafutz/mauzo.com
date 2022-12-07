@@ -117,7 +117,7 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <img src="{{ public_path('images/logo.png') }}" style="width: 100%; max-width: 300px" />
+                                <img src="{{ $organization->featured_image }}" style="width: 200px;" />
                             </td>
 
                             <td>
@@ -136,20 +136,24 @@
 
                         <tr>
 
-                            @foreach ($organizations as $organization)
+                            @if ($organization)
                                 <td>
                                     {{ $organization->name }}.<br />
                                     {{ $organization->phone }}<br />
                                     {{ $organization->address }}
                                 </td>
-                            @endforeach
+                            @endif
 
 
                             <td>
                                 To:<br />
-                                {{ $sale->customer->name }}.<br />
-                                {{ $sale->customer->phone }}<br />
-                                {{ $sale->Customer->email }}
+                                @if ($sale->customer)
+                                    {{ $sale->customer->name }}.<br />
+                                    {{ $sale->customer->phone }}<br />
+                                    {{ $sale->Customer->email }}
+                                @else
+                                    DEFAULT CUSTOMER
+                                @endif
                             </td>
                         </tr>
                     </table>

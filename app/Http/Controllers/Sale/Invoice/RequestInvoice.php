@@ -18,8 +18,8 @@ class RequestInvoice extends Controller
      */
     public function __invoke(Request $request, Sale $sale, $type)
     {
-        $organizations = Organization::all();
-        $pdf = PDF::loadView('resources.sale.sales.invoices.invoice', compact('organizations', 'sale', 'type'));
+        $organization = Organization::first();
+        $pdf = PDF::loadView('resources.sale.sales.invoices.invoice', compact('organization', 'sale', 'type'));
         return $pdf->download();
     }
 }

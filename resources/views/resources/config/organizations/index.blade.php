@@ -4,11 +4,8 @@
 @endsection
 
 @section('page_action')
-    @isset($organizations)
-    @else
-        <a href="{{ route('config.organizations.create') }}" class="btn btn-primary"><i class="material-icons">add</i> Create
-            Organization</a>
-    @endisset
+    <a href="{{ route('config.organizations.create') }}" class="btn btn-primary"><i class="material-icons">add</i> Create
+        Organization</a>
 @endsection
 @section('content')
     <div class="container">
@@ -33,7 +30,8 @@
                                 @foreach ($organizations as $organization)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $organization->featured_image }}</td>
+                                        <td><img src="{{ $organization->featured_image }}" alt="" height="50px">
+                                        </td>
                                         <td>{{ $organization->name }}</td>
                                         <td>{{ $organization->address }}</td>
                                         <td>

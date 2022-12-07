@@ -3,6 +3,7 @@
 namespace App\Listeners\SaleSubmitted;
 
 use App\Events\SaleSubmited;
+use App\Http\Helpers\Utility;
 use App\Models\Inventory\InventoryStockItem;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -33,7 +34,7 @@ class ModifyStockItem
         foreach ($sale->salesItems as $saleItem) {
             foreach ($saleItem->stockItems as $saleItemStockItem) {
                 $stockItem = InventoryStockItem::find($saleItemStockItem->stock_item_id);
-                $qty = $saleItemStockItem->quantity;
+                $qty = Utility::convert($saleItem->unit, $saleItem->item->unit, $saleItemStockItem->quantity);
                 $stockItem->in_stock = $stockItem->in_stock - $qty;
                 $stockItem->update();
 
