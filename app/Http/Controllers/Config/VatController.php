@@ -99,7 +99,7 @@ class VatController extends Controller
                 "data" => $vat
             ], 200);
         }
-        return redirect(route("config.units.index"));
+        return redirect(route("config.vats.index"));
         //
     }
 

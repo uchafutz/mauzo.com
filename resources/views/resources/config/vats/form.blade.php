@@ -15,7 +15,7 @@
                     <div class="card-header"></div>
                     <div class="card-body">
 
-                        @isset($vats)
+                        @isset($vat)
                             <form action="{{ route('config.vats.update', ['vat' => $vat]) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @method('patch')
