@@ -156,7 +156,7 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($inventoryItem->stockItems as $stockItem)
+                                @foreach ($inventoryItem->stockItems()-> as $stockItem)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ get_class($stockItem->source) }}</td>

@@ -22,6 +22,14 @@ class InventoryStockItem extends Model
         'in_stock'
     ];
 
+    protected static function boot() {
+        parent::boot();
+
+        return static::addGlobalScope('in_stock', function ($builder) {
+            $builder->where('in_stock', '>', 0);
+        });
+    }
+
     public function source(){
         return $this->morphTo();
     }
