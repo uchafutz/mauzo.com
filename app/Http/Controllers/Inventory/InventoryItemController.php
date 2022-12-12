@@ -56,6 +56,7 @@ class InventoryItemController extends Controller
             "unit_type_id" => ["required"],
             "inventory_category_id" => ["required"],
             "default_unit_id" => ["required"],
+            "inventory_item_sku" => ["required"],
 
         ]);
         $inventoryItem = new InventoryItem();
