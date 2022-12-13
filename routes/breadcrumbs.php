@@ -12,6 +12,7 @@ use App\Models\Inventory\InventoryWarehouse;
 use App\Models\Inventory\Manufacturing;
 use App\Models\Purchase\Purchase;
 use App\Models\Sale\Sale;
+use App\Models\Stock\StockTransfer;
 use App\Models\User;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 
@@ -265,4 +266,20 @@ Breadcrumbs::for('config.organizations.create', function ($trail) {
 Breadcrumbs::for('config.organizations.edit', function ($trail, Organization $organization) {
     $trail->parent('config.organizations.index');
     $trail->push('Edit', route('config.organizations.edit', ['organization' => $organization]));
+});
+
+//transfer Stock
+Breadcrumbs::for('stock.stockTransfers.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push('StockTransfer', route('stock.stockTransfers.index'));
+});
+
+Breadcrumbs::for('stock.stockTransfers.create', function ($trail) {
+    $trail->parent('stock.stockTransfers.index');
+    $trail->push('Create', route('stock.stockTransfers.create'));
+});
+
+Breadcrumbs::for('stock.stockTransfers.edit', function ($trail, StockTransfer $stockTransfer) {
+    $trail->parent('stock.stockTransfers.index');
+    $trail->push('Edit', route('stock.stockTransfers.edit', ['stockTransfer' => $stockTransfer]));
 });

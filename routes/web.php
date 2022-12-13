@@ -25,6 +25,8 @@ use App\Http\Controllers\Inventory\ManufacturingSubmitController;
 use App\Http\Controllers\Sale\Invoice\RequestInvoice;
 use App\Http\Controllers\Sale\SaleController;
 use App\Http\Controllers\Sale\SaleSubmitController;
+use App\Http\Controllers\Stock\StockTransferController;
+use App\Models\Stock\StockTransfer;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,5 +85,9 @@ Route::middleware("auth")->group(function () {
         Route::resource("sales", SaleController::class);
         Route::post("sales/{sale}/sale-submited", SaleSubmitController::class)->name("sales.submit");
         Route::get("sales/{sale}/{type}", RequestInvoice::class)->name("sales.invoice");
+    });
+
+    Route::prefix("/stock")->name("stock.")->group(function () {
+        Route::resource("stockTransfers", StockTransferController::class);
     });
 });
