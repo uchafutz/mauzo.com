@@ -24,7 +24,7 @@
                                     enctype="multipart/form-data">
                                 @endisset
                                 @csrf
-                                <input type="hidden" name="operator_id" value="{{ Auth::user()->id }}" required>
+                                <input type="hidden" name="operation_id" value="{{ Auth::user()->id }}" required>
                                 <div class="container">
                                     <div class="row">
                                         <div class="col">
@@ -81,7 +81,8 @@
                                                 <label for="" class="label-control">Unit of Meansure</label>
                                                 <select class="form-control" x-model="itemForm.conf_unit_id">
                                                     <option value="">Choose Unit</option>
-                                                    <template x-for="unit in units.filter(u => itemForm.item.unit_type_id == u.unit_type_id)">
+                                                    <template
+                                                        x-for="unit in units.filter(u => itemForm.item.unit_type_id == u.unit_type_id)">
                                                         <option x-bind:value="unit.id" x-text="unit.name"
                                                             x-bind:selected="unit.id == itemForm.conf_unit_id"></option>
                                                     </template>
@@ -89,12 +90,13 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <label for="" class="label-control">Quantity</label>
-                                                <input type="number" placeholder="Qty" max=""
-                                                    class="quantity border form-control" x-model="form.quantity">
+                                                <input type="number" placeholder="Qty" class="quantity border form-control"
+                                                    x-model="itemForm.quantity" x-bind:max="itemForm.item.pivot.in_stock">
                                             </div>
                                             <div class="col-md-2">
                                                 <label for="" class="label-control">In Stock</label>
-                                                <input class="form-control" type="text" x-bind:value="itemForm.item.pivot.in_stock" readonly>
+                                                <input class="form-control" type="text"
+                                                    x-bind:value="itemForm.item.pivot.in_stock" readonly>
                                             </div>
 
                                             <div class="col-md-2">
@@ -122,26 +124,30 @@
                                         <th></th>
                                     </tr>
                                     <tbody>
-                                        <template x-for="(item, index) in items">
+                                        <template x-for="(warehouse, index) in warehouses">
                                             <tr>
-                                                @isset($purchase)
-                                                    <input type="hidden" x-bind:name="'items[' + index + '][id]'"
-                                                        x-bind:value="item.id">
+                                                @isset($stockTransfer)
+                                                    <input type="hidden" x-bind:name="'warehouses[' + index + '][id]'"
+                                                        x-bind:value="warehouse.id">
                                                 @endisset
 
-                                                <input type="hidden" x-bind:name="'items[' + index + '][inv_item_id]'"
-                                                    x-bind:value="item.inv_item_id">
-                                                <input type="hidden" x-bind:name="'items[' + index + '][conf_unit_id]'"
-                                                    x-bind:value="item.conf_unit_id">
-                                                <input type="hidden" x-bind:name="'items[' + index + '][quantity]'"
-                                                    x-bind:value="item.quantity">
+                                                <input type="hidden"
+                                                    x-bind:name="'warehouses[' + index + '][inv_item_id]'"
+                                                    x-bind:value="warehouse.inv_item_id">
+                                                <input type="hidden"
+                                                    x-bind:name="'warehouses[' + index + '][conf_unit_id]'"
+                                                    x-bind:value="warehouse.conf_unit_id">
+                                                <input type="hidden" x-bind:name="'warehouses[' + index + '][quantity]'"
+                                                    x-bind:value="warehouse.quantity">
+
+
 
 
                                                 <td x-text="index + 1"></td>
-                                                <td x-text="item.item.name"></td>
-                                                <td x-text="item.unit.name"></td>
-                                                <td x-text="item.quantity"></td>
-                                                <td x-text="item.stock"></td>
+                                                <td x-text="warehouse.item.name"></td>
+                                                <td x-text="warehouse.item.unit.name"></td>
+                                                <td x-text="warehouse.quantity"></td>
+                                                <td x-text="warehouse.item.pivot.in_stock"></td>
                                                 <td>
                                                     <button type="button" class="btn btn-sm btn-outline-info"
                                                         x-on:click="select(index)">Edit</button>
@@ -231,7 +237,32 @@
                             this.itemForm.item = initialItemForm;
                         }
                     });
+
                 },
+                add() {
+                    const _item = {
+                        ...this.itemForm
+                    }
+                    console.log("Item", _item, this.itemForm);
+                    this.warehouses.push(_item);
+                    this.itemFrom = initialItemForm
+                    //  console.log("item on warehouses", this.warehouses.push(this.itemFrom));
+                    console.log("Add Triggred", this.form);
+                },
+                update() {
+                    this.warehouses[this.active] = this.itemForm;
+                    this.itemForm = initialItemForm
+
+                    this.active = -1;
+                    console.log("Add Triggred", this.form);
+                },
+                select(index) {
+                    this.active = index;
+                    this.itemForm = this.warehouses[index];
+                },
+                remove(index) {
+                    this.warehouses.splice(index, 1);
+                }
 
             }
         }

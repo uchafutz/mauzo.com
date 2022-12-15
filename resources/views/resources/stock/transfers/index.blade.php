@@ -39,8 +39,8 @@
                                         <td>{{ $stockTransfer->users->name ?? null }}</td>
                                         <td>{{ $stockTransfer->date }}</td>
                                         <td>{{ $stockTransfer->status }}</td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ $stockTransfer->inventoryfrom->name }}</td>
+                                        <td>{{ $stockTransfer->inventoryto->name }}</td>
 
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
@@ -52,7 +52,7 @@
                                                     <a href="{{ route('stock.stockTransfers.show', ['stockTransfer' => $stockTransfer]) }}"
                                                         class="btn btn-outline-success"><i
                                                             class="material-icons">visibility</i></a>
-                                                    <a href="{{ route('stock.stockTransfers.show', ['stockTransfer' => $stockTransfer]) }}"
+                                                    <a href="{{ route('stock.stockTransfers.edit', ['stockTransfer' => $stockTransfer]) }}"
                                                         class="btn btn-outline-primary"><i
                                                             class="material-icons">edit</i></a>
 
