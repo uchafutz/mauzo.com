@@ -9,6 +9,7 @@ use App\Models\Inventory\InventoryWarehouse;
 use App\Models\Stock\StockTransfer;
 use App\Models\Stock\StockTransferItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StockTransferController extends Controller
 {
@@ -54,6 +55,35 @@ class StockTransferController extends Controller
      */
     public function store(Request $request, StockTransfer $stockTransfer)
     {
+
+
+        dd($request->all());
+        $request->validate([
+            "from_warehouse_id" => ["required"],
+            "to_warehouse_id" => ["required"],
+            "date" => ["required"],
+            "items" => ["required"],
+
+
+        ]);
+        DB::beginTransaction();
+        $stockTransfer = StockTransfer::create($request->input());
+        foreach ($request->input("items") as $item) {
+            $stockTransfer->items()->create($item);
+        }
+        DB::commit();
+
+        if (request()->wantsJson()) {
+            return response(
+                [
+                    "data" => $stockTransfer
+                ],
+                201
+            );
+        }
+        return $this->index();
+
+
         //
     }
 

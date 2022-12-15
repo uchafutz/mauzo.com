@@ -42,7 +42,13 @@
                                             <label for="" class="label-control">To WareHouse</label>
                                             <select class="form-control" name="to_warehouse_id"
                                                 x-model="form.to_warehouse_id">
-
+                                                <option value="">Choose...</option>
+                                                <template
+                                                    x-for="wareHouse in wareHouses.filter(u => form.from_warehouse_id ? form.from_warehouse_id != u.id : true )">
+                                                    <option x-bind:value="wareHouse.id" x-text="wareHouse.name"
+                                                        x-bind:selected="wareHouse.id == form.to_warehouse_id"
+                                                        x-bind:selected="wareHouse.id == form.to_warehouse_id"></option>
+                                                </template>
 
 
                                             </select>
@@ -75,10 +81,7 @@
                                                 <label for="" class="label-control">Unit of Meansure</label>
                                                 <select class="form-control" x-model="form.conf_unit_id">
                                                     <option value="">Choose Unit</option>
-                                                    <template
-                                                        x-for="item in units.filter(u => form.item ? u.unit_type_id == form.item.unit_type_id : true)">
-                                                        <option x-bind:value="item.id" x-text="item.name"></option>
-                                                    </template>
+
                                                 </select>
                                             </div>
                                             <div class="col-md-3">
@@ -168,8 +171,8 @@
 
     <script>
         const initialForm = {
-            from_warehouse_id = "",
-            to_warehouse_id = "",
+            from_warehouse_id: "",
+            to_warehouse_id: "",
             warehouse: null,
             unit: null,
 
@@ -179,16 +182,19 @@
             return {
                 units: [],
                 warehouses: [],
-                //item: {},
+                item: {},
                 form: initialForm,
 
 
-                initialize(wareHouses, units) {
+                initialize(wareHouses, units, item) {
                     this.wareHouses = wareHouses;
                     this.units = units;
-                    // this.item = item ?? {};
-                    this.form.from_warehouse_id = from_warehouse_id;
-                    this.form.to_warehouse_id = to_warehouse_id;
+                    this.item = item ?? {};
+                    if (item) {
+                        this.form.from_warehouse_id = item.from_warehouse_id;
+                        this.form.to_warehouse_id = item.to_warehouse_id;
+                    }
+
 
 
 
