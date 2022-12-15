@@ -68,38 +68,36 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-4">
                                                 <label for="" class="label-control">Inventory Item</label>
-                                                <select class="form-control">
+                                                <select class="form-control" x-model="itemForm.inv_item_id">
                                                     <option value="">Choose Item...</option>
-                                                    <template>
-                                                        <option></option>
+                                                    <template x-for="item in form.warehouse.items">
+                                                        <option x-bind:value="item.id" x-text="item.name"></option>
                                                     </template>
                                                 </select>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <label for="" class="label-control">Unit of Meansure</label>
-                                                <select class="form-control" x-model="form.conf_unit_id">
+                                                <select class="form-control" x-model="itemForm.conf_unit_id">
                                                     <option value="">Choose Unit</option>
-
+                                                    <template x-for="unit in units.filter(u => itemForm.item.unit_type_id == u.unit_type_id)">
+                                                        <option x-bind:value="unit.id" x-text="unit.name"
+                                                            x-bind:selected="unit.id == itemForm.conf_unit_id"></option>
+                                                    </template>
                                                 </select>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <label for="" class="label-control">Quantity</label>
                                                 <input type="number" placeholder="Qty" max=""
                                                     class="quantity border form-control" x-model="form.quantity">
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <label for="" class="label-control">In Stock</label>
-                                                <select class="form-control">
-                                                    <option value="">Choose Stock item</option>
-                                                    <template>
-                                                        <option></option>
-                                                    </template>
-                                                </select>
+                                                <input class="form-control" type="text" x-bind:value="itemForm.item.pivot.in_stock" readonly>
                                             </div>
 
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <label for="" class="label-control">&nbsp;</label>
                                                 <div x-show="active == -1">
                                                     <button type="button" class="btn btn-info d-block w-full"
@@ -170,12 +168,27 @@
     </div>
 
     <script>
+        const initialWarehouse = {
+            items: [],
+        }
+
+        const initialItem = {
+            pivot: {}
+        }
         const initialForm = {
             from_warehouse_id: "",
             to_warehouse_id: "",
-            warehouse: null,
+            warehouse: initialWarehouse,
             unit: null,
+            items: [],
+        };
 
+        const initialItemForm = {
+            item: initialItem,
+            inv_item_id: "",
+            conf_unit_id: "",
+            quantity: "",
+            in_stock: "",
         };
 
         function getState() {
@@ -184,8 +197,8 @@
                 warehouses: [],
                 item: {},
                 form: initialForm,
-
-
+                active: -1,
+                itemForm: initialItemForm,
                 initialize(wareHouses, units, item) {
                     this.wareHouses = wareHouses;
                     this.units = units;
@@ -195,12 +208,29 @@
                         this.form.to_warehouse_id = item.to_warehouse_id;
                     }
 
+                    this.$watch('form.from_warehouse_id', value => {
+                        console.log('From warehouse changed to ' + value);
 
+                        // If the new value is not empty, find the corresponding warehouse
+                        if (value) {
+                            this.form.warehouse = this.wareHouses.find(warehouse => warehouse.id == value);
+                        } else {
+                            this.form.warehouse = initialWarehouse;
+                        }
+                    });
 
+                    this.$watch('itemForm.inv_item_id', value => {
+                        console.log('Item changed to ' + value);
 
-
-
-
+                        // If the new value is not empty, find the corresponding item
+                        if (value) {
+                            this.itemForm.item = this.form.warehouse.items.find(item => item.id == value);
+                            console.log(this.itemForm.item);
+                            this.itemForm.conf_unit_id = this.itemForm.item.default_unit_id
+                        } else {
+                            this.itemForm.item = initialItemForm;
+                        }
+                    });
                 },
 
             }

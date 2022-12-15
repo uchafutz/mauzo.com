@@ -26,11 +26,11 @@
                                 <td>{{ $inventoryItem->description }}</td>
                             </tr>
                             <tr>
-                                <td>Unit</td>
+                                <td>Unit Type</td>
                                 <td>{{ $inventoryItem->unitType->name }}</td>
                             </tr>
                             <tr>
-                                <td>Unit of Measurement </td>
+                                <td>Unit of Measurement (default) </td>
                                 <td>{{ $inventoryItem->unit->name }}</td>
                             </tr>
                             <tr>
