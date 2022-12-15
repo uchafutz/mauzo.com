@@ -13,49 +13,50 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-body" x-data="getState()" x-init="initialize()">
-                        @isset($purchase)
-                            <form class="row g-3" action="{{ route('purchase.purchases.update', ['purchase' => $purchase]) }}"
+                    <div class="card-body" x-data="getState()" x-init="initialize({{ json_encode($wareHouses) }}, {{ json_encode($units) }})">
+                        @isset($stockTransfer)
+                            <form class="row g-3"
+                                action="{{ route('stock.stockTransfers.update', ['stockTranfer' => $stockTranfer]) }}"
                                 method="POST" enctype="multipart/form-data">
                                 @method('patch')
                             @else
-                                <form class="row g-3" action="{{ route('purchase.purchases.store') }}" method="POST"
+                                <form class="row g-3" action="{{ route('stock.stockTransfers.store') }}" method="POST"
                                     enctype="multipart/form-data">
                                 @endisset
                                 @csrf
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" required>
+                                <input type="hidden" name="operator_id" value="{{ Auth::user()->id }}" required>
                                 <div class="container">
                                     <div class="row">
                                         <div class="col">
                                             <label for="" class="label-control">From WareHouse</label>
-                                            <select class="form-control" x-model="form.inv_item_id">
+                                            <select class="form-control" name="from_warehouse_id"
+                                                x-model="form.from_warehouse_id">
                                                 <option value="">Choose...</option>
-                                                <template
-                                                    x-for="item in inventoryItems.filter(i => !items.find(it => it.inv_item_id == i.id))">
-                                                    <option x-bind:value="item.id" x-text="item.name"></option>
+                                                <template x-for="wareHouse in wareHouses">
+                                                    <option x-bind:value="wareHouse.id" x-text="wareHouse.name"
+                                                        x-bind:selected="wareHouse.id == form.from_warehouse_id"></option>
                                                 </template>
                                             </select>
                                         </div>
                                         <div class="col">
                                             <label for="" class="label-control">To WareHouse</label>
-                                            <select class="form-control" x-model="form.inv_item_id">
-                                                <option value="">Choose...</option>
-                                                <template
-                                                    x-for="item in inventoryItems.filter(i => !items.find(it => it.inv_item_id == i.id))">
-                                                    <option x-bind:value="item.id" x-text="item.name"></option>
-                                                </template>
+                                            <select class="form-control" name="to_warehouse_id"
+                                                x-model="form.to_warehouse_id">
+
+
+
                                             </select>
                                         </div>
                                         <div class="col">
                                             <x-form.custom-input type="date" name="date" label="Transfer Date"
-                                                value="{{ isset($purchase) ? $purchase->date->format('Y-m-d') : date('Y-m-d') }}" />
+                                                value="{{ isset($stockTransfer) ? $stockTransfer->date->format('Y-m-d') : date('Y-m-d') }}" />
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-12">
                                     <x-form.custom-textarea name="description" label="Description"
-                                        value="{{ isset($purchase) ? $purchase->description : '' }}" />
+                                        value="{{ isset($stockTransfer) ? $stockTransfer->description : '' }}" />
                                 </div>
 
                                 <div class="card">
@@ -63,11 +64,10 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label for="" class="label-control">Inventory Item</label>
-                                                <select class="form-control" x-model="form.inv_item_id">
+                                                <select class="form-control">
                                                     <option value="">Choose Item...</option>
-                                                    <template
-                                                        x-for="item in inventoryItems.filter(i => !items.find(it => it.inv_item_id == i.id))">
-                                                        <option x-bind:value="item.id" x-text="item.name"></option>
+                                                    <template>
+                                                        <option></option>
                                                     </template>
                                                 </select>
                                             </div>
@@ -88,11 +88,10 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="" class="label-control">In Stock</label>
-                                                <select class="form-control" x-model="form.conf_unit_id">
+                                                <select class="form-control">
                                                     <option value="">Choose Stock item</option>
-                                                    <template
-                                                        x-for="item in units.filter(u => form.item ? u.unit_type_id == form.item.unit_type_id : true)">
-                                                        <option x-bind:value="item.id" x-text="item.name"></option>
+                                                    <template>
+                                                        <option></option>
                                                     </template>
                                                 </select>
                                             </div>
@@ -135,8 +134,7 @@
                                                     x-bind:value="item.conf_unit_id">
                                                 <input type="hidden" x-bind:name="'items[' + index + '][quantity]'"
                                                     x-bind:value="item.quantity">
-                                                <input type="hidden" x-bind:name="'items[' + index + '][unit_price]'"
-                                                    x-bind:value="item.unit_price">
+
 
                                                 <td x-text="index + 1"></td>
                                                 <td x-text="item.item.name"></td>
@@ -170,86 +168,35 @@
 
     <script>
         const initialForm = {
-            item: null,
+            from_warehouse_id = "",
+            to_warehouse_id = "",
+            warehouse: null,
             unit: null,
-            inv_item_id: "",
-            conf_unit_id: "",
-            quantity: "",
-            unit_price: "",
+
         };
 
         function getState() {
             return {
-                inventoryItems: [],
                 units: [],
-                active: -1,
+                warehouses: [],
+                //item: {},
                 form: initialForm,
-                items: [],
-                initialize(items, units, payload) {
-                    this.inventoryItems = items;
+
+
+                initialize(wareHouses, units) {
+                    this.wareHouses = wareHouses;
                     this.units = units;
+                    // this.item = item ?? {};
+                    this.form.from_warehouse_id = from_warehouse_id;
+                    this.form.to_warehouse_id = to_warehouse_id;
 
-                    // edit form
-                    console.log(payload);
-                    for (var i = 0; i < payload.length; i++) {
-                        const x = payload[i];
-                        const __item = this.inventoryItems.find(i => i.id == x.inv_item_id);
-                        const __unit = this.units.find(u => u.id == x.conf_unit_id);
-                        const _itemPayload = {
-                            ...x,
-                            item: __item,
-                            unit: __unit,
-                        }
-                        this.items.push(_itemPayload);
-                    }
 
-                    this.$watch('form.inv_item_id', id => {
-                        const _item = this.inventoryItems.find(i => i.id == id);
-                        console.log("inventory item id has changed", id, _item, this.inventoryItems);
-                        if (_item) {
-                            this.form.item = _item;
-                        }
-                    });
-                    this.$watch('form.conf_unit_id', id => {
-                        const _unit = this.units.find(u => u.id == id);
-                        console.log("unit id has changed", id, _unit, this.units);
-                        if (_unit) {
-                            this.form.unit = _unit;
-                        }
-                    });
+
+
+
+
                 },
-                add() {
-                    this.items.push(this.form);
-                    this.form = {
-                        item: null,
-                        unit: null,
-                        inv_item_id: "",
-                        conf_unit_id: "",
-                        quantity: "",
-                        unit_price: "",
-                    };
-                    console.log("Add Triggred", this.form);
-                },
-                update() {
-                    this.items[this.active] = this.form;
-                    this.form = {
-                        item: null,
-                        unit: null,
-                        inv_item_id: "",
-                        conf_unit_id: "",
-                        quantity: "",
-                        unit_price: "",
-                    };
-                    this.active = -1;
-                    console.log("Add Triggred", this.form);
-                },
-                select(index) {
-                    this.active = index;
-                    this.form = this.items[index];
-                },
-                remove(index) {
-                    this.items.splice(index, 1);
-                }
+
             }
         }
     </script>

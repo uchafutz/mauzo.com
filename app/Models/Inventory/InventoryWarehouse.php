@@ -15,20 +15,24 @@ class InventoryWarehouse extends Model
 
     protected $fillable = ["name", "description", "featured_image"];
 
-    protected function featuredImage(): Attribute {
+    protected function featuredImage(): Attribute
+    {
         return Attribute::make(fn ($val) => Storage::url($val));
     }
 
-    public function items() {
+    public function items()
+    {
         return $this->belongsToMany(InventoryItem::class, "warehouse_has_items", "inv_warehouse_id", "inv_item_id")->withPivot(["in_stock"]);
     }
 
-    public function findItem(InventoryItem $item) {
+    public function findItem(InventoryItem $item)
+    {
         $item = $this->items()->where("inv_item_id", $item->id)->first();
         return $item;
     }
 
-    public function updateItemInstock(InventoryItem $item, $in_stock) {
+    public function updateItemInstock(InventoryItem $item, $in_stock)
+    {
         $warehouseItem = $this->findItem($item);
         if (!$warehouseItem) {
             // Create Warehouse item

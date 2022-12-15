@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Stock;
 
 use App\Http\Controllers\Controller;
+use App\Models\Config\Unit;
+use App\Models\Inventory\InventoryItem;
 use App\Models\Inventory\InventoryWarehouse;
 use App\Models\Stock\StockTransfer;
 use App\Models\Stock\StockTransferItem;
@@ -35,12 +37,11 @@ class StockTransferController extends Controller
      */
     public function create()
     {
-        $wareHouse = new InventoryWarehouse();
-        $wareHouses = $wareHouse->all();
-        $wareHouseInventory = $wareHouse->items();
-        //dd($wareHouseInventory);
-        dd($wareHouseInventory);
-        return view('resources.stock.transfers.form');
+        $inventoryWarehouse = new InventoryWarehouse();
+        $wareHouses = $inventoryWarehouse->with(['items.unit', 'items.stockItems'])->get();
+        $units = Unit::all();
+
+        return view('resources.stock.transfers.form', compact('wareHouses', 'units'));
         //
     }
 
