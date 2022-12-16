@@ -158,6 +158,10 @@
                                 <a class="{{ request()->is('config/unitTypes*') ? 'active' : '' }}"
                                     href="{{ route('config.unitTypes.index') }}">Unit Types</a>
                             </li>
+                            <li>
+                                <a class="{{ request()->is('config/vats*') ? 'active' : '' }}"
+                                    href="{{ route('config.vats.index') }}">Vat</a>
+                            </li>
                         </ul>
                     </li>
 

@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('page_title')
-    {{ __('Customer List') }}
+    {{ __('Vats') }}
 @endsection
 
 @section('page_action')
-    <a href="{{ route('customer.customers.create') }}" class="btn btn-primary"><i class="material-icons">add</i> Create
-        Customer</a>
+    <a href="{{ route('config.vats.create') }}" class="btn btn-primary"><i class="material-icons">add</i> Create
+        Vat</a>
 @endsection
 @section('content')
     <div class="container">
@@ -15,39 +15,38 @@
                     <div class="card-header"></div>
 
                     <div class="card-body">
+
+
+
                         <table class="table table-stripped">
                             <thead>
                                 <tr>
                                     <th>S/n</th>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Business Name</th>
-                                    <th>TIN No</th>
+                                    <th>Vat %</th>
                                     <th width="100px">Actions</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach ($customers as $customer)
+                                @foreach ($vats as $vat)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $customer->name }}</td>
-                                        <td>{{ $customer->email }}</td>
-                                        <td>{{ $customer->phone }}</td>
-                                        <td>{{ $customer->bus_name }}</td>
-                                        <td>{{ $customer->bus_tin }}</>
+                                        <td>{{ $vat->name }}</td>
+                                        <td>{{ $vat->vat_number }}</td>
+
                                         <td>
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="{{ route('customer.customers.edit', ['customer' => $customer]) }}"
-                                                    class="btn btn-outline-primary"><i class="material-icons">edit</i></a>
-                                                <form
-                                                    action="{{ route('customer.customers.destroy', ['customer' => $customer]) }}"
+                                            <div class="btn-group" vat="group" aria-label="Basic example">
+
+                                                <a href="{{ route('config.vats.edit', ['vat' => $vat]) }}"
+                                                    class="btn btn-outline-info"><i class="material-icons">edit</i></a>
+                                                <form action="{{ route('config.vats.destroy', ['vat' => $vat]) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="submit" class="btn btn-outline-danger"><i
                                                             class="material-icons">delete_outline</i></button>
+
                                                 </form>
                                             </div>
                                         </td>

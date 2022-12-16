@@ -112,8 +112,8 @@
                                                 <td x-text="item.item.name"></td>
                                                 <td x-text="item.unit.name"></td>
                                                 <td x-text="item.quantity"></td>
-                                                <td x-text="item.unit_price"></td>
-                                                <td x-text="item.unit_price * item.quantity"></td>
+                                                <td align="right" x-text="item.unit_price"></td>
+                                                <td align="right" x-text="item.unit_price * item.quantity"></td>
                                                 <td>
                                                     <button type="button" class="btn btn-sm btn-outline-info"
                                                         x-on:click="select(index)">Edit</button>
@@ -130,7 +130,7 @@
                                         <td>
                                             <h6>TOTAL</h6>
                                         </td>
-                                        <td class="total_display"
+                                        <td align="right" class="total_display"
                                             x-text="items.reduce((prev, item) => prev + (item.quantity * item.unit_price), 0)">
                                             .00</td>
                                     </tr>
