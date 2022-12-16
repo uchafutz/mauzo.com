@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             UnitTypeSeeder::class,
             PermissionSeeder::class,
             ConfigurationSeeder::class,
+            CustomerSeeder::class,
         ]);
     }
 }

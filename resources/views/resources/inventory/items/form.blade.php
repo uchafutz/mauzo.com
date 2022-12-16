@@ -27,10 +27,14 @@
 
                                 <x-form.custom-input name="name" type="text" label="Name" placeholder="Enter name"
                                     value="{{ isset($inventoryItem) ? $inventoryItem->name : null }}" />
+                                <x-form.custom-input name="inventory_item_sku" type="text" label="Item Sku"
+                                    placeholder="Enter part number"
+                                    value="{{ isset($inventoryItem) ? $inventoryItem->inventory_item_sku : null }}" />
                                 <div class="form-group">
                                     <label for="" class="label-control">Select Unit type</label>
                                     <select name="unit_type_id" x-model="form.unit_type_id" id="unit_type_id"
-                                        class="form-control  @error('unit_type_id') is-invalid @enderror" @isset($inventoryItem) disabled @endisset>
+                                        class="form-control  @error('unit_type_id') is-invalid @enderror"
+                                        @isset($inventoryItem) disabled @endisset>
                                         <option value="">Choose...</option>
                                         <template x-for="unitType in unitTypes">
                                             <option x-bind:value="unitType.id" x-text="unitType.name"
@@ -42,7 +46,8 @@
                                 <div class="form-group">
                                     <label for="" class="label-control">Select Unit</label>
                                     <select name="default_unit_id" id="default_unit_id"
-                                        class="form-control  @error('default_unit_id') is-invalid @enderror" @isset($inventoryItem) disabled @endisset>
+                                        class="form-control  @error('default_unit_id') is-invalid @enderror"
+                                        @isset($inventoryItem) disabled @endisset>
                                         <option value="">Choose...</option>
                                         <template
                                             x-for="unit in units.filter(u => form.unit_type_id ? form.unit_type_id == u.unit_type_id : true)">
@@ -71,7 +76,7 @@
                                 <x-form.custom-input name="featured_image" type="file" label="Choose file"
                                     placeholder="Choose file"
                                     value="{{ isset($inventoryItem) ? $inventoryItem->featured_image : null }}" />
-                                
+
                                 <br />
                                 <div class="row row-cols-lg-auto g-3 align-items-center">
                                     <div class="col-12">
@@ -121,7 +126,7 @@
             </div>
         </div>
     </div>
-    
+
     <script>
         const initialForm = {
             unit_type_id: "",
