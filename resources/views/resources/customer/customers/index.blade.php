@@ -22,6 +22,8 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
+                                    <th>Business Name</th>
+                                    <th>TIN No</th>
                                     <th width="100px">Actions</th>
                                 </tr>
                             </thead>
@@ -33,6 +35,8 @@
                                         <td>{{ $customer->name }}</td>
                                         <td>{{ $customer->email }}</td>
                                         <td>{{ $customer->phone }}</td>
+                                        <td>{{ $customer->bus_name }}</td>
+                                        <td>{{ $customer->bus_tin }}</>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <a href="{{ route('customer.customers.edit', ['customer' => $customer]) }}"
