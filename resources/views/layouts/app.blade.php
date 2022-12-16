@@ -122,6 +122,18 @@
                             </li>
                         </ul>
                     </li>
+
+                    <li class="{{ request()->is('stock*') ? 'active-page' : '' }}">
+                        <a href=""><i class="material-icons-two-tone">inventory</i>Stock<i
+                                class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a class="{{ request()->is('stock/stockTransfers*') ? 'active' : '' }}"
+                                    href="{{ route('stock.stockTransfers.index') }}">Stock Transfer</a>
+                            </li>
+
+                        </ul>
+                    </li>
                     <li class="{{ request()->is('config*') ? 'active-page' : '' }}">
                         <a href=""><i class="material-icons-two-tone">settings</i>Settings<i
                                 class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
