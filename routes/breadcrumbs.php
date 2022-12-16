@@ -1,19 +1,20 @@
 <?php
 
-use App\Models\Config\Organization;
+use App\Models\User;
+use App\Models\Sale\Sale;
 use App\Models\Config\Role;
 use App\Models\Config\Unit;
 use App\Models\Config\UnitType;
 use App\Models\Customer\Customer;
-use App\Models\Inventory\InventoryCategory;
-use App\Models\Inventory\InventoryItem;
-use App\Models\Inventory\InventoryItemMaterial;
-use App\Models\Inventory\InventoryWarehouse;
-use App\Models\Inventory\Manufacturing;
 use App\Models\Purchase\Purchase;
-use App\Models\Sale\Sale;
-use App\Models\User;
+use App\Models\Config\Organization;
+use App\Models\Config\Vat;
 use Diglactic\Breadcrumbs\Breadcrumbs;
+use App\Models\Inventory\InventoryItem;
+use App\Models\Inventory\Manufacturing;
+use App\Models\Inventory\InventoryCategory;
+use App\Models\Inventory\InventoryWarehouse;
+use App\Models\Inventory\InventoryItemMaterial;
 
 Breadcrumbs::for('home', function ($trail) {
     $trail->push('Dashboard', route('home'));
@@ -265,4 +266,20 @@ Breadcrumbs::for('config.organizations.create', function ($trail) {
 Breadcrumbs::for('config.organizations.edit', function ($trail, Organization $organization) {
     $trail->parent('config.organizations.index');
     $trail->push('Edit', route('config.organizations.edit', ['organization' => $organization]));
+});
+
+//vat
+Breadcrumbs::for('config.vats.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Vat', route('config.vats.index'));
+});
+
+Breadcrumbs::for('config.vats.create', function ($trail) {
+    $trail->parent('config.vats.index');
+    $trail->push('Create', route('config.vats.create'));
+});
+
+Breadcrumbs::for('config.vats.edit', function ($trail, Vat $vat) {
+    $trail->parent('config.vats.index');
+    $trail->push('Edit', route('config.vats.edit', ['vat' => $vat]));
 });

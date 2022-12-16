@@ -21,6 +21,7 @@ use App\Http\Controllers\Purchase\PurchaseSubmittedController;
 use App\Http\Controllers\Config\User\AssignUserRolesController;
 use App\Http\Controllers\Config\Role\AssignRolePermissionController;
 use App\Http\Controllers\Config\User\AssignUserPermissionController;
+use App\Http\Controllers\Config\VatController;
 use App\Http\Controllers\Inventory\ManufacturingSubmitController;
 use App\Http\Controllers\Sale\Invoice\RequestInvoice;
 use App\Http\Controllers\Sale\SaleController;
@@ -57,6 +58,7 @@ Route::middleware("auth")->group(function () {
         Route::resource("users", UserController::class);
         Route::post("users/{user}/assign-roles", AssignUserRolesController::class)->name("users.assignRoles");
         Route::post("users/{user}/assign-permission", AssignUserPermissionController::class)->name("users.assignPermissions");
+        Route::resource("vats", VatController::class);
     });
 
     Route::prefix("/inventory")->name("inventory.")->group(function () {
