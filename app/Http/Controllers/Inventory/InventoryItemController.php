@@ -82,8 +82,7 @@ class InventoryItemController extends Controller
     public function show(InventoryItem $inventoryItem)
 
     {
-
-
+        // $inv = InventoryItem::all();
         if (request()->wantsJson()) {
             return response([
                 "data" => $inventoryItem
