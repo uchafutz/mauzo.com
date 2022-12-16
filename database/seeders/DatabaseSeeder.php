@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use PhpParser\Node\Expr\AssignOp\Concat;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
             InventoryItemsSeender::class,
             UnitTypeSeeder::class,
             PermissionSeeder::class,
+            ConfigurationSeeder::class,
             CustomerSeeder::class,
         ]);
     }

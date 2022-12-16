@@ -3,6 +3,7 @@
 namespace App\Models\Stock;
 
 use App\Models\Inventory\InventoryWarehouse;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -33,12 +34,12 @@ class StockTransfer extends Model
 
     public function inventoryfrom()
     {
-        return $this->hasMany(InventoryWarehouse::class, 'from_warehouse_id');
+        return $this->belongsTo(InventoryWarehouse::class, 'from_warehouse_id');
     }
 
     public function inventoryto()
     {
-        return $this->hasMany(InventoryWarehouse::class, 'to_warehouse_id');
+        return $this->belongsTo(InventoryWarehouse::class, 'to_warehouse_id');
     }
 
     public function users()

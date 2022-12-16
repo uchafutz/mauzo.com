@@ -12,7 +12,7 @@ class InventoryStockItem extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable=[
+    protected $fillable = [
         'inv_item_id',
         'source_id',
         'source_type',
@@ -34,23 +34,28 @@ class InventoryStockItem extends Model
         return $this->morphTo();
     }
 
-    public function warehouse(){
-        return $this->belongsTo(InventoryWarehouse::class,'inv_warehouse_id');
+    public function warehouse()
+    {
+        return $this->belongsTo(InventoryWarehouse::class, 'inv_warehouse_id');
     }
 
-    public function item(){
-        return $this->belongsTo(InventoryItem::class,"inv_item_id");
+    public function item()
+    {
+        return $this->belongsTo(InventoryItem::class, "inv_item_id");
     }
 
-    public function stockReceived() {
+    public function stockReceived()
+    {
         return $this->morphMany(InventoryStockTransaction::class, "destination");
     }
 
-    public function stockTransfered() {
+    public function stockTransfered()
+    {
         return $this->morphMany(InventoryStockTransaction::class, "source");
     }
 
-    public function manufacturingMaterials() {
+    public function manufacturingMaterials()
+    {
         return $this->belongsToMany(ManufacturingMaterial::class, "manufacturing_material_stock_items")->withPivot("quantity");
     }
 }

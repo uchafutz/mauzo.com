@@ -18,14 +18,10 @@ class UserSeeder extends Seeder
     {
         //
         User::factory()->create(
-
             [
                 "email" => "markmayalla@gmail.com",
                 "password" => Hash::make("mark@123")
             ],
-
-
-
         );
     }
 }

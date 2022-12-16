@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Stock;
 
 use App\Http\Controllers\Controller;
+use App\Models\Config\Unit;
+use App\Models\Inventory\InventoryItem;
 use App\Models\Inventory\InventoryWarehouse;
 use App\Models\Stock\StockTransfer;
 use App\Models\Stock\StockTransferItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StockTransferController extends Controller
 {
@@ -35,12 +38,11 @@ class StockTransferController extends Controller
      */
     public function create()
     {
-        $wareHouse = new InventoryWarehouse();
-        $wareHouses = $wareHouse->all();
-        $wareHouseInventory = $wareHouse->items();
-        //dd($wareHouseInventory);
-        dd($wareHouseInventory);
-        return view('resources.stock.transfers.form');
+        $inventoryWarehouse = new InventoryWarehouse();
+        $wareHouses = $inventoryWarehouse->with(['items.unit', 'items.stockItems'])->get();
+        $units = Unit::all();
+
+        return view('resources.stock.transfers.form', compact('wareHouses', 'units'));
         //
     }
 
@@ -53,6 +55,34 @@ class StockTransferController extends Controller
      */
     public function store(Request $request, StockTransfer $stockTransfer)
     {
+
+
+        // dd($request->input());
+        $request->validate([
+            "from_warehouse_id" => ["required"],
+            "to_warehouse_id" => ["required"],
+            "date" => ["required"],
+            "warehouses" => ["required"],
+
+
+        ]);
+        DB::beginTransaction();
+        $stockTransfer = StockTransfer::create($request->input());
+        foreach ($request->input("warehouses") as $warehouse) {
+            $stockTransfer->items()->create($warehouse);
+        }
+        DB::commit();
+        if (request()->wantsJson()) {
+            return response(
+                [
+                    "data" => $stockTransfer
+                ],
+                201
+            );
+        }
+        return $this->index();
+
+
         //
     }
 
@@ -65,7 +95,15 @@ class StockTransferController extends Controller
      */
     public function show(StockTransfer $stockTransfer, StockTransferItem $stockTransferItem)
     {
-        //
+        if (request()->wantsJson()) {
+            return response(
+                [
+                    "data" => $stockTransfer,
+                ],
+                200
+            );
+        }
+        return view('resources.stock.transfers.show', compact('stockTransfer', 'stockTransferItem'));
     }
 
     /**
@@ -77,6 +115,11 @@ class StockTransferController extends Controller
      */
     public function edit(StockTransfer $stockTransfer, StockTransferItem $stockTransferItem)
     {
+        $inventoryWarehouse = new InventoryWarehouse();
+        $wareHouses = $inventoryWarehouse->with(['items.unit', 'items.stockItems'])->get();
+        $units = Unit::all();
+
+        return view('resources.stock.transfers.form', compact('wareHouses', 'units'));
         //
     }
 
@@ -90,6 +133,27 @@ class StockTransferController extends Controller
      */
     public function update(Request $request, StockTransfer $stockTransfer, StockTransferItem $stockTransferItem)
     {
+        DB::beginTransaction();
+        $stockTransfer->update($request->input());
+        foreach ($request->input("warehouses") as $warehouse) {
+            if ($warehouse["id"]) {
+                $stockTransferItem = StockTransferItem::find($warehouse['id']);
+                $stockTransferItem->update($warehouse);
+            } else {
+                $stockTransfer->items()->create($warehouse);
+            }
+        }
+        DB::commit();
+
+        if (request()->wantsJson()) {
+            return response(
+                [
+                    "data" => $stockTransfer
+                ],
+                201
+            );
+        }
+        return $this->index();
         //
     }
 
@@ -102,6 +166,11 @@ class StockTransferController extends Controller
      */
     public function destroy(StockTransfer $stockTransfer, StockTransferItem $stockTransferItem)
     {
+        $stockTransfer->delete();
+        if (request()->wantsJson()) {
+            return response(null, 204);
+        }
+        return $this->index();
         //
     }
 }
