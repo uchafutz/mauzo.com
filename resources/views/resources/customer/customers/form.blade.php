@@ -81,6 +81,11 @@
                                                 placeholder="Enter Business TIN number"
                                                 value="{{ isset($customer) ? $customer->bus_tin : null }}" />
                                         </div>
+                                        <div class="col">
+                                            <x-form.custom-input name="bus_vrn" type="text" label="VRN No:"
+                                                placeholder="Enter Business VRN number"
+                                                value="{{ isset($customer) ? $customer->bus_vrn : null }}" />
+                                        </div>
                                     </div>
                                 </div>
 
