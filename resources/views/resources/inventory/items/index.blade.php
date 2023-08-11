@@ -35,7 +35,7 @@
                                         </td>
                                         <td>{{ $inventoryItem->name }}</td>
                                         <td>{{ $inventoryItem->reorder_level }}</td>
-                                        <td class="{{ $inventoryItem->in_stock > $inventoryItem->reorder_level ? 'text-success' : 'text-danger' }}" >{{ $inventoryItem->in_stock ?? 0 }} {{ $inventoryItem->unit->code }}</td>
+                                        <td class="{{ $inventoryItem->in_stock > $inventoryItem->reorder_level ? 'text-success' : 'text-danger' }}" >{{ $inventoryItem->in_stock ?? 0 }} {{ $inventoryItem->unit->code ?? null}}</td>
                                         
                                         <td>{{ number_format($inventoryItem->sale_price, 2, null, " ") }} TZS</td>
                                         <td>

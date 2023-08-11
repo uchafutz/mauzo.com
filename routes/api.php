@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Config\OrganizationController;
 use App\Http\Controllers\Config\Role\AssignRolePermissionController;
 use App\Http\Controllers\Config\RoleController;
@@ -36,7 +37,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::post("/login", LoginController::class)->name('api.login');
 Route::middleware("auth:sanctum")->name("api.")->group(function () {
 
     Route::prefix("/config")->name("config.")->group(function () {
