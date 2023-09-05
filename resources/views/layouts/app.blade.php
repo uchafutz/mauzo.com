@@ -94,14 +94,6 @@
                         <a href="{{ route('purchase.purchases.index') }}"><i
                                 class="material-icons-two-tone">shopping_cart</i>Purchases</a>
                     </li>
-<<<<<<< HEAD
-
-=======
-                    {{-- <li class="{{ request()->is('inventory/manufacturings*') ? 'active-page' : '' }}">
-                        <a href="{{ route('inventory.manufacturings.index') }}"><i
-                                class="material-icons-two-tone">precision_manufacturing</i>Manufacturing</a>
-                    </li> --}}
->>>>>>> 3030ba6b7e360b754288b22dbdc291735a60787b
                     <li class="{{ request()->is('customer/customers*') ? 'active-page' : '' }}">
                         <a href="{{ route('customer.customers.index') }}"><i
                                 class="material-icons-two-tone">groups</i>Customers</a>
