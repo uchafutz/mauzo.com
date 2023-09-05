@@ -22,7 +22,7 @@
                                     <th>Stock code</th>
                                     <th>Item</th>
                                     <th>Quantity</th>
-                                    <th>Action </th>
+                                   
 
                                 </tr>
                             </thead>
@@ -35,7 +35,7 @@
                                         <td>{{ $stockTransferItem->stockTransfer->code }}</td>
                                         <td>{{ $stockTransferItem->inventoryItem->name }}</td>
                                         <td>{{ $stockTransferItem->quantity }} {{ $stockTransferItem->unit->code }}</td>
-                                        <td> </td>
+                                      
 
 
                                     </tr>
@@ -46,6 +46,17 @@
 
 
                         </table>
+                         @if ($stockTransfer->status == 'DRAFT')
+                            <form action="{{ route('stock.stockTransfer.submited', ['stockTransfer' => $stockTransfer]) }}"
+                                method="post" enctype="multipart/form-data">
+                                @csrf
+                                
+                                <br />
+
+                                <button type="submit" class="btn btn-lg btn-success">Submit Transfer</button>
+                            </form>
+                        @else
+                        @endif
 
 
                     </div>

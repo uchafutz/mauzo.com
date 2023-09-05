@@ -30,6 +30,16 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
     </script>
+    <!--data table-->
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+   <!--data table-->
+
     <link href="{{ asset('neptune/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('neptune/plugins/perfectscroll/perfect-scrollbar.css') }}" rel="stylesheet">
     <link href="{{ asset('neptune/plugins/pace/pace.css') }}" rel="stylesheet">
@@ -84,7 +94,14 @@
                         <a href="{{ route('purchase.purchases.index') }}"><i
                                 class="material-icons-two-tone">shopping_cart</i>Purchases</a>
                     </li>
+<<<<<<< HEAD
 
+=======
+                    {{-- <li class="{{ request()->is('inventory/manufacturings*') ? 'active-page' : '' }}">
+                        <a href="{{ route('inventory.manufacturings.index') }}"><i
+                                class="material-icons-two-tone">precision_manufacturing</i>Manufacturing</a>
+                    </li> --}}
+>>>>>>> 3030ba6b7e360b754288b22dbdc291735a60787b
                     <li class="{{ request()->is('customer/customers*') ? 'active-page' : '' }}">
                         <a href="{{ route('customer.customers.index') }}"><i
                                 class="material-icons-two-tone">groups</i>Customers</a>
@@ -199,7 +216,7 @@
                                         <div class="dropdown-menu dropdown-menu-end notifications-dropdown"
                                             aria-labelledby="notificationsDropDown">
                                             <h6 class="dropdown-header">Notifications</h6>
-                                            <div class="notifications-dropdown-list">
+                                            {{-- <div class="notifications-dropdown-list">
                                                 <a href="#">
                                                     <div class="notifications-dropdown-item">
                                                         <div class="notifications-dropdown-item-image">
@@ -270,7 +287,7 @@
                                                         </div>
                                                     </div>
                                                 </a>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </li>
                                     <li class="nav-item hidden-on-mobile">

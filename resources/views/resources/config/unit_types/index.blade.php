@@ -15,7 +15,7 @@
                     <div class="card-header"></div>
 
                     <div class="card-body">
-                        <table class="table table-stripped">
+                        <table id="example" class="table table-stripped">
                             <thead>
                                 <tr>
                                     <th>S/n</th>
@@ -44,4 +44,8 @@
             </div>
         </div>
     </div>
+    <script>
+        	
+        new DataTable('#example');
+    </script>
 @endsection

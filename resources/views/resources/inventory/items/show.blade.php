@@ -91,7 +91,7 @@
                     </div>
                 </div>
 
-                <div class="card card-secondary">
+                {{-- <div class="card card-secondary">
                     <div class="card-header">
                         <h4></h4>
                     </div>
@@ -138,12 +138,12 @@
                         </table>
 
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="card mt-2">
-                    <div class="card-header">{{ __('Stock Items') }}</div>
+                    <div class="card-header">{{ __('Stock Items Purchase List') }}</div>
                     <div class="card-body">
-                        <table class="table table-stripped">
+                        <table id="example" class="table table-stripped">
                             <thead>
                                 <tr>
                                     <th>S/n</th>
@@ -200,4 +200,8 @@
             </div>
         </div>
     </div>
+    <script>
+        	
+        new DataTable('#example');
+    </script>
 @endsection

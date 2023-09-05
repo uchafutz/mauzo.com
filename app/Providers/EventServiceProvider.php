@@ -6,6 +6,7 @@ use App\Events\ManufacturingSubmited;
 use App\Events\PurchaseSubmited;
 use App\Events\SaleSubmited;
 use App\Events\StockItemCreated;
+use App\Events\StockTransferEvent;
 use App\Events\UserCreated;
 use App\Listeners\ManufacturingSubmitted\ConsumeMaterial;
 use App\Listeners\ManufacturingSubmitted\GenerateItems;
@@ -13,6 +14,7 @@ use App\Listeners\ManufacturingSubmitted\GenerateWaste;
 use App\Listeners\PurchaseSubmited\CreateStockItem;
 use App\Listeners\SaleSubmitted\ModifyStockItem;
 use App\Listeners\StockItemCreated\CreateStockTransaction;
+use App\Listeners\StockTransfer\ModifyStockTransfer;
 use App\Listeners\UserAccountCreated;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -30,7 +32,7 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        UserCreated::class=>[
+        UserCreated::class => [
             UserAccountCreated::class,
         ],
         PurchaseSubmited::class => [
@@ -46,6 +48,10 @@ class EventServiceProvider extends ServiceProvider
             ConsumeMaterial::class,
             GenerateWaste::class,
             GenerateItems::class,
+        ],
+        StockTransferEvent::class => [
+            ModifyStockTransfer::class,
+            //  CreateStockItem::class,
         ]
     ];
 

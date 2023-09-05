@@ -15,8 +15,13 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header"></div>
+<<<<<<< HEAD
                     <div class="card-body table-responsive">
                         <table class="table table-stripped">
+=======
+                    <div class="card-body">
+                        <table id="example" class="table table-stripped">
+>>>>>>> 3030ba6b7e360b754288b22dbdc291735a60787b
                             <thead>
                                 <tr>
                                     <th>S/n</th>
@@ -52,9 +57,7 @@
                                                     <a href="{{ route('stock.stockTransfers.show', ['stockTransfer' => $stockTransfer]) }}"
                                                         class="btn btn-outline-success"><i
                                                             class="material-icons">visibility</i></a>
-                                                    <a href="{{ route('stock.stockTransfers.edit', ['stockTransfer' => $stockTransfer]) }}"
-                                                        class="btn btn-outline-primary"><i
-                                                            class="material-icons">edit</i></a>
+                                                   
 
                                                     <form
                                                         action="{{ route('stock.stockTransfers.destroy', ['stockTransfer' => $stockTransfer]) }}"
@@ -77,4 +80,8 @@
             </div>
         </div>
     </div>
+    <script>
+        	
+        new DataTable('#example');
+    </script>
 @endsection
