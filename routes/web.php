@@ -48,6 +48,11 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+// Route::get('/forgot-password', function () {
+//     return view('auth.forgot-password');
+// })->middleware('guest')->name('password.request');
+
 Route::middleware("auth")->group(function () {
 
     Route::prefix("/config")->name("config.")->group(function () {

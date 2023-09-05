@@ -296,8 +296,8 @@
 
                         if (sale != null) {
                             this.received_amount = sale.received_amount;
-
                         }
+
                         // edit form
                         console.debug('payload', payload)
                         for (var i = 0; i < payload.length; i++) {

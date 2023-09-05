@@ -6,12 +6,19 @@ use App\Events\UserCreated;
 use App\Http\Controllers\Controller;
 use App\Models\Config\Role;
 use App\Models\Config\Permission;
+use App\Models\Inventory\InventoryWarehouse;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Nette\Utils\Random;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +26,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::with('inventoryWarehouse')->get();
         if (request()->wantsJson()) {
             return response([
                 "data" => $users
@@ -35,8 +42,9 @@ class UserController extends Controller
      */
     public function create()
     {
+        $warehouses = InventoryWarehouse::all();
 
-        return view("resources.config.users.form");
+        return view("resources.config.users.form", ['warehouses' => $warehouses]);
     }
 
     /**
@@ -50,14 +58,20 @@ class UserController extends Controller
 
         $request->validate([
             "name" => ["required"],
-            "email" => ["required", "unique:users,email"],
-
+            "email" => ["required", "email","unique:users,email"],
         ]);
-
+        
         $data = [];
         $data["name"] = $request->name;
         $data["email"] = $request->email;
-        $data["password"] = Random::generate();
+        $data["is_admin"] = $request->is_admin == 'on' ? 1 : 0;
+        $data["password"] = Hash::make(Random::generate());
+        $data['inventory_warehouse_id'] = $request->user_warehouse;
+        // if ($request->is_admin == 'on') {
+        //     $data['inventory_warehouse_id'] = 1;
+        // }else{
+        //     $data['inventory_warehouse_id'] = $request->user_warehouse;
+        // }
         $user = User::create($data);
 
         UserCreated::dispatch($user);
@@ -98,8 +112,10 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //
+        $warehouses = InventoryWarehouse::all();
 
-        return view("resources.config.users.form", compact("user"));
+
+        return view("resources.config.users.form", compact(["user","warehouses"]));
     }
 
     /**
@@ -111,6 +127,10 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
+        
+        $request['is_admin'] = $request['is_admin'] == 'on' ? 1 : 0;
+
         $user->update($request->input());
         if (request()->wantsJson()) {
             return response([

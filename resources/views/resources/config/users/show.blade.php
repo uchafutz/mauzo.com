@@ -25,7 +25,7 @@
                                     </tr>
                                 </table>
                                 </p>
-                                <hr>
+                                {{-- <hr>
                                 <strong><a class="btn btn-app" href="{{ route('config.roles.create') }}">
                                         <i class="fas fa-plus"></i> New Role
                                     </a></strong>
@@ -61,7 +61,7 @@
                                             <thead>
                                                 <th>S/n</th>
                                                 <th>Permission Name</th>
-                                                <th> Access</th>
+                                                <th>Access</th>
                                             </thead>
                                             <tbody>
                                                 @foreach ($permissions as $permission)
@@ -77,7 +77,7 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
-                                </form>
+                                </form> --}}
 
                             </div>
 

@@ -71,6 +71,7 @@ class RoleController extends Controller
     public function show(Role $role)
     {
         $permissions=Permission::all();
+        
         if(request()->wantsJson()){
             return response([
                 "data"=>$role

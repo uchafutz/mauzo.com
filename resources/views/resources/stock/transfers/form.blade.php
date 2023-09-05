@@ -113,51 +113,52 @@
                                         </div>
                                     </div>
                                 </div>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>S/n</th>
+            <th>Item</th>
+            <th>Unit</th>
+            <th>Quantity</th>
+            <th>In Stock</th>
+            <th></th>
+        </tr>
+        <tbody>
+            <template x-for="(warehouse, index) in warehouses">
+                <tr>
+                    @isset($stockTransfer)
+                        <input type="hidden" x-bind:name="'warehouses[' + index + '][id]'"
+                            x-bind:value="warehouse.id">
+                    @endisset
 
-                                <table class="table table-bordered table-hover">
-                                    <tr>
-                                        <th>S/n</th>
-                                        <th>Item</th>
-                                        <th>Unit</th>
-                                        <th>Quantity</th>
-                                        <th>In Stock</th>
-                                        <th></th>
-                                    </tr>
-                                    <tbody>
-                                        <template x-for="(warehouse, index) in warehouses">
-                                            <tr>
-                                                @isset($stockTransfer)
-                                                    <input type="hidden" x-bind:name="'warehouses[' + index + '][id]'"
-                                                        x-bind:value="warehouse.id">
-                                                @endisset
-
-                                                <input type="hidden"
-                                                    x-bind:name="'warehouses[' + index + '][inv_item_id]'"
-                                                    x-bind:value="warehouse.inv_item_id">
-                                                <input type="hidden"
-                                                    x-bind:name="'warehouses[' + index + '][conf_unit_id]'"
-                                                    x-bind:value="warehouse.conf_unit_id">
-                                                <input type="hidden" x-bind:name="'warehouses[' + index + '][quantity]'"
-                                                    x-bind:value="warehouse.quantity">
-
-
+                    <input type="hidden"
+                        x-bind:name="'warehouses[' + index + '][inv_item_id]'"
+                        x-bind:value="warehouse.inv_item_id">
+                    <input type="hidden"
+                        x-bind:name="'warehouses[' + index + '][conf_unit_id]'"
+                        x-bind:value="warehouse.conf_unit_id">
+                    <input type="hidden" x-bind:name="'warehouses[' + index + '][quantity]'"
+                        x-bind:value="warehouse.quantity">
 
 
-                                                <td x-text="index + 1"></td>
-                                                <td x-text="warehouse.item.name"></td>
-                                                <td x-text="warehouse.item.unit.name"></td>
-                                                <td x-text="warehouse.quantity"></td>
-                                                <td x-text="warehouse.item.pivot.in_stock"></td>
-                                                <td>
-                                                    <button type="button" class="btn btn-sm btn-outline-info"
-                                                        x-on:click="select(index)">Edit</button>
-                                                    <button type="button" class="btn btn-sm btn-outline-danger"
-                                                        x-on:click="remove(index)">X</button>
-                                                </td>
-                                            </tr>
-                                        </template>
-                                    </tbody>
-                                </table>
+
+
+                    <td x-text="index + 1"></td>
+                    <td x-text="warehouse.item.name"></td>
+                    <td x-text="warehouse.item.unit.name"></td>
+                    <td x-text="warehouse.quantity"></td>
+                    <td x-text="warehouse.item.pivot.in_stock"></td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-outline-info"
+                            x-on:click="select(index)">Edit</button>
+                        <button type="button" class="btn btn-sm btn-outline-danger"
+                            x-on:click="remove(index)">X</button>
+                    </td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+</div>
 
 
                                 @isset($stockTransfer)

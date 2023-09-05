@@ -22,6 +22,8 @@
                                     <th>S/n</th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Warehouse</th>
                                     <th width="100px">Actions</th>
                                 </tr>
                             </thead>
@@ -32,6 +34,8 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
+                                        <td>{{ $user->is_admin ? 'Admin' : 'Salesman' }}</td>
+                                        <td>{{ $user->inventoryWarehouse->name }}</td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <a href="{{ route('config.users.show', ['user' => $user]) }}"

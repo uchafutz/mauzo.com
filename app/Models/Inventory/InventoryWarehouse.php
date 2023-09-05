@@ -2,6 +2,7 @@
 
 namespace App\Models\Inventory;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -40,5 +41,9 @@ class InventoryWarehouse extends Model
         } else {
             $this->items()->sync([$item->id => ["in_stock" => $in_stock]], false);
         }
+    }
+
+    public function users(){
+        return $this->hasMany(User::class);
     }
 }
