@@ -15,13 +15,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header"></div>
-<<<<<<< HEAD
                     <div class="card-body table-responsive">
                         <table class="table table-stripped">
-=======
-                    <div class="card-body">
-                        <table id="example" class="table table-stripped">
->>>>>>> 537bf175597304415dad31640f63bc7cf04dcc2a
                             <thead>
                                 <tr>
                                     <th>S/n</th>
