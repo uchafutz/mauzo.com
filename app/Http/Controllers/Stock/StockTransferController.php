@@ -133,6 +133,7 @@ class StockTransferController extends Controller
      */
     public function update(Request $request, StockTransfer $stockTransfer, StockTransferItem $stockTransferItem)
     {
+        dd($request);
         DB::beginTransaction();
         $stockTransfer->update($request->input());
         foreach ($request->input("warehouses") as $warehouse) {

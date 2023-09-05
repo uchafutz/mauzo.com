@@ -33,6 +33,7 @@ class ModifyStockItem
         // Deduct Stock From Stock Items and Update the in stock
         foreach ($sale->salesItems as $saleItem) {
             foreach ($saleItem->stockItems as $saleItemStockItem) {
+                //dd($saleItemStockItem);
                 $stockItem = InventoryStockItem::find($saleItemStockItem->stock_item_id);
                 $qty = Utility::convert($saleItem->unit, $saleItem->item->unit, $saleItemStockItem->quantity);
                 $stockItem->in_stock = $stockItem->in_stock - $qty;
@@ -53,6 +54,6 @@ class ModifyStockItem
                 // Modify the Item In Stock Value
                 $stockItem->item->updateInStock();
             }
-        } 
+        }
     }
 }

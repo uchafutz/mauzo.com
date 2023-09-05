@@ -30,12 +30,12 @@ class CreateStockItem
     {
         //
         $purchase = $event->purchase;
-        
+
         foreach ($purchase->items as $item) {
             // per each purchase item, do unit conversion: from unints used during purchase to item default unit
             // calculate the resulting quantity
             $convertedQuantity = Utility::convert($item->unit, $item->inventoryItem->unit, $item->quantity);
-            $convertedUnitCost = ($item->unit_price * $item->quantity)/$convertedQuantity;
+            $convertedUnitCost = ($item->unit_price * $item->quantity) / $convertedQuantity;
             $stockItem = $item->stockItems()->create([
                 "inv_item_id" => $item->inv_item_id,
                 "inv_warehouse_id" => $purchase->warehouse_id,
