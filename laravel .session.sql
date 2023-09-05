@@ -1,0 +1,1 @@
+ALTER table stock_transfer_items drop column stock_transfer_items;

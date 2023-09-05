@@ -52,9 +52,7 @@
                                                     <a href="{{ route('stock.stockTransfers.show', ['stockTransfer' => $stockTransfer]) }}"
                                                         class="btn btn-outline-success"><i
                                                             class="material-icons">visibility</i></a>
-                                                    <a href="{{ route('stock.stockTransfers.edit', ['stockTransfer' => $stockTransfer]) }}"
-                                                        class="btn btn-outline-primary"><i
-                                                            class="material-icons">edit</i></a>
+                                                   
 
                                                     <form
                                                         action="{{ route('stock.stockTransfers.destroy', ['stockTransfer' => $stockTransfer]) }}"
