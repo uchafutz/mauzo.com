@@ -172,6 +172,10 @@
                                 <a class="{{ request()->is('config/vats*') ? 'active' : '' }}"
                                     href="{{ route('config.vats.index') }}">Vat</a>
                             </li>
+                             <li>
+                                <a class="{{ request()->is('config/vendors*') ? 'active' : '' }}"
+                                    href="{{ route('config.vendors.index') }}">Vendor</a>
+                            </li>
                         </ul>
                     </li>
 
