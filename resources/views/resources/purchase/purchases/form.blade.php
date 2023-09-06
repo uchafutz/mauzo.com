@@ -13,7 +13,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-body" x-data="getState()" x-init="initialize({{ json_encode($items) }}, {{ json_encode($units) }}, {{ isset($purchase) ? json_encode($purchase->items) : json_encode([]) }})">
+                    <div class="card-body" x-data="getState()" x-init="initialize({{ json_encode($items) }}, {{ json_encode($units) }}, {{ json_encode($vendors) }}, {{ isset($purchase) ? json_encode($purchase->items) : json_encode([]) }})">
                         @isset($purchase)
                             <form class="row g-3" action="{{ route('purchase.purchases.update', ['purchase' => $purchase]) }}"
                                 method="POST" enctype="multipart/form-data">
@@ -24,9 +24,21 @@
                                 @endisset
                                 @csrf
                                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" required>
+                                <div class="row">
                                 <div class="col-md-6">
                                     <x-form.custom-input type="date" name="date" label="Purchase Date"
                                         value="{{ isset($purchase) ? $purchase->date->format('Y-m-d') : date('Y-m-d') }}" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="" class="label-control">Vendor</label>
+                                      <select class="form-control" name="vendor_id">
+                                        <option value="">Choose Vendor...</option>
+                                        @foreach ($vendors as $vendor)
+                                             <option value="{{$vendor->id}}">{{$vendor->name}}</option>
+                                        @endforeach
+                                       
+                                      </select>
+                                    </div>
                                 </div>
                                 <div class="col-12">
                                     <x-form.custom-textarea name="description" label="Purchase Description"
@@ -160,6 +172,7 @@
             conf_unit_id: "",
             quantity: "",
             unit_price: "",
+            vendor_id:"",
         };
 
         function getState() {
@@ -169,9 +182,11 @@
                 active: -1,
                 form: initialForm,
                 items: [],
-                initialize(items, units, payload) {
+                vendors:[],
+                initialize(items, units,vendors, payload) {
                     this.inventoryItems = items;
                     this.units = units;
+                    this.vendors =vendors;
 
                     // edit form
                     console.log(payload);

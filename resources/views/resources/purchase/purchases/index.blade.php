@@ -24,6 +24,7 @@
                                     <th>Operator</th>
                                     <th>Date</th>
                                     <th>Status</th>
+                                    <th>Vendor</th>
                                     <th>Description</th>
 
                                     <th width="100px">Actions</th>
@@ -38,6 +39,7 @@
                                         <td>{{ $purchase->users->name ?? null }}</td>
                                         <td>{{ $purchase->date }}</td>
                                         <td>{{ $purchase->status }}</td>
+                                        <td>{{ $purchase->vendors->name ?? null }}</td>
                                         <td>{{ $purchase->description }}</td>
 
                                         <td>
