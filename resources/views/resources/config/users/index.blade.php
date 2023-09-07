@@ -16,7 +16,7 @@
 
                     <div class="card-body">
 
-                        <table class="table table-stripped">
+                        <table class="table table-stripped" id="example">
                             <thead>
                                 <tr>
                                     <th>S/n</th>
@@ -61,4 +61,7 @@
             </div>
         </div>
     </div>
+    <script>	
+        new DataTable('#example');
+    </script>
 @endsection

@@ -33,9 +33,9 @@
                                 <span class="widget-stats-amount">{{ number_format($saleTotal) }}</span>
                                 <span class="widget-stats-info">{{ number_format($saleOrder) }} Sales</span>
                             </div>
-                            <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
+                            {{-- <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
                                 <i class="material-icons">keyboard_arrow_up</i> {{ $saleOrder / 100 }}%
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -54,9 +54,9 @@
                                     <b>{{ $purchaseOrder }}</b> Purchases
                                 </span>
                             </div>
-                            <div class="widget-stats-indicator widget-stats-indicator-negative align-self-start">
+                            {{-- <div class="widget-stats-indicator widget-stats-indicator-negative align-self-start">
                                 <i class="material-icons">keyboard_arrow_down</i> 12%
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -74,9 +74,9 @@
                                 <span class="widget-stats-info"><b>{{ number_format($inventoryProduct) }}</b>
                                     Products</span>
                             </div>
-                            <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
+                            {{-- <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
                                 <i class="material-icons">keyboard_arrow_up</i> 7%
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -110,8 +110,8 @@
                                     <ul class="list-group list-group-flush">
                                         @foreach ($itemsTops as $itemTop)
                                             <li class="list-group-item">{{ $itemTop->name }}<span
-                                                    class="float-end text-success">14%<i
-                                                        class="material-icons align-middle">keyboard_arrow_up</i></span>
+                                                class="float-end text-success">14%<i
+                                                class="material-icons align-middle">keyboard_arrow_up</i></span>
                                             </li>
                                         @endforeach
                                     </ul>

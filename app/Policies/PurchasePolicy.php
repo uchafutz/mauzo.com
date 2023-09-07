@@ -18,7 +18,7 @@ class PurchasePolicy
      */
     public function viewAny(User $user)
     {
-        return $user->is_admin;
+        // return $user->is_admin;
     }
 
     /**
@@ -31,7 +31,7 @@ class PurchasePolicy
     public function view(User $user, Purchase $purchase)
     {
 
-        return $user->is_admin;
+        // return $user->is_admin;
     }
 
     /**
@@ -42,7 +42,7 @@ class PurchasePolicy
      */
     public function create(User $user)
     {
-        return $user->is_admin;
+        // return $user->is_admin;
     }
 
     /**
@@ -54,7 +54,7 @@ class PurchasePolicy
      */
     public function update(User $user, Purchase $purchase)
     {
-        return $user->is_admin;
+        // return $user->is_admin;
     }
 
     /**
@@ -66,7 +66,7 @@ class PurchasePolicy
      */
     public function delete(User $user, Purchase $purchase)
     {
-        return $user->is_admin;
+        // return $user->is_admin;
     }
 
     /**
@@ -78,7 +78,7 @@ class PurchasePolicy
      */
     public function restore(User $user, Purchase $purchase)
     {
-        return $user->is_admin;
+        // return $user->is_admin;
     }
 
     /**
@@ -90,6 +90,6 @@ class PurchasePolicy
      */
     public function forceDelete(User $user, Purchase $purchase)
     {
-        return $user->is_admin;
+        // return $user->is_admin;
     }
 }
