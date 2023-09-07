@@ -8,6 +8,7 @@ use App\Models\Inventory\InventoryItem;
 use App\Models\Inventory\InventoryWarehouse;
 use App\Models\Purchase\Purchase;
 use App\Models\Purchase\PurchaseItems;
+use App\Models\Vendor\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -43,7 +44,8 @@ class PurchaseController extends Controller
     {
         $items = InventoryItem::all();
         $units = Unit::all();
-        return view("resources.purchase.purchases.form", compact("units", "items"));
+        $vendors = Vendor::all();
+        return view("resources.purchase.purchases.form", compact("units", "items", "vendors"));
     }
 
     /**

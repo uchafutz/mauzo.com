@@ -16,6 +16,7 @@ use App\Models\Inventory\Manufacturing;
 use App\Models\Inventory\InventoryCategory;
 use App\Models\Inventory\InventoryWarehouse;
 use App\Models\Inventory\InventoryItemMaterial;
+use App\Models\Vendor\Vendor;
 
 Breadcrumbs::for('home', function ($trail) {
     $trail->push('Dashboard', route('home'));
@@ -299,4 +300,20 @@ Breadcrumbs::for('config.vats.create', function ($trail) {
 Breadcrumbs::for('config.vats.edit', function ($trail, Vat $vat) {
     $trail->parent('config.vats.index');
     $trail->push('Edit', route('config.vats.edit', ['vat' => $vat]));
+});
+
+//vendors
+Breadcrumbs::for('config.vendors.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Vendor', route('config.vendors.index'));
+});
+
+Breadcrumbs::for('config.vendors.create', function ($trail) {
+    $trail->parent('config.vendors.index');
+    $trail->push('Create', route('config.vendors.create'));
+});
+
+Breadcrumbs::for('config.vendors.edit', function ($trail, Vendor $vendor) {
+    $trail->parent('config.vendors.index');
+    $trail->push('Edit', route('config.vendors.edit', ['vendor' => $vendor]));
 });

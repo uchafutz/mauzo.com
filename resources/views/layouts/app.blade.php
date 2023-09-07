@@ -89,7 +89,7 @@
                         <a href="{{ route('sale.sales.index') }}"><i
                                 class="material-icons-two-tone">attach_money</i>Sales</a>
                     </li>
-                    
+
                     <li class="{{ request()->is('purchase/purchases*') ? 'active-page' : '' }}">
                         <a href="{{ route('purchase.purchases.index') }}"><i
                                 class="material-icons-two-tone">shopping_cart</i>Purchases</a>
