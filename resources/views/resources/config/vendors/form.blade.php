@@ -15,7 +15,7 @@
 
                     <div class="card-body">
 
-                        @isset($unit)
+                        @isset($vendor)
                             <form action="{{ route('config.vendors.update', ['vendor' => $vendor]) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @method('patch')

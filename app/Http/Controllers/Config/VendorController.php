@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class VendorController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Vendor::class, 'vendor');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -76,6 +80,10 @@ class VendorController extends Controller
      */
     public function update(Request $request, Vendor $vendor)
     {
+        $request->validate([
+            "name" => ['required', 'unique:vendors,name'],
+            "type" => ["required"]
+        ]);
         $vendor->update($request->input());
         return redirect(route("config.vendors.index"));
     }

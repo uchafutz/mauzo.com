@@ -11,7 +11,9 @@ use App\Models\Inventory\InventoryStockItem;
 use App\Models\Inventory\InventoryWarehouse;
 use App\Models\Sale\Sale;
 use App\Models\Sale\SaleItem;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -24,8 +26,11 @@ class SaleController extends Controller
      */
     public function index()
     {
+        if (auth()->user()->is_admin) {
+            $sales = Sale::all();
+        }
+        $sales = Sale::where('user_id', auth()->user()->id)->get();
 
-        $sales = Sale::all();
         if (request()->wantsJson()) {
             return response([
                 "data" => $sales
@@ -43,8 +48,18 @@ class SaleController extends Controller
     public function create()
     {
         $customers = Customer::all();
-        $items = InventoryItem::with("stockItems.warehouse")->get();
+
+        if (auth()->user()->is_admin) {
+            $items = InventoryItem::with("stockItems.warehouse")->get();
+        } else {
+            $items = InventoryItem::with(["stockItems" => function ($query) {
+                $query->where('inv_warehouse_id', auth()->user()->inventory_warehouse_id)
+                    ->with('warehouse');
+            }])->get();
+        }
+
         $units = Unit::all();
+
         return view("resources.sale.sales.form", compact("customers", "items", "units"));
     }
 

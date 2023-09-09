@@ -290,6 +290,7 @@
                     sale: {},
 
                     initialize(items, units, payload, sale) {
+                        // console.log(sale);
                         this.inventoryItems = items;
                         this.units = units;
                         this.sale = sale;

@@ -5,13 +5,17 @@ namespace App\Providers;
 // use Illuminate\Support\Facades\Gate;
 
 use App\Models\Inventory\InventoryCategory;
+use App\Models\Inventory\InventoryItem;
 use App\Models\Inventory\InventoryWarehouse;
 use App\Models\Purchase\Purchase;
 use App\Models\User;
+use App\Models\Vendor\Vendor;
 use App\Policies\InventoryCategoryPolicy;
+use App\Policies\InventoryItemPolicy;
 use App\Policies\PurchasePolicy;
 use App\Policies\UserPolicy;
 use App\Policies\InventoryWarehousePolicy;
+use App\Policies\VendorPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -26,7 +30,9 @@ class AuthServiceProvider extends ServiceProvider
         User::class => UserPolicy::class,
         Purchase::class => PurchasePolicy::class,
         InventoryWarehouse::class => InventoryWarehousePolicy::class,
-        InventoryCategory::class => InventoryCategoryPolicy::class
+        InventoryCategory::class => InventoryCategoryPolicy::class,
+        InventoryItem::class => InventoryItemPolicy::class,
+        Vendor::class => VendorPolicy::class
     ];
 
     /**

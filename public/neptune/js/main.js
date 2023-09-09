@@ -5,6 +5,10 @@ $(document).ready(function () {
     // Properties
     const submenu_animation_speed = 200;
 
+    
+    $('select').select2();
+
+
     // Functions
     const appMenu = function () {
 

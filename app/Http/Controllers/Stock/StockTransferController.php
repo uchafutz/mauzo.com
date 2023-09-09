@@ -63,8 +63,6 @@ class StockTransferController extends Controller
             "to_warehouse_id" => ["required"],
             "date" => ["required"],
             "warehouses" => ["required"],
-
-
         ]);
         DB::beginTransaction();
         $stockTransfer = StockTransfer::create($request->input());
