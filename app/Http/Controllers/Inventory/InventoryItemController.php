@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 
 class InventoryItemController extends Controller
 {
+    public function __construct() {
+        $this->authorizeResource(InventoryItem::class, 'inventoryItem');
+    }
     /**
      * Display a listing of the resource.
      *

@@ -22,6 +22,9 @@ use App\Http\Controllers\Config\User\AssignUserRolesController;
 use App\Http\Controllers\Config\Role\AssignRolePermissionController;
 use App\Http\Controllers\Config\User\AssignUserPermissionController;
 use App\Http\Controllers\Config\VatController;
+use App\Http\Controllers\Config\VendorController;
+use App\Http\Controllers\Expense\ExpenseCategoryController;
+use App\Http\Controllers\Expense\ExpenseController;
 use App\Http\Controllers\Inventory\ManufacturingSubmitController;
 use App\Http\Controllers\Sale\Invoice\RequestInvoice;
 use App\Http\Controllers\Sale\SaleController;
@@ -67,6 +70,7 @@ Route::middleware("auth")->group(function () {
         Route::post("users/{user}/assign-roles", AssignUserRolesController::class)->name("users.assignRoles");
         Route::post("users/{user}/assign-permission", AssignUserPermissionController::class)->name("users.assignPermissions");
         Route::resource("vats", VatController::class);
+        Route::resource("vendors", VendorController::class);
     });
 
     Route::prefix("/inventory")->name("inventory.")->group(function () {
@@ -87,6 +91,11 @@ Route::middleware("auth")->group(function () {
 
     Route::prefix("/customer")->name("customer.")->group(function () {
         Route::resource("customers", CustomerController::class);
+    });
+
+    Route::prefix("/expense")->name("expense.")->group(function () {
+        Route::resource("expenses", ExpenseController::class);
+        Route::resource("expenseCategories", ExpenseCategoryController::class);
     });
 
     Route::prefix("/sale")->name("sale.")->group(function () {

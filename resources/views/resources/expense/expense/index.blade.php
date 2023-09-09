@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('page_title')
-    {{ __('User') }}
+    {{ __('Expenses') }}
 @endsection
 
 @section('page_action')
-    <a href="{{ route('config.users.create') }}" class="btn btn-primary"><i class="material-icons">add</i> Create
-        User</a>
+    <a href="{{ route('expense.expenses.create') }}" class="btn btn-primary"><i class="material-icons">add</i> Add
+        Expense</a>
 @endsection
 @section('content')
     <div class="container">
@@ -20,30 +20,31 @@
                             <thead>
                                 <tr>
                                     <th>S/n</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Warehouse</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>User</th>
+                                    <th>Date</th>
                                     <th width="100px">Actions</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach ($users as $user)
+                                @foreach ($expenses as $expense)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>{{ $user->is_admin ? 'Admin' : 'Salesman' }}</td>
-                                        <td>{{ $user->inventoryWarehouse->name }}</td>
+                                        <td>{{ $expense->expenseCategory->category_name }}</td>
+                                        <td>{{ number_format($expense->amount) }}</td>
+                                        <td>{{ $expense->user->name }}</td>
+                                        <td>{{ $expense->created_at }}</td>
+                                        {{-- <td>Action</td> --}}
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="{{ route('config.users.show', ['user' => $user]) }}"
+                                                <a href="{{ route('expense.expenses.show', ['expense' => $expense]) }}"
                                                     class="btn btn-outline-success"><i
                                                         class="material-icons">visibility</i></a>
-                                                <a href="{{ route('config.users.edit', ['user' => $user]) }}"
+                                                <a href="{{ route('expense.expenses.edit', ['expense' => $expense]) }}"
                                                     class="btn btn-outline-info"><i class="material-icons">edit</i></a>
-                                                <form action="{{ route('config.users.destroy', ['user' => $user]) }}"
+                                                <form action="{{ route('expense.expenses.destroy', ['expense' => $expense]) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('delete')

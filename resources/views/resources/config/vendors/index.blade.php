@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('page_title')
-    {{ __('User') }}
+    {{ __('Vendors List') }}
 @endsection
 
 @section('page_action')
-    <a href="{{ route('config.users.create') }}" class="btn btn-primary"><i class="material-icons">add</i> Create
-        User</a>
+    <a href="{{ route('config.vendors.create') }}" class="btn btn-primary"><i class="material-icons">add</i> Create
+        Vendor</a>
 @endsection
 @section('content')
     <div class="container">
@@ -15,35 +15,32 @@
                     <div class="card-header"></div>
 
                     <div class="card-body">
-
-                        <table class="table table-stripped" id="example">
+                        <table id="example" class="table table-stripped">
                             <thead>
                                 <tr>
                                     <th>S/n</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Warehouse</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
                                     <th width="100px">Actions</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach ($users as $user)
+                                @foreach ($vendors as $vendor)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>{{ $user->is_admin ? 'Admin' : 'Salesman' }}</td>
-                                        <td>{{ $user->inventoryWarehouse->name }}</td>
+                                        <td>{{ $vendor->name }}</td>
+                                        <td>{{ $vendor->email }}</td>
+                                        <td>{{ $vendor->type }}</td>
+                                        <td>{{ $vendor->description }}</>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="{{ route('config.users.show', ['user' => $user]) }}"
-                                                    class="btn btn-outline-success"><i
-                                                        class="material-icons">visibility</i></a>
-                                                <a href="{{ route('config.users.edit', ['user' => $user]) }}"
-                                                    class="btn btn-outline-info"><i class="material-icons">edit</i></a>
-                                                <form action="{{ route('config.users.destroy', ['user' => $user]) }}"
+                                                <a href="{{ route('config.vendors.edit', ['vendor' => $vendor]) }}"
+                                                    class="btn btn-outline-primary"><i class="material-icons">edit</i></a>
+                                                <form
+                                                    action="{{ route('config.vendors.destroy', ['vendor' => $vendor]) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('delete')
@@ -61,7 +58,8 @@
             </div>
         </div>
     </div>
-    <script>	
+    <script>
+        	
         new DataTable('#example');
     </script>
 @endsection

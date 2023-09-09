@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Purchase\Purchase;
 use App\Models\User;
+use App\Models\Vendor\Vendor;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PurchasePolicy
+class VendorPolicy
 {
     use HandlesAuthorization;
 
@@ -18,20 +18,20 @@ class PurchasePolicy
      */
     public function viewAny(User $user)
     {
-        // return $user->is_admin;
+        return $user->is_admin;
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Purchase  $purchase
+     * @param  \App\Models\Vendor\Vendor  $vendor
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Purchase $purchase)
+    public function view(User $user, Vendor $vendor)
     {
-
-        // return $user->is_admin;
+        return $user->is_admin;
+        
     }
 
     /**
@@ -42,54 +42,58 @@ class PurchasePolicy
      */
     public function create(User $user)
     {
-        // return $user->is_admin;
+        return $user->is_admin;
+        
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Purchase  $purchase
+     * @param  \App\Models\Vendor\Vendor  $vendor
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Purchase $purchase)
+    public function update(User $user, Vendor $vendor)
     {
-        // return $user->is_admin;
+        return $user->is_admin;
+        
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Purchase  $purchase
+     * @param  \App\Models\Vendor\Vendor  $vendor
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Purchase $purchase)
+    public function delete(User $user, Vendor $vendor)
     {
-        // return $user->is_admin;
+        return $user->is_admin;
+        
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Purchase  $purchase
+     * @param  \App\Models\Vendor\Vendor  $vendor
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Purchase $purchase)
+    public function restore(User $user, Vendor $vendor)
     {
-        // return $user->is_admin;
+        return $user->is_admin;
+        
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Purchase  $purchase
+     * @param  \App\Models\Vendor\Vendor  $vendor
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Purchase $purchase)
+    public function forceDelete(User $user, Vendor $vendor)
     {
-        // return $user->is_admin;
+        return $user->is_admin;
     }
 }

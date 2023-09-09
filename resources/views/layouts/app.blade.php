@@ -30,9 +30,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
     </script>
-    <!--data table-->
-    
 
+
+
+    <!--data table-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
@@ -55,6 +56,11 @@
 
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('photon/icon.png') }}" />
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('photon/icon.png') }}" />
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+   
+
 </head>
 
 <body>
@@ -89,11 +95,12 @@
                         <a href="{{ route('sale.sales.index') }}"><i
                                 class="material-icons-two-tone">attach_money</i>Sales</a>
                     </li>
-                    @if (Auth::user()->is_admin)
+
                     <li class="{{ request()->is('purchase/purchases*') ? 'active-page' : '' }}">
                         <a href="{{ route('purchase.purchases.index') }}"><i
                                 class="material-icons-two-tone">shopping_cart</i>Purchases</a>
                     </li>
+                    @if (Auth::user()->is_admin)
                     <li class="{{ request()->is('customer/customers*') ? 'active-page' : '' }}">
                         <a href="{{ route('customer.customers.index') }}"><i
                                 class="material-icons-two-tone">groups</i>Customers</a>
@@ -135,7 +142,24 @@
 
                         </ul>
                     </li>
+
+
                     @if (Auth::user()->is_admin)
+                    <li class="{{ request()->is('expense*') ? 'active-page' : '' }}">
+                        <a href=""><i class="material-icons-two-tone">inventory</i>Expenses<i
+                                class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a class="{{ request()->is('expense/categories*') ? 'active' : '' }}"
+                                    href="{{ route('expense.expenseCategories.index') }}">Expense Category</a>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('expense/expenses*') ? 'active' : '' }}"
+                                    href="{{ route('expense.expenses.index') }}">Expenses</a>
+                            </li>
+
+                        </ul>
+                    </li>
                         <li class="{{ request()->is('config*') ? 'active-page' : '' }}">
                             <a href=""><i class="material-icons-two-tone">settings</i>Settings<i
                                     class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
@@ -156,6 +180,10 @@
                                     <a class="{{ request()->is('config/vats*') ? 'active' : '' }}"
                                         href="{{ route('config.vats.index') }}">Vat</a>
                                 </li>
+                                                             <li>
+                                <a class="{{ request()->is('config/vendors*') ? 'active' : '' }}"
+                                    href="{{ route('config.vendors.index') }}">Vendor</a>
+                            </li>
                             </ul>
                         </li>
                     @endif

@@ -22,6 +22,7 @@ class SaleItem extends Model
     public function item(){
         return $this->belongsTo(InventoryItem::class,'inv_item_id');
     }
+    
     public function unit(){
         return $this->belongsTo(Unit::class,'conf_unit_id');
     }

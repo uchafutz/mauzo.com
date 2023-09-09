@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('page_title')
-    {{ __('User') }}
+    {{ __('Expense Category List') }}
 @endsection
 
 @section('page_action')
-    <a href="{{ route('config.users.create') }}" class="btn btn-primary"><i class="material-icons">add</i> Create
-        User</a>
+    <a href="{{ route('expense.expenseCategories.create') }}" class="btn btn-primary"><i class="material-icons">add</i> Create
+        Category</a>
 @endsection
 @section('content')
     <div class="container">
@@ -15,35 +15,26 @@
                     <div class="card-header"></div>
 
                     <div class="card-body">
-
-                        <table class="table table-stripped" id="example">
+                        <table id="expense-category-table" class="table table-stripped">
                             <thead>
                                 <tr>
                                     <th>S/n</th>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Warehouse</th>
                                     <th width="100px">Actions</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach ($users as $user)
+                                @foreach ($categories as $category)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>{{ $user->is_admin ? 'Admin' : 'Salesman' }}</td>
-                                        <td>{{ $user->inventoryWarehouse->name }}</td>
+                                        <td>{{ $category->category_name }}</td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="{{ route('config.users.show', ['user' => $user]) }}"
-                                                    class="btn btn-outline-success"><i
-                                                        class="material-icons">visibility</i></a>
-                                                <a href="{{ route('config.users.edit', ['user' => $user]) }}"
-                                                    class="btn btn-outline-info"><i class="material-icons">edit</i></a>
-                                                <form action="{{ route('config.users.destroy', ['user' => $user]) }}"
+                                                <a href="{{ route('expense.expenseCategories.edit', ['expenseCategory' => $category]) }}"
+                                                    class="btn btn-outline-primary"><i class="material-icons">edit</i></a>
+                                                <form
+                                                    action="{{ route('expense.expenseCategories.destroy', ['expenseCategory' => $category]) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('delete')
@@ -61,7 +52,7 @@
             </div>
         </div>
     </div>
-    <script>	
-        new DataTable('#example');
+    <script>   	
+        new DataTable('#expense-category-table');
     </script>
 @endsection

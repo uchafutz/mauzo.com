@@ -34,18 +34,22 @@ class InventoryItem extends Model
     {
         return $this->belongsTo(InventoryCategory::class, 'inventory_category_id');
     }
+    
     public function unitType()
     {
         return $this->belongsTo(UnitType::class, 'unit_type_id');
     }
+
     public function unit()
     {
         return $this->belongsTo(Unit::class, "default_unit_id");
     }
+
     protected function featuredImage(): Attribute
     {
         return Attribute::make(fn ($val) => Storage::url($val));
     }
+
     public function materials()
     {
         return $this->hasMany(InventoryItemMaterial::class, "source_inv_items_id");
