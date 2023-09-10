@@ -164,7 +164,7 @@
                             <a href=""><i class="material-icons-two-tone">settings</i>Settings<i
                                     class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
 
-
+                        </li>
                     {{-- <li class="sidebar-title">
                             Inventory
                         </li>
@@ -222,7 +222,7 @@
                                 </li>
                             </ul>
                         </li> 
-                    {{-- <li>
+                    <li>
                             <a href=""><i class="material-icons-two-tone">sentiment_satisfied_alt</i>Elements<i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
 
                             <ul class="sub-menu">

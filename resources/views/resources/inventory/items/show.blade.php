@@ -147,7 +147,6 @@
                             <thead>
                                 <tr>
                                     <th>S/n</th>
-                                    <th>Source</th>
                                     <th>Warehouse</th>
                                     <th>Quantity</th>
                                     <th>Unit Cost</th>
@@ -159,7 +158,6 @@
                                 @foreach ($inventoryItem->stockItems as $stockItem)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ get_class($stockItem->source) }}</td>
                                         <td>{{ $stockItem->warehouse->name }}</td>
                                         <td>{{ $stockItem->quantity }}</td>
                                         <td>{{ $stockItem->unit_cost }}</td>
