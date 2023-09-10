@@ -224,18 +224,18 @@
                                     <a href="styles-icons.html">Icons</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>--}}
                         <li>
-                            <a href="#"><i class="material-icons-two-tone">grid_on</i>Tables<i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                            <a href="#"><i class="material-icons-two-tone">grid_on</i>Reports<i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
                             <ul class="sub-menu">
                                 <li>
-                                    <a href="tables-basic.html">Basic</a>
+                                    <a class="{{ request()->is('report/purchases*') ? 'active' : '' }}" href="{{route("report.purchases.report")}}">Purchase Report</a>
                                 </li>
                                 <li>
-                                    <a href="tables-datatable.html">DataTable</a>
+                                    <a class="{{ request()->is('report/sales*') ? 'active' : '' }}"  href="{{route("report.sales.report")}}">Sales Report</a>
                                 </li>
                             </ul>
-                        </li> --}}
+                        </li> 
                     {{-- <li>
                             <a href=""><i class="material-icons-two-tone">sentiment_satisfied_alt</i>Elements<i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
                             <ul class="sub-menu">
