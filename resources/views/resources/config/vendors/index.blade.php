@@ -20,8 +20,7 @@
                                 <tr>
                                     <th>S/n</th>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Type</th>
+                                  
                                     <th>Description</th>
                                     <th width="100px">Actions</th>
                                 </tr>
@@ -32,8 +31,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $vendor->name }}</td>
-                                        <td>{{ $vendor->email }}</td>
-                                        <td>{{ $vendor->type }}</td>
+                                        
                                         <td>{{ $vendor->description }}</>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">

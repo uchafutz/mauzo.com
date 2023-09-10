@@ -163,6 +163,68 @@
                         <li class="{{ request()->is('config*') ? 'active-page' : '' }}">
                             <a href=""><i class="material-icons-two-tone">settings</i>Settings<i
                                     class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+
+
+                    {{-- <li class="sidebar-title">
+                            Inventory
+                        </li>
+                        <li>
+                            <a href="mailbox.html"><i class="material-icons-two-tone">inbox</i>Categories</a>
+                        </li>
+                        <li>
+                            <a href="mailbox.html"><i class="material-icons-two-tone">inbox</i>Items</a>
+                        </li>
+
+                        <li class="sidebar-title">
+                            Manage Users
+                        </li>
+                        <li>
+                            <a href="mailbox.html"><i class="material-icons-two-tone">inbox</i>Users</a>
+                        </li>
+                        <li>
+                            <a href="mailbox.html"><i class="material-icons-two-tone">inbox</i>Roles</a>
+                        </li>
+
+                        <li class="sidebar-title">
+                            Configuration
+                        </li>
+                        <li>
+                            <a href="mailbox.html"><i class="material-icons-two-tone">inbox</i>Unit Types</a>
+                        </li>
+                        <li>
+                            <a href="mailbox.html"><i class="material-icons-two-tone">inbox</i>Units</a>
+                        </li> --}}
+                    {{-- <li class="sidebar-title">
+                            UI Elements
+                        </li> --}}
+                    {{-- <li>
+                            <a href="#"><i class="material-icons-two-tone">color_lens</i>Styles<i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="styles-typography.html">Typography</a>
+                                </li>
+                                <li>
+                                    <a href="styles-code.html">Code</a>
+                                </li>
+                                <li>
+                                    <a href="styles-icons.html">Icons</a>
+                                </li>
+                            </ul>
+                        </li>--}}
+                        <li>
+                            <a href="#"><i class="material-icons-two-tone">grid_on</i>Reports<i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a class="{{ request()->is('report/purchases*') ? 'active' : '' }}" href="{{route("report.purchases.report")}}">Purchase Report</a>
+                                </li>
+                                <li>
+                                    <a class="{{ request()->is('report/sales*') ? 'active' : '' }}"  href="{{route("report.sales.report")}}">Sales Report</a>
+                                </li>
+                            </ul>
+                        </li> 
+                    {{-- <li>
+                            <a href=""><i class="material-icons-two-tone">sentiment_satisfied_alt</i>Elements<i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+
                             <ul class="sub-menu">
                                 <li>
                                     <a class="{{ request()->is('config/users*') ? 'active' : '' }}"

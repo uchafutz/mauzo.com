@@ -43,7 +43,7 @@ class VendorController extends Controller
     {
         $request->validate([
             "name" => ['required', 'unique:vendors,name'],
-            "type" => ["required"]
+
         ]);
         Vendor::create($request->input());
         return redirect(route("config.vendors.index"));

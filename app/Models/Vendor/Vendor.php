@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Vendor extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'type', 'email', 'phone', 'description'];
+    protected $fillable = ['name', 'description'];
     public function purchases()
     {
         return $this->belongsToMany(Purchase::class);

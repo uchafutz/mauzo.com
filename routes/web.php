@@ -26,6 +26,10 @@ use App\Http\Controllers\Config\VendorController;
 use App\Http\Controllers\Expense\ExpenseCategoryController;
 use App\Http\Controllers\Expense\ExpenseController;
 use App\Http\Controllers\Inventory\ManufacturingSubmitController;
+use App\Http\Controllers\Report\CreatePDFPurchaseController;
+use App\Http\Controllers\Report\PurchaseReportController;
+use App\Http\Controllers\Report\SaleCreateReportController;
+use App\Http\Controllers\Report\SaleReportController;
 use App\Http\Controllers\Sale\Invoice\RequestInvoice;
 use App\Http\Controllers\Sale\SaleController;
 use App\Http\Controllers\Sale\SaleSubmitController;
@@ -107,5 +111,11 @@ Route::middleware("auth")->group(function () {
     Route::prefix("/stock")->name("stock.")->group(function () {
         Route::resource("stockTransfers", StockTransferController::class);
         Route::post("stockTransfers/{stockTransfer}/submited", StockSubmitTransferController::class)->name("stockTransfer.submited");
+    });
+    Route::prefix("/report")->name("report.")->group(function () {
+        Route::get("purchases", PurchaseReportController::class)->name("purchases.report");
+        Route::post("createPDF", CreatePDFPurchaseController::class, "createPDF")->name("create");
+        Route::get("sales", SaleReportController::class)->name("sales.report");
+        Route::post("salescreate", SaleCreateReportController::class)->name("sales.create");
     });
 });

@@ -2,6 +2,7 @@
 
 namespace App\Models\Purchase;
 
+use App\Models\Inventory\InventoryWarehouse;
 use App\Models\User;
 use App\Models\Vendor\Vendor;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -40,6 +41,11 @@ class Purchase extends Model
     public function users()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function warehouses()
+    {
+        return $this->belongsTo(InventoryWarehouse::class, 'warehouse_id');
     }
 
     public function vendors()
