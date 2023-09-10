@@ -290,14 +290,15 @@
                     sale: {},
 
                     initialize(items, units, payload, sale) {
+                        // console.log(sale);
                         this.inventoryItems = items;
                         this.units = units;
                         this.sale = sale;
 
                         if (sale != null) {
                             this.received_amount = sale.received_amount;
-
                         }
+
                         // edit form
                         console.debug('payload', payload)
                         for (var i = 0; i < payload.length; i++) {

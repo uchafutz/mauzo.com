@@ -9,6 +9,7 @@ use App\Models\Inventory\InventoryWarehouse;
 use App\Models\Stock\StockTransfer;
 use App\Models\Stock\StockTransferItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class StockTransferController extends Controller
@@ -21,12 +22,18 @@ class StockTransferController extends Controller
      */
     public function index()
     {
-        $stockTransfers = StockTransfer::all();
-        if (request()->wantsJson()) {
-            return response()->json($stockTransfers);
+        if (Auth::user()->is_admin != 0) {
+            $stockTransfers = StockTransfer::all();
+            if (request()->wantsJson()) {
+                return response()->json($stockTransfers);
+            }
+
+            return view('resources.stock.transfers.index', compact('stockTransfers'));
+        } else {
+            $stockTransfers = StockTransfer::where('from_warehouse_id', Auth::user()->inventory_warehouse_id)->get();
+            return view('resources.stock.transfers.index', compact('stockTransfers'));
         }
 
-        return view('resources.stock.transfers.index', compact('stockTransfers'));
         //
     }
 
@@ -63,8 +70,6 @@ class StockTransferController extends Controller
             "to_warehouse_id" => ["required"],
             "date" => ["required"],
             "warehouses" => ["required"],
-
-
         ]);
         DB::beginTransaction();
         $stockTransfer = StockTransfer::create($request->input());

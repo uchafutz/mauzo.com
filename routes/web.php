@@ -23,6 +23,8 @@ use App\Http\Controllers\Config\Role\AssignRolePermissionController;
 use App\Http\Controllers\Config\User\AssignUserPermissionController;
 use App\Http\Controllers\Config\VatController;
 use App\Http\Controllers\Config\VendorController;
+use App\Http\Controllers\Expense\ExpenseCategoryController;
+use App\Http\Controllers\Expense\ExpenseController;
 use App\Http\Controllers\Inventory\ManufacturingSubmitController;
 use App\Http\Controllers\Report\CreatePDFPurchaseController;
 use App\Http\Controllers\Report\PurchaseReportController;
@@ -53,6 +55,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+// Route::get('/forgot-password', function () {
+//     return view('auth.forgot-password');
+// })->middleware('guest')->name('password.request');
 
 Route::middleware("auth")->group(function () {
 
@@ -88,6 +95,11 @@ Route::middleware("auth")->group(function () {
 
     Route::prefix("/customer")->name("customer.")->group(function () {
         Route::resource("customers", CustomerController::class);
+    });
+
+    Route::prefix("/expense")->name("expense.")->group(function () {
+        Route::resource("expenses", ExpenseController::class);
+        Route::resource("expenseCategories", ExpenseCategoryController::class);
     });
 
     Route::prefix("/sale")->name("sale.")->group(function () {

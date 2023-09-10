@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\DB;
 
 class PurchaseController extends Controller
 {
+    public function __construct()
+    {
+        // $this->authorizeResource(Purchase::class, 'purchase');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +26,13 @@ class PurchaseController extends Controller
     public function index()
     {
 
-        $purchases = Purchase::all();
+        if (auth()->user()->is_admin) {
+            $purchases = Purchase::all();
+        }
+        else{
+            $purchases = Purchase::where('user_id', auth()->user()->id)->get();
+        }
+
         if (request()->wantsJson()) {
             return response([
                 "data" => $purchases
@@ -41,7 +51,11 @@ class PurchaseController extends Controller
     {
         $items = InventoryItem::all();
         $units = Unit::all();
-        $vendors = Vendor::all();
+        if (auth()->user()->is_admin) {
+            $vendors = Vendor::all();
+        }else{
+            $vendors = Vendor::where('type', 'Local Vendor')->get();
+        }
         return view("resources.purchase.purchases.form", compact("units", "items", "vendors"));
     }
 
@@ -85,7 +99,12 @@ class PurchaseController extends Controller
      */
     public function show(Purchase $purchase)
     {
-        $InventoryWarehouses = InventoryWarehouse::all();
+        if (auth()->user()->is_admin) {
+            $InventoryWarehouses = InventoryWarehouse::all();
+        }else{
+            $InventoryWarehouses = InventoryWarehouse::where('id', auth()->user()->inventory_warehouse_id)->get();        
+        }
+
         if (request()->wantsJson()) {
             return response(
                 [

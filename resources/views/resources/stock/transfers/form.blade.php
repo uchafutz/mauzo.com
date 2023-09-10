@@ -13,7 +13,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-body" x-data="getState()" x-init="initialize({{ json_encode($wareHouses) }}, {{ json_encode($units) }})">
+                    <div class="card-body" x-data="getState()" x-init="initialize({{ json_encode($wareHouses) }}, {{ json_encode($units) }},{{json_encode(Auth::user())}})">
                         @isset($stockTransfer)
                             <form class="row g-3"
                                 action="{{ route('stock.stockTransfers.update', ['stockTranfer' => $stockTranfer]) }}"
@@ -29,14 +29,31 @@
                                     <div class="row">
                                         <div class="col">
                                             <label for="" class="label-control">From WareHouse</label>
-                                            <select class="form-control" name="from_warehouse_id"
+                                            @if (Auth::user()->is_admin == 0)
+                                             <select class="form-control" name="from_warehouse_id"
                                                 x-model="form.from_warehouse_id">
                                                 <option value="">Choose...</option>
+                                             
+                                                <template x-for="wareHouse in wareHouses.filter(u =>user.inventory_warehouse_id ? user.inventory_warehouse_id == u.id :true)">
+                                                    <option x-bind:value="wareHouse.id" x-text="wareHouse.name"
+                                                        x-bind:selected="wareHouse.id == form.from_warehouse_id"></option>
+                                                </template>
+                                            </select>
+                                                
+                                            @else
+                                             <select class="form-control" name="from_warehouse_id"
+                                                x-model="form.from_warehouse_id">
+                                                <option value="">Choose...</option>
+                                             
                                                 <template x-for="wareHouse in wareHouses">
                                                     <option x-bind:value="wareHouse.id" x-text="wareHouse.name"
                                                         x-bind:selected="wareHouse.id == form.from_warehouse_id"></option>
                                                 </template>
                                             </select>
+                                                
+                                            @endif
+                                        
+
                                         </div>
                                         <div class="col">
                                             <label for="" class="label-control">To WareHouse</label>
@@ -113,51 +130,52 @@
                                         </div>
                                     </div>
                                 </div>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>S/n</th>
+            <th>Item</th>
+            <th>Unit</th>
+            <th>Quantity</th>
+            <th>In Stock</th>
+            <th></th>
+        </tr>
+        <tbody>
+            <template x-for="(warehouse, index) in warehouses">
+                <tr>
+                    @isset($stockTransfer)
+                        <input type="hidden" x-bind:name="'warehouses[' + index + '][id]'"
+                            x-bind:value="warehouse.id">
+                    @endisset
 
-                                <table class="table table-bordered table-hover">
-                                    <tr>
-                                        <th>S/n</th>
-                                        <th>Item</th>
-                                        <th>Unit</th>
-                                        <th>Quantity</th>
-                                        <th>In Stock</th>
-                                        <th></th>
-                                    </tr>
-                                    <tbody>
-                                        <template x-for="(warehouse, index) in warehouses">
-                                            <tr>
-                                                @isset($stockTransfer)
-                                                    <input type="hidden" x-bind:name="'warehouses[' + index + '][id]'"
-                                                        x-bind:value="warehouse.id">
-                                                @endisset
-
-                                                <input type="hidden"
-                                                    x-bind:name="'warehouses[' + index + '][inv_item_id]'"
-                                                    x-bind:value="warehouse.inv_item_id">
-                                                <input type="hidden"
-                                                    x-bind:name="'warehouses[' + index + '][conf_unit_id]'"
-                                                    x-bind:value="warehouse.conf_unit_id">
-                                                <input type="hidden" x-bind:name="'warehouses[' + index + '][quantity]'"
-                                                    x-bind:value="warehouse.quantity">
-
-
+                    <input type="hidden"
+                        x-bind:name="'warehouses[' + index + '][inv_item_id]'"
+                        x-bind:value="warehouse.inv_item_id">
+                    <input type="hidden"
+                        x-bind:name="'warehouses[' + index + '][conf_unit_id]'"
+                        x-bind:value="warehouse.conf_unit_id">
+                    <input type="hidden" x-bind:name="'warehouses[' + index + '][quantity]'"
+                        x-bind:value="warehouse.quantity">
 
 
-                                                <td x-text="index + 1"></td>
-                                                <td x-text="warehouse.item.name"></td>
-                                                <td x-text="warehouse.item.unit.name"></td>
-                                                <td x-text="warehouse.quantity"></td>
-                                                <td x-text="warehouse.item.pivot.in_stock"></td>
-                                                <td>
-                                                    <button type="button" class="btn btn-sm btn-outline-info"
-                                                        x-on:click="select(index)">Edit</button>
-                                                    <button type="button" class="btn btn-sm btn-outline-danger"
-                                                        x-on:click="remove(index)">X</button>
-                                                </td>
-                                            </tr>
-                                        </template>
-                                    </tbody>
-                                </table>
+
+
+                    <td x-text="index + 1"></td>
+                    <td x-text="warehouse.item.name"></td>
+                    <td x-text="warehouse.item.unit.name"></td>
+                    <td x-text="warehouse.quantity"></td>
+                    <td x-text="warehouse.item.pivot.in_stock"></td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-outline-info"
+                            x-on:click="select(index)">Edit</button>
+                        <button type="button" class="btn btn-sm btn-outline-danger"
+                            x-on:click="remove(index)">X</button>
+                    </td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+</div>
 
 
                                 @isset($stockTransfer)
@@ -205,10 +223,12 @@
                 form: initialForm,
                 active: -1,
                 itemForm: initialItemForm,
-                initialize(wareHouses, units, item) {
+                user:{},
+                initialize(wareHouses, units,user, item) {
                     this.wareHouses = wareHouses;
                     this.units = units;
                     this.item = item ?? {};
+                    this.user=user;
                     if (item) {
                         this.form.from_warehouse_id = item.from_warehouse_id;
                         this.form.to_warehouse_id = item.to_warehouse_id;

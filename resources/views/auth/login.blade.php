@@ -49,11 +49,13 @@
             <div class="app-auth-container">
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
-                    <div class="logo">
+                    {{-- <div class="logo">
                         <a href="index.html">Photon</a>
-                    </div>
-                    <p class="auth-description">Please sign-in to your account and continue to the dashboard.<br>Don't have an account? <a href="sign-up.html">Sign Up</a></p>
-
+                    </div> --}}
+                    {{-- <p class="auth-description">Please sign-in to your account and continue to the dashboard.<br>Don't have an account? <a href="sign-up.html">Sign Up</a></p> --}}
+<div class="mb-4">
+    <h4 class="text-center">LOGIN</h4>
+</div>
                     <div class="auth-credentials m-b-xxl">
 
                                     
@@ -95,11 +97,11 @@
                         
                     </div>
                     <div class="divider"></div>
-                    <div class="auth-alts">
+                    {{-- <div class="auth-alts">
                         <a href="#" class="auth-alts-google"></a>
                         <a href="#" class="auth-alts-facebook"></a>
                         <a href="#" class="auth-alts-twitter"></a>
-                    </div>
+                    </div> --}}
                 </form>
             </div>
     </div>

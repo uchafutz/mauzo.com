@@ -6,6 +6,8 @@ namespace App\Models;
 
 use App\Models\Config\Permission;
 use App\Models\Config\Role;
+use App\Models\Expense\Expense;
+use App\Models\Inventory\InventoryWarehouse;
 use App\Models\Inventory\Manufacturing;
 use App\Models\Purchase\Purchase;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,6 +29,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'is_admin',
+        'inventory_warehouse_id',
         'password',
     ];
 
@@ -74,5 +78,13 @@ class User extends Authenticatable
     public function manufacturings()
     {
         return $this->hasMany(Manufacturing::class, 'user_id');
+    }
+
+    public function inventoryWarehouse(){
+        return $this->belongsTo(InventoryWarehouse::class);
+    }
+
+    public function expenses(){
+        return $this->hasMany(Expense::class);
     }
 }

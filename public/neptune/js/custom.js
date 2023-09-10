@@ -1,1 +1,4 @@
-// Here goes your custom javascript
+// In your Javascript (external .js resource or <script> tag)
+$(document).ready(function() {
+    $('select').select2();
+});

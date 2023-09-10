@@ -1,27 +1,39 @@
 @extends('layouts.app')
 @section('page_title')
-    {{ $user->code }}
+    {{ $expense->expenseCategory->category_name }}
 @endsection
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('View User') }}</div>
+                    <div class="card-header">{{ __('View Expense') }}</div>
                     <div class="card-body">
                         <div class="card card-primary">
 
                             <div class="card-body">
-                                <strong><i class="fas fa-book mr-1"></i>{{ __('User Details') }}</strong>
+                                <strong><i class="fas fa-book mr-1"></i>{{ __('Expense Details') }}</strong>
                                 <p class="text-muted">
                                 <table class="table table-bordered">
                                     <tr>
-                                        <td>Name</td>
-                                        <td>{{ $user->name }}</td>
+                                        <td>Date</td>
+                                        <td>{{ $expense->created_at }}</td>
                                     </tr>
                                     <tr>
-                                        <td>Email</td>
-                                        <td>{{ $user->email }}</td>
+                                        <td>Type</td>
+                                        <td>{{ $expense->expenseCategory->category_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Amount</td>
+                                        <td>{{ number_format($expense->amount) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Description</td>
+                                        <td>{{ $expense->description }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Description</td>
+                                        <td>{{ $expense->user->name }}</td>
                                     </tr>
                                 </table>
                                 </p>
