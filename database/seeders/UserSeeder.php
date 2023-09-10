@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
             [
                 "email" => "uchafutz@gmail.com",
                 "password" => Hash::make("mark@123"),
+                'inventory_warehouse_id' => '1',
             ],
         );
     }

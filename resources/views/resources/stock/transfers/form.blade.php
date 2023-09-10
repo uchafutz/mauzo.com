@@ -13,7 +13,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-body" x-data="getState()" x-init="initialize({{ json_encode($wareHouses) }}, {{ json_encode($units) }})">
+                    <div class="card-body" x-data="getState()" x-init="initialize({{ json_encode($wareHouses) }}, {{ json_encode($units) }},{{json_encode(Auth::user())}})">
                         @isset($stockTransfer)
                             <form class="row g-3"
                                 action="{{ route('stock.stockTransfers.update', ['stockTranfer' => $stockTranfer]) }}"
@@ -29,14 +29,31 @@
                                     <div class="row">
                                         <div class="col">
                                             <label for="" class="label-control">From WareHouse</label>
-                                            <select class="form-control" name="from_warehouse_id"
+                                            @if (Auth::user()->is_admin == 0)
+                                             <select class="form-control" name="from_warehouse_id"
                                                 x-model="form.from_warehouse_id">
                                                 <option value="">Choose...</option>
+                                             
+                                                <template x-for="wareHouse in wareHouses.filter(u =>user.inventory_warehouse_id ? user.inventory_warehouse_id == u.id :true)">
+                                                    <option x-bind:value="wareHouse.id" x-text="wareHouse.name"
+                                                        x-bind:selected="wareHouse.id == form.from_warehouse_id"></option>
+                                                </template>
+                                            </select>
+                                                
+                                            @else
+                                             <select class="form-control" name="from_warehouse_id"
+                                                x-model="form.from_warehouse_id">
+                                                <option value="">Choose...</option>
+                                             
                                                 <template x-for="wareHouse in wareHouses">
                                                     <option x-bind:value="wareHouse.id" x-text="wareHouse.name"
                                                         x-bind:selected="wareHouse.id == form.from_warehouse_id"></option>
                                                 </template>
                                             </select>
+                                                
+                                            @endif
+                                        
+
                                         </div>
                                         <div class="col">
                                             <label for="" class="label-control">To WareHouse</label>
@@ -206,10 +223,12 @@
                 form: initialForm,
                 active: -1,
                 itemForm: initialItemForm,
-                initialize(wareHouses, units, item) {
+                user:{},
+                initialize(wareHouses, units,user, item) {
                     this.wareHouses = wareHouses;
                     this.units = units;
                     this.item = item ?? {};
+                    this.user=user;
                     if (item) {
                         this.form.from_warehouse_id = item.from_warehouse_id;
                         this.form.to_warehouse_id = item.to_warehouse_id;

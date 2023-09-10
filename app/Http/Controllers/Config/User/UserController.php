@@ -58,14 +58,14 @@ class UserController extends Controller
 
         $request->validate([
             "name" => ["required"],
-            "email" => ["required", "email","unique:users,email"],
+            "email" => ["required", "email", "unique:users,email"],
         ]);
-        
+        $password = "password";
         $data = [];
         $data["name"] = $request->name;
         $data["email"] = $request->email;
         $data["is_admin"] = $request->is_admin == 'on' ? 1 : 0;
-        $data["password"] = Hash::make(Random::generate());
+        $data["password"] = Hash::make("password");
         $data['inventory_warehouse_id'] = $request->user_warehouse;
         $user = User::create($data);
 
@@ -110,7 +110,7 @@ class UserController extends Controller
         $warehouses = InventoryWarehouse::all();
 
 
-        return view("resources.config.users.form", compact(["user","warehouses"]));
+        return view("resources.config.users.form", compact(["user", "warehouses"]));
     }
 
     /**
@@ -123,7 +123,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
 
-        
+
         $request['is_admin'] = $request['is_admin'] == 'on' ? 1 : 0;
 
         $user->update($request->input());
