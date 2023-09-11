@@ -146,7 +146,7 @@
 
                     @if (Auth::user()->is_admin)
                     <li class="{{ request()->is('expense*') ? 'active-page' : '' }}">
-                        <a href=""><i class="material-icons-two-tone">inventory</i>Expenses<i
+                        <a href=""><i class="material-icons-two-tone">inbox</i>Expenses<i
                                 class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
                         <ul class="sub-menu">
                             <li>
@@ -160,11 +160,7 @@
 
                         </ul>
                     </li>
-                        <li class="{{ request()->is('config*') ? 'active-page' : '' }}">
-                            <a href=""><i class="material-icons-two-tone">settings</i>Settings<i
-                                    class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
-
-                        </li>
+                       
                     {{-- <li class="sidebar-title">
                             Inventory
                         </li>
@@ -222,8 +218,9 @@
                                 </li>
                             </ul>
                         </li> 
-                    <li>
-                            <a href=""><i class="material-icons-two-tone">sentiment_satisfied_alt</i>Elements<i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                    <li class="{{ request()->is('config*') ? 'active-page' : '' }}">
+                            <a href=""><i class="material-icons-two-tone">settings</i>Settings<i
+                                    class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
 
                             <ul class="sub-menu">
                                 <li>
@@ -279,8 +276,9 @@
                                         <ul class="dropdown-menu" aria-labelledby="addDropdownLink">
                                             <li><a class="dropdown-item"
                                                     href="{{ route('purchase.purchases.create') }}">New Purchase</a></li>
-                                            <li><a class="dropdown-item" href="#">Manufacture Item</a></li>
-                                            <li><a class="dropdown-item" href="#">New Sale</a></li>
+                                            <li><a class="dropdown-item" href="{{ route('stock.stockTransfers.create')}}">New Stock Transfer</a></li>
+                                            <li><a class="dropdown-item" href="{{ route('sale.sales.create')}}">New Sale</a></li>
+                                            <li><a class="dropdown-item" href="{{ route('inventory.inventoryItems.index')}}">Inventory List</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -288,13 +286,10 @@
                             </div>
                             <div class="d-flex">
                                 <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link toggle-search" href="#"><i
-                                                class="material-icons">search</i></a>
-                                    </li>
+                                   
                                     <li class="nav-item hidden-on-mobile">
-                                        <a class="nav-link nav-notifications-toggle" id="notificationsDropDown"
-                                            href="#" data-bs-toggle="dropdown">4</a>
+                                        {{-- <a class="nav-link nav-notifications-toggle" id="notificationsDropDown"
+                                            href="#" data-bs-toggle="dropdown">4</a> --}}
                                         <div class="dropdown-menu dropdown-menu-end notifications-dropdown"
                                             aria-labelledby="notificationsDropDown">
                                             <h6 class="dropdown-header">Notifications</h6>

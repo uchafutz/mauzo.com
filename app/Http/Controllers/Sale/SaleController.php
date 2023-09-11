@@ -28,15 +28,19 @@ class SaleController extends Controller
     {
         if (auth()->user()->is_admin) {
             $sales = Sale::all();
-        }
-        $sales = Sale::where('user_id', auth()->user()->id)->get();
+            return view("resources.sale.sales.index", compact("sales"));
+        } else {
+            $sales = Sale::where('user_id', auth()->user()->id)->get();
 
-        if (request()->wantsJson()) {
-            return response([
-                "data" => $sales
-            ], 200);
+            if (request()->wantsJson()) {
+                return response([
+                    "data" => $sales
+                ], 200);
+            }
+            return view("resources.sale.sales.index", compact("sales"));
         }
-        return view("resources.sale.sales.index", compact("sales"));
+
+
         //
     }
 
