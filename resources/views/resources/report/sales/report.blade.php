@@ -30,6 +30,7 @@
         th,
         td {
             padding: 15px;
+            text-align: right;
         }
 
         .total_col {
@@ -55,14 +56,14 @@
         <div class="col">
 
 
-            <h5 class="mt-3 mb-3">PURCHASE REPORT</h5>
+            <h5 class="mt-3 mb-3">GROSS PROFIT REPORT</h5>
 
             <div class="row">
                 <div class="col-md-5">
                     <table id="report-summary">
                         <tr>
-                            <td>Vendor</td>
-                            <td><strong>{{ count($purchases) > 0 ? $purchases[0]->vendors->name : '' }}</strong></td>
+                            <td>Company</td>
+                            <td>Dar es salaam</td>
                         </tr>
                         <tr>
                             <td>Date</td>
@@ -73,52 +74,38 @@
             </div>
             <br><br>
             <table>
-                <thead>
-                    <tr>
-                        <th>S/n</th>
-                        <th>Code</th>
-                        <th>Date</th>
-                        <th>Employee</th>
-                        <th>Item</th>
-                        <th>Quantinty</th>
-                        <th>Unit Amount</th>
-                        <th>Total Amount</th>
-                    </tr>
-                </thead>
-                @php
-                    $total_value = 0;
-                    $sn = 1;
-                @endphp
-                <tbody>
-                    @foreach ($purchases as $purchase)
-                        @foreach ($purchase->items as $purchaseItem)
-                            @php
-                                $total = 0;
-                                $amount = $purchaseItem->unit_price * $purchaseItem->quantity;
-                                $total += $amount;
-                            @endphp
-                            <tr>
-                                <td>{{ $sn++ }}</td>
-                                <td>{{ $purchase->code }}</td>
-                                <td>{{ $purchaseItem->created_at }}</td>
-                                <td>{{ $purchase->users->name }}</td>
-                                <td>{{ $purchaseItem->inventoryItem->name }}</td>
-                                <td>{{ $purchaseItem->quantity }} {{ $purchaseItem->unit->code }}</td>
-                                <td>{{ number_format($purchaseItem->unit_price) }}/=</td>
-                                <td align="right">{{ number_format($amount) }}/=</td>
-                            </tr>
-                            @php
-                                $total_value += $total;
-                            @endphp
-                        @endforeach
-                    @endforeach
-                </tbody>
-            </table>
+  <tr>
+    <th>Particular</th>
+    <th>Debit</th>
+    <th>Credit</th>
+  </tr>
+  <tr>
+    <td>Total Purchases</td>
+    <td></td>
+    <td>{{$total_purchase}}</td>
+  </tr>
+  <tr>
+    <td>Total Sales</td>
+    <td>{{$salesTotal}}</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Total Expresses</td>
+    <td></td>
+    <td>{{$expensess}}</td>
+  </tr>
+   <tr>
+    <td   colspan="2"><b>Total Credit  Amout</b></td>
+    <td><stong>{{ $total_purchase + $expensess }}</stong></td>
+  </tr>
+  <tr>
+    <td colspan="2"><b>Gross profit  Amout</b></td>
+    <td><stong>{{ $salesTotal-$total_purchase + $expensess }}</stong></td>
+  </tr>
 
-            <div class="total_col">
-                TOTAL: <span><strong>{{ number_format($total_value) }}/=</strong></span>
-            </div>
+</table>
 
+            
         </div>
     </div>
 </body>
