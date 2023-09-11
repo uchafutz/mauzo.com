@@ -14,7 +14,7 @@
                 <div class="card">
                     <div class="card-header"></div>
 
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         <table id="expense-category-table" class="table table-stripped">
                             <thead>
                                 <tr>

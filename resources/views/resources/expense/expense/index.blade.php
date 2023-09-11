@@ -14,7 +14,7 @@
                 <div class="card">
                     <div class="card-header"></div>
 
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
 
                         <table class="table table-stripped" id="example">
                             <thead>

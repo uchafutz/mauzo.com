@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">{{ __('Stock TransFer') }}</div>
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         <div>
                             <h4>{{ $stockTransfer->code }}</h4>
                             <p>{{ $stockTransfer->date->format('d/m/Y') }}</p>

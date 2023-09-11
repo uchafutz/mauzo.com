@@ -401,9 +401,13 @@
 
                                 {{ Breadcrumbs::render() }}
 
-                                <div class="d-flex align-items-center">
-                                    <h1 class="flex-grow-1">@yield('page_title')</h1>
-                                    @yield('page_action')
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h1 class="flex-grow-1">@yield('page_title')</h1>
+                                    </div>
+                                    <div class="col-md-6">
+                                        @yield('page_action')
+                                    </div>
                                 </div>
                             </div>
                         </div>

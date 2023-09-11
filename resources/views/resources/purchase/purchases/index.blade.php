@@ -5,7 +5,7 @@
 @endsection
 
 @section('page_action')
-    <a href="{{ route('purchase.purchases.create') }}" class="btn btn-primary"><i class="material-icons">add</i> Create
+    <a href="{{ route('purchase.purchases.create') }}" class="btn btn-primary float-end"><i class="material-icons">add</i> Create
         Purchase</a>
 @endsection
 
@@ -15,7 +15,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header"></div>
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         <table id="example" class="table table-stripped">
                             <thead>
                                 <tr>
