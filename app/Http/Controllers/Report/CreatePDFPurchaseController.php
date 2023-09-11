@@ -23,16 +23,17 @@ class CreatePDFPurchaseController extends Controller
             "vendor_id" => "required",
             'from' => "required",
             'to' => "required",
-
-
         ]);
         $vendor_id = $request->input('vendor_id');
         $from = $request->input("from");
         $to = $request->input("to");
         $purchases = Purchase::with('items', 'warehouses')->where(["status" => "SUBMITED", "vendor_id" => $vendor_id])->whereDate('date', '>', $from)->whereDate('date', '<=', $to)->get();
 
-        return view('resources.report.index', compact('purchases'));
-        // $pdf = PDF::loadView('resources.report.index', compact('purchases'));
-        // return $pdf->download("sample.pdf");
+        // share data to view
+        $data =  ['purchases' => $purchases, 'from' => $from, 'to' => $to];
+        view()->share('resources.report.purchase.report',$data);
+        $pdf = PDF::loadView('resources.report.purchase.report', $data);
+        // download PDF file with download method
+        return $pdf->download('PURCHASE REPORT.pdf');
     }
 }

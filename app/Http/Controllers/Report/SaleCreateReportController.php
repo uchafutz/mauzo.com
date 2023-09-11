@@ -27,6 +27,6 @@ class SaleCreateReportController extends Controller
         $to = $request->input("to");
         $sales = Sale::with('salesItems')->where(["status" => "SUBMITED"])->whereDate('date', '>', $from)->whereDate('date', '<=', $to)->get();
 
-        dd($sales);
+        // dd($sales);
     }
 }
