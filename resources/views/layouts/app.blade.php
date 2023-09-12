@@ -39,7 +39,7 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-   <!--data table-->
+    <!--data table-->
 
     <link href="{{ asset('neptune/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('neptune/plugins/perfectscroll/perfect-scrollbar.css') }}" rel="stylesheet">
@@ -59,7 +59,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-   
+
 
 </head>
 
@@ -101,10 +101,14 @@
                                 class="material-icons-two-tone">shopping_cart</i>Purchases</a>
                     </li>
                     @if (Auth::user()->is_admin)
-                    <li class="{{ request()->is('customer/customers*') ? 'active-page' : '' }}">
-                        <a href="{{ route('customer.customers.index') }}"><i
-                                class="material-icons-two-tone">groups</i>Customers</a>
-                    </li>
+                        <li class="{{ request()->is('customer/customers*') ? 'active-page' : '' }}">
+                            <a href="{{ route('customer.customers.index') }}"><i
+                                    class="material-icons-two-tone">groups</i>Customers</a>
+                        </li>
+                        <li class="{{ request()->is('vendor/vendors*') ? 'active-page' : '' }}">
+                            <a href="{{ route('vendor.vendors.index') }}"><i
+                                    class="material-icons-two-tone">groups</i>Vendors</a>
+                        </li>
                     @endif
 
                     <li class="{{ request()->is('inventory*') ? 'active-page' : '' }}">
@@ -115,14 +119,14 @@
                         </a>
                         <ul class="sub-menu">
                             @if (Auth::user()->is_admin)
-                            <li>
-                                <a class="{{ request()->is('inventory/inventoryWarehouses*') ? 'active' : '' }}"
-                                    href="{{ route('inventory.inventoryWarehouses.index') }}">Warehouses</a>
-                            </li>
-                            <li>
-                                <a class="{{ request()->is('inventory/inventoryCategories*') ? 'active' : '' }}"
-                                    href="{{ route('inventory.inventoryCategories.index') }}">Categories</a>
-                            </li>
+                                <li>
+                                    <a class="{{ request()->is('inventory/inventoryWarehouses*') ? 'active' : '' }}"
+                                        href="{{ route('inventory.inventoryWarehouses.index') }}">Warehouses</a>
+                                </li>
+                                <li>
+                                    <a class="{{ request()->is('inventory/inventoryCategories*') ? 'active' : '' }}"
+                                        href="{{ route('inventory.inventoryCategories.index') }}">Categories</a>
+                                </li>
                             @endif
                             <li>
                                 <a class="{{ request()->is('inventory/inventoryItems*') ? 'active' : '' }}"
@@ -145,84 +149,45 @@
 
 
                     @if (Auth::user()->is_admin)
-                    <li class="{{ request()->is('expense*') ? 'active-page' : '' }}">
-                        <a href=""><i class="material-icons-two-tone">inbox</i>Expenses<i
-                                class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a class="{{ request()->is('expense/categories*') ? 'active' : '' }}"
-                                    href="{{ route('expense.expenseCategories.index') }}">Expense Category</a>
-                            </li>
-                            <li>
-                                <a class="{{ request()->is('expense/expenses*') ? 'active' : '' }}"
-                                    href="{{ route('expense.expenses.index') }}">Expenses</a>
-                            </li>
-
-                        </ul>
-                    </li>
-                       
-                    {{-- <li class="sidebar-title">
-                            Inventory
-                        </li>
-                        <li>
-                            <a href="mailbox.html"><i class="material-icons-two-tone">inbox</i>Categories</a>
-                        </li>
-                        <li>
-                            <a href="mailbox.html"><i class="material-icons-two-tone">inbox</i>Items</a>
-                        </li>
-
-                        <li class="sidebar-title">
-                            Manage Users
-                        </li>
-                        <li>
-                            <a href="mailbox.html"><i class="material-icons-two-tone">inbox</i>Users</a>
-                        </li>
-                        <li>
-                            <a href="mailbox.html"><i class="material-icons-two-tone">inbox</i>Roles</a>
-                        </li>
-
-                        <li class="sidebar-title">
-                            Configuration
-                        </li>
-                        <li>
-                            <a href="mailbox.html"><i class="material-icons-two-tone">inbox</i>Unit Types</a>
-                        </li>
-                        <li>
-                            <a href="mailbox.html"><i class="material-icons-two-tone">inbox</i>Units</a>
-                        </li> --}}
-                    {{-- <li class="sidebar-title">
-                            UI Elements
-                        </li> --}}
-                    {{-- <li>
-                            <a href="#"><i class="material-icons-two-tone">color_lens</i>Styles<i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                        <li class="{{ request()->is('expense*') ? 'active-page' : '' }}">
+                            <a href=""><i class="material-icons-two-tone">inbox</i>Expenses<i
+                                    class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
                             <ul class="sub-menu">
                                 <li>
-                                    <a href="styles-typography.html">Typography</a>
+                                    <a class="{{ request()->is('expense/categories*') ? 'active' : '' }}"
+                                        href="{{ route('expense.expenseCategories.index') }}">Expense Category</a>
                                 </li>
                                 <li>
-                                    <a href="styles-code.html">Code</a>
+                                    <a class="{{ request()->is('expense/expenses*') ? 'active' : '' }}"
+                                        href="{{ route('expense.expenses.index') }}">Expenses</a>
                                 </li>
-                                <li>
-                                    <a href="styles-icons.html">Icons</a>
-                                </li>
+
                             </ul>
-                        </li>--}}
+                        </li>
+
                         <li>
-                            <a href="#"><i class="material-icons-two-tone">grid_on</i>Reports<i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                            <a href="#"><i class="material-icons-two-tone">grid_on</i>Reports<i
+                                    class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
                             <ul class="sub-menu">
                                 <li>
-                                    <a class="{{ request()->is('report/purchases*') ? 'active' : '' }}" href="{{route("report.purchases.report")}}">Purchase Report</a>
+                                    <a class="{{ request()->is('report/purchases*') ? 'active' : '' }}"
+                                        href="{{ route('report.purchases.report') }}">Purchase Report</a>
                                 </li>
                                 <li>
-                                    <a class="{{ request()->is('report/sales*') ? 'active' : '' }}"  href="{{route("report.sales.report")}}">Sales Report</a>
+                                    <a class="{{ request()->is('report/sales*') ? 'active' : '' }}"
+                                        href="{{ route('report.sales.report') }}">Sales Report</a>
                                 </li>
                             </ul>
-                        </li> 
-                    <li class="{{ request()->is('config*') ? 'active-page' : '' }}">
+                        </li>
+                        <li class="{{ request()->is('config*') ? 'active-page' : '' }}">
                             <a href=""><i class="material-icons-two-tone">settings</i>Settings<i
                                     class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
 
                             <ul class="sub-menu">
+                                <li>
+                                    <a class="{{ request()->is('config/organizations*') ? 'active' : '' }}"
+                                        href="{{ route('config.organizations.index') }}">Organizations</a>
+                                </li>
                                 <li>
                                     <a class="{{ request()->is('config/users*') ? 'active' : '' }}"
                                         href="{{ route('config.users.index') }}">Users</a>
@@ -239,10 +204,6 @@
                                     <a class="{{ request()->is('config/vats*') ? 'active' : '' }}"
                                         href="{{ route('config.vats.index') }}">Vat</a>
                                 </li>
-                                                             <li>
-                                <a class="{{ request()->is('config/vendors*') ? 'active' : '' }}"
-                                    href="{{ route('config.vendors.index') }}">Vendor</a>
-                            </li>
                             </ul>
                         </li>
                     @endif
@@ -276,9 +237,14 @@
                                         <ul class="dropdown-menu" aria-labelledby="addDropdownLink">
                                             <li><a class="dropdown-item"
                                                     href="{{ route('purchase.purchases.create') }}">New Purchase</a></li>
-                                            <li><a class="dropdown-item" href="{{ route('stock.stockTransfers.create')}}">New Stock Transfer</a></li>
-                                            <li><a class="dropdown-item" href="{{ route('sale.sales.create')}}">New Sale</a></li>
-                                            <li><a class="dropdown-item" href="{{ route('inventory.inventoryItems.index')}}">Inventory List</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="{{ route('stock.stockTransfers.create') }}">New Stock
+                                                    Transfer</a></li>
+                                            <li><a class="dropdown-item" href="{{ route('sale.sales.create') }}">New
+                                                    Sale</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="{{ route('inventory.inventoryItems.index') }}">Inventory
+                                                    List</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -286,85 +252,11 @@
                             </div>
                             <div class="d-flex">
                                 <ul class="navbar-nav">
-                                   
+
                                     <li class="nav-item hidden-on-mobile">
-                                        {{-- <a class="nav-link nav-notifications-toggle" id="notificationsDropDown"
-                                            href="#" data-bs-toggle="dropdown">4</a> --}}
                                         <div class="dropdown-menu dropdown-menu-end notifications-dropdown"
                                             aria-labelledby="notificationsDropDown">
                                             <h6 class="dropdown-header">Notifications</h6>
-                                            {{-- <div class="notifications-dropdown-list">
-                                                <a href="#">
-                                                    <div class="notifications-dropdown-item">
-                                                        <div class="notifications-dropdown-item-image">
-                                                            <span class="notifications-badge bg-info text-white">
-                                                                <i class="material-icons-outlined">campaign</i>
-                                                            </span>
-                                                        </div>
-                                                        <div class="notifications-dropdown-item-text">
-                                                            <p class="bold-notifications-text">Donec tempus nisi sed erat
-                                                                vestibulum, eu suscipit ex laoreet</p>
-                                                            <small>19:00</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a href="#">
-                                                    <div class="notifications-dropdown-item">
-                                                        <div class="notifications-dropdown-item-image">
-                                                            <span class="notifications-badge bg-danger text-white">
-                                                                <i class="material-icons-outlined">bolt</i>
-                                                            </span>
-                                                        </div>
-                                                        <div class="notifications-dropdown-item-text">
-                                                            <p class="bold-notifications-text">Quisque ligula dui,
-                                                                tincidunt nec pharetra eu, fringilla quis mauris</p>
-                                                            <small>18:00</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a href="#">
-                                                    <div class="notifications-dropdown-item">
-                                                        <div class="notifications-dropdown-item-image">
-                                                            <span class="notifications-badge bg-success text-white">
-                                                                <i class="material-icons-outlined">alternate_email</i>
-                                                            </span>
-                                                        </div>
-                                                        <div class="notifications-dropdown-item-text">
-                                                            <p>Nulla id libero mattis justo euismod congue in et metus</p>
-                                                            <small>yesterday</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a href="#">
-                                                    <div class="notifications-dropdown-item">
-                                                        <div class="notifications-dropdown-item-image">
-                                                            <span class="notifications-badge">
-                                                                <img src="../../assets/images/avatars/avatar.png"
-                                                                    alt="">
-                                                            </span>
-                                                        </div>
-                                                        <div class="notifications-dropdown-item-text">
-                                                            <p>Praesent sodales lobortis velit ac pellentesque</p>
-                                                            <small>yesterday</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a href="#">
-                                                    <div class="notifications-dropdown-item">
-                                                        <div class="notifications-dropdown-item-image">
-                                                            <span class="notifications-badge">
-                                                                <img src="../../assets/images/avatars/avatar.png"
-                                                                    alt="">
-                                                            </span>
-                                                        </div>
-                                                        <div class="notifications-dropdown-item-text">
-                                                            <p>Praesent lacinia ante eget tristique mattis. Nam sollicitudin
-                                                                velit sit amet auctor porta</p>
-                                                            <small>yesterday</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div> --}}
                                         </div>
                                     </li>
                                     <li class="nav-item hidden-on-mobile">

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Expense;
 use App\Http\Controllers\Controller;
 use App\Models\Expense\Expense;
 use App\Models\Expense\ExpenseCategory;
+use App\Models\Sale\Sale;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ExpenseController extends Controller
 {

@@ -4,7 +4,7 @@
 @endsection
 
 @section('page_action')
-    <a href="{{ route('config.vendors.create') }}" class="btn btn-primary"><i class="material-icons">add</i> Create
+    <a href="{{ route('vendor.vendors.create') }}" class="btn btn-primary"><i class="material-icons">add</i> Create
         Vendor</a>
 @endsection
 @section('content')
@@ -20,7 +20,9 @@
                                 <tr>
                                     <th>S/n</th>
                                     <th>Name</th>
-                                  
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Type</th>
                                     <th>Description</th>
                                     <th width="100px">Actions</th>
                                 </tr>
@@ -31,14 +33,16 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $vendor->name }}</td>
-                                        
+                                        <td>{{ $vendor->phone }}</td>
+                                        <td>{{ $vendor->email }}</td>
+                                        <td>{{ $vendor->type }}</td>
                                         <td>{{ $vendor->description }}</>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="{{ route('config.vendors.edit', ['vendor' => $vendor]) }}"
+                                                <a href="{{ route('vendor.vendors.edit', ['vendor' => $vendor]) }}"
                                                     class="btn btn-outline-primary"><i class="material-icons">edit</i></a>
                                                 <form
-                                                    action="{{ route('config.vendors.destroy', ['vendor' => $vendor]) }}"
+                                                    action="{{ route('vendor.vendors.destroy', ['vendor' => $vendor]) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('delete')

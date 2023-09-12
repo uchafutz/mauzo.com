@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>A simple, clean, and responsive HTML invoice template</title>
+    <title>Sale Invoice</title>
 
     <style>
         .invoice-box {
@@ -117,11 +117,11 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <img src="{{ $organization->featured_image }}" style="width: 200px;" />
+                                {{-- <img src="{{ $organization->featured_image }}" style="width: 200px;" /> --}}
                             </td>
 
                             <td>
-                                {{ $type }} No:# {{ rand(000, 999) }}<br />
+                                {{ $type }} No: {{ $sale->code }} <br />
                                 Created: {{ $sale->date->format('d/m/Y') }}<br />
 
                             </td>
@@ -135,7 +135,6 @@
                     <table>
 
                         <tr>
-
                             @if ($organization)
                                 <td>
                                     {{ $organization->name }}.<br />

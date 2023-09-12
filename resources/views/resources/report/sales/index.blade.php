@@ -21,12 +21,21 @@
                                 <input type="hidden" name="operation_id" value="{{ Auth::user()->id }}" required>
                                 <div class="container">
                                     <div class="row">
-                            
-                                        <div class="col">
+                                        <div class="col-md-4">
+                                            <label for="" class="label-control">Select Vendor</label>
+                                            <select class="form-control" name="vendor_id">
+                                            <option value="">Choose Vendor...</option>
+                                        @foreach ($vendors as $vendor)
+                                                <option value="{{$vendor->id}}">{{$vendor->name}}</option>
+                                        @endforeach
+                                        
+                                        </select>
+                                        </div>
+                                        <div class="col-md-4">
                                            <x-form.custom-input type="date" name="from" label="From Sales Date"
                                                 value="{{  date('Y-m-d') }}" />
                                         </div>
-                                        <div class="col">
+                                        <div class="col-md-4">
                                             <x-form.custom-input type="date" name="to" label="To Sales Date"
                                                 value="{{ date('Y-m-d') }}" />
                                         </div>

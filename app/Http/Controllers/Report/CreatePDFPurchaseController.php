@@ -27,7 +27,7 @@ class CreatePDFPurchaseController extends Controller
         $vendor_id = $request->input('vendor_id');
         $from = $request->input("from");
         $to = $request->input("to");
-        $purchases = Purchase::with('items', 'warehouses')->where(["status" => "SUBMITED", "vendor_id" => $vendor_id])->whereDate('date', '>', $from)->whereDate('date', '<=', $to)->get();
+        $purchases = Purchase::with('items', 'warehouses')->where(["status" => "SUBMITED", "vendor_id" => $vendor_id])->whereDate('date', '>=', $from)->whereDate('date', '<=', $to)->get();
 
         // share data to view
         $data =  ['purchases' => $purchases, 'from' => $from, 'to' => $to];

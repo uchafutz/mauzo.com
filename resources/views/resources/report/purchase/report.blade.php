@@ -66,7 +66,7 @@
                         </tr>
                         <tr>
                             <td>Date</td>
-                            <td><strong>{{ $from }} To {{ $to }}</strong></td>
+                            <td><strong>{{ $from }} to {{ $to }}</strong></td>
                         </tr>
                     </table>
                 </div>

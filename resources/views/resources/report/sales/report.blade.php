@@ -61,10 +61,12 @@
             <div class="row">
                 <div class="col-md-5">
                     <table id="report-summary">
+                        @if ($vendor)
                         <tr>
-                            <td>Company</td>
-                            <td>Dar es salaam</td>
+                            <td>Vendor</td>
+                            <td>{{ $vendor }}</td>
                         </tr>
+                        @endif
                         <tr>
                             <td>Date</td>
                             <td><strong>{{ $from }} To {{ $to }}</strong></td>
@@ -82,25 +84,25 @@
   <tr>
     <td>Total Purchases</td>
     <td></td>
-    <td>{{$total_purchase}}</td>
+    <td>{{number_format($total_purchase)}}</td>
   </tr>
   <tr>
     <td>Total Sales</td>
-    <td>{{$salesTotal}}</td>
+    <td>{{number_format($salesTotal)}}</td>
     <td></td>
   </tr>
   <tr>
     <td>Total Expresses</td>
     <td></td>
-    <td>{{$expensess}}</td>
+    <td>{{number_format($expenses)}}</td>
   </tr>
    <tr>
     <td   colspan="2"><b>Total Credit  Amout</b></td>
-    <td><stong>{{ $total_purchase + $expensess }}</stong></td>
+    <td><stong>{{number_format( $total_purchase + $expenses) }}</stong></td>
   </tr>
   <tr>
     <td colspan="2"><b>Gross profit  Amout</b></td>
-    <td><stong>{{ $salesTotal-$total_purchase + $expensess }}</stong></td>
+    <td><stong>{{number_format( $salesTotal-$total_purchase + $expenses) }}</stong></td>
   </tr>
 
 </table>

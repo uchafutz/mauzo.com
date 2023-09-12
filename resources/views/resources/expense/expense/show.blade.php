@@ -32,7 +32,7 @@
                                         <td>{{ $expense->description }}</td>
                                     </tr>
                                     <tr>
-                                        <td>Description</td>
+                                        <td>User</td>
                                         <td>{{ $expense->user->name }}</td>
                                     </tr>
                                 </table>
