@@ -46,14 +46,14 @@
 
 
                         </table>
-                         @if ($stockTransfer->status == 'DRAFT')
+                         @if ($stockTransfer->status == 'DRAFT' && $stockTransfer->from_warehouse_id != Auth::user()->inventory_warehouse_id)
                             <form action="{{ route('stock.stockTransfer.submited', ['stockTransfer' => $stockTransfer]) }}"
                                 method="post" enctype="multipart/form-data">
                                 @csrf
                                 
                                 <br />
 
-                                <button type="submit" class="btn btn-lg btn-success">Submit Transfer</button>
+                                <button type="submit" class="btn btn-lg btn-success">Accept Transfer</button>
                             </form>
                         @else
                         @endif
