@@ -19,7 +19,8 @@ class InventoryStockItem extends Model
         'inv_warehouse_id',
         'quantity',
         'unit_cost',
-        'in_stock'
+        'in_stock',
+        'batch'
     ];
 
     protected static function boot() {

@@ -22,6 +22,7 @@
                                         <th>S/n</th>
                                         <th>Purchase code</th>
                                         <th>Item</th>
+                                        <th>Batch</th>
                                         <th>Quantinty</th>
                                         <th>Unit Amount</th>
                                         <th>Total Amount</th>
@@ -41,17 +42,18 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $purchaseItem->purchase->code }}</td>
                                             <td>{{ $purchaseItem->inventoryItem->name }}</td>
+                                            <td>{{ $purchaseItem->batch }}</td>
                                             <td>{{ $purchaseItem->quantity }} {{ $purchaseItem->unit->code }}</td>
                                             <td>{{ number_format($purchaseItem->unit_price) }} TZS</td>
-                                            <td align="right">{{ number_format($amount) }} TZS</td>
+                                            <td>{{ number_format($amount) }} TZS</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
     
                                 <tfoot>
                                     <tr>
-                                        <th colspan="5">Total:</th>
-                                        <td align="right">
+                                        <th colspan="6">Total:</th>
+                                        <td align="">
                                             <h5>{{ number_format($total) }} TZS</h5>
                                         </td>
                                     </tr>

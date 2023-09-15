@@ -42,6 +42,7 @@ class CreateStockItem
                 "unit_cost" => $convertedUnitCost,
                 "quantity" => $convertedQuantity,
                 "in_stock" => $convertedQuantity,
+                "batch" => $item->batch
             ]);
             StockItemCreated::dispatch($stockItem);
         }

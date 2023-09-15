@@ -21,6 +21,7 @@
                                 <tr>
                                     <th>S/n</th>
                                     <th>Type</th>
+                                    <th>Category</th>
                                     <th>Amount</th>
                                     <th>User</th>
                                     <th>Date</th>
@@ -33,6 +34,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $expense->expenseCategory->category_name }}</td>
+                                        <td>{{ $expense->type }}</td>
                                         <td>{{ number_format($expense->amount) }}</td>
                                         <td>{{ $expense->user->name }}</td>
                                         <td>{{ $expense->created_at }}</td>

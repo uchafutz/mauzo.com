@@ -63,8 +63,13 @@
                     <table id="report-summary">
                         @if ($vendor)
                         <tr>
-                            <td>Vendor</td>
+                            <td>Vendor Type</td>
                             <td>{{ $vendor }}</td>
+                        </tr>
+                        @else
+                        <tr>
+                            <td>Vendor Type</td>
+                            <td>All</td>
                         </tr>
                         @endif
                         <tr>
@@ -102,7 +107,7 @@
   </tr>
   <tr>
     <td colspan="2"><b>Gross profit  Amout</b></td>
-    <td><stong>{{number_format( $salesTotal-$total_purchase + $expenses) }}</stong></td>
+    <td><stong>{{number_format( $salesTotal - ($total_purchase + $expenses)) }}</stong></td>
   </tr>
 
 </table>

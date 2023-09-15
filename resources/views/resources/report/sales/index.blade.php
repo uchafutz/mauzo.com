@@ -22,14 +22,12 @@
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label for="" class="label-control">Select Vendor</label>
-                                            <select class="form-control" name="vendor_id">
-                                            <option value="">Choose Vendor...</option>
-                                        @foreach ($vendors as $vendor)
-                                                <option value="{{$vendor->id}}">{{$vendor->name}}</option>
-                                        @endforeach
-                                        
-                                        </select>
+                                            <label for="" class="label-control">Vendor Type</label>
+                                            <select name="vendor_type"  class="form-control @error('type') is-invalid @enderror">
+                                               <option value="">Choose vendor</option>
+                                               <option value="Local Vendor">Local Vendor</option>
+                                               <option value="International Vendor">International Vendor</option>                
+                                            </select>
                                         </div>
                                         <div class="col-md-4">
                                            <x-form.custom-input type="date" name="from" label="From Sales Date"

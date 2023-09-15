@@ -7,7 +7,7 @@
     @endisset
 @endsection
 @section('content')
-    <div class="container">
+    <div class="">
         <div class="row justify-content">
             <div class="col-md-8">
                 <div class="card">
@@ -27,9 +27,11 @@
 
                                 <x-form.custom-input name="name" type="text" label="Name" placeholder="Enter name"
                                     value="{{ isset($inventoryItem) ? $inventoryItem->name : null }}" />
+                                
                                 <x-form.custom-input name="inventory_item_sku" type="text" label="Item Sku"
                                     placeholder="Enter part number"
                                     value="{{ isset($inventoryItem) ? $inventoryItem->inventory_item_sku : null }}" />
+                                
                                 <div class="form-group">
                                     <label for="" class="label-control">Select Unit type</label>
                                     <select name="unit_type_id" x-model="form.unit_type_id" id="unit_type_id"
@@ -73,12 +75,12 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <x-form.custom-input name="featured_image" type="file" label="Choose file"
+                                {{-- <x-form.custom-input name="featured_image" type="file" label="Choose file"
                                     placeholder="Choose file"
-                                    value="{{ isset($inventoryItem) ? $inventoryItem->featured_image : null }}" />
+                                    value="{{ isset($inventoryItem) ? $inventoryItem->featured_image : null }}" /> --}}
 
                                 <br />
-                                <div class="row row-cols-lg-auto g-3 align-items-center">
+                                {{-- <div class="row row-cols-lg-auto g-3 align-items-center">
                                     <div class="col-12">
                                         <div class="form-check">
                                             <input class="form-check-input" name="is_material" type="checkbox"
@@ -109,11 +111,11 @@
                                             </label>
                                         </div>
                                     </div>
-                                </div>
-                                <br />
+                                </div> --}}
                                 <x-form.custom-input name="reorder_level" type="text" label="Re order"
                                     placeholder="Enter Order"
                                     value="{{ isset($inventoryItem) ? $inventoryItem->reorder_level : null }}" />
+
                                 <x-form.custom-input name="sale_price" type="text" label="Sale price"
                                     placeholder="Enter sale amount"
                                     value="{{ isset($inventoryItem) ? $inventoryItem->sale_price : null }}" />

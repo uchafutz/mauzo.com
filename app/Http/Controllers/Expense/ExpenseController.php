@@ -50,6 +50,7 @@ class ExpenseController extends Controller
         $expense = new Expense();
         $expense->expense_category_id = $request->expense_category_id;
         $expense->amount = $request->amount;
+        $expense->type = $request->type;
         $expense->description = $request->description;
         $expense->user_id = auth()->user()->id;
         $expense->save();

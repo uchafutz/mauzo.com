@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -20,16 +20,16 @@
                                 @method('patch')
                             @else
                                 <form class="row g-3" action="{{ route('purchase.purchases.store') }}" method="POST"
-                                    enctype="multipart/form-data">
+                                enctype="multipart/form-data">
                                 @endisset
                                 @csrf
                                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" required>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 mb-3">
                                         <x-form.custom-input type="date" name="date" label="Purchase Date"
                                             value="{{ isset($purchase) ? $purchase->date->format('Y-m-d') : date('Y-m-d') }}" />
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 mb-3">
                                         <label for="" class="label-control">Vendor</label>
                                         <select class="form-control" name="vendor_id">
                                             <option value="">Choose Vendor...</option>
@@ -40,25 +40,31 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 mb-3">
                                     <x-form.custom-textarea name="description" label="Purchase Description"
                                         value="{{ isset($purchase) ? $purchase->description : '' }}" />
                                 </div>
 
-                                <div class="card">
-                                    <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="" class="label-control">Inventory Item</label>
+                                        <select class="form-control" x-model="form.inv_item_id">
+                                            <option value="">Choose Item...</option>
+                                            <template
+                                                x-for="item in inventoryItems.filter(i => !items.find(it => it.inv_item_id == i.id))">
+                                                <option x-bind:value="item.id" x-text="item.name"></option>
+                                            </template>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="" class="label-control">Batch</label>
+                                        <input type="text" placeholder="Batch"
+                                            class="batch border form-control" x-model="form.batch">
+                                    </div>
+                                </div>
+                           
                                         <div class="row">
-                                            <div class="col-md-12">
-                                                <label for="" class="label-control">Inventory Item</label>
-                                                <select class="form-control" x-model="form.inv_item_id">
-                                                    <option value="">Choose Item...</option>
-                                                    <template
-                                                        x-for="item in inventoryItems.filter(i => !items.find(it => it.inv_item_id == i.id))">
-                                                        <option x-bind:value="item.id" x-text="item.name"></option>
-                                                    </template>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3 mb-3">
                                                 <label for="" class="label-control">Unit of Meansure</label>
                                                 <select class="form-control" x-model="form.conf_unit_id">
                                                     <option value="">Choose Unit</option>
@@ -68,17 +74,17 @@
                                                     </template>
                                                 </select>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3 mb-3">
                                                 <label for="" class="label-control">Quantity</label>
                                                 <input type="number" placeholder="Qty" max=""
                                                     class="quantity border form-control" x-model="form.quantity">
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3 mb-3">
                                                 <label for="" class="label-control">Unit Price</label>
                                                 <input type="number" placeholder="Unit Amount" x-model="form.unit_price"
                                                     class="quantity border form-control">
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3 mb-3">
                                                 <label for="" class="label-control">&nbsp;</label>
                                                 <div x-show="active == -1">
                                                     <button type="button" class="btn btn-info d-block w-full"
@@ -90,13 +96,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                        
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover">
                                         <tr>
                                             <th>S/n</th>
                                             <th>Item</th>
+                                            <th>Batch</th>
                                             <th>Unit</th>
                                             <th>Quantity</th>
                                             <th>Unit Amount</th>
@@ -117,11 +123,14 @@
                                                         x-bind:value="item.conf_unit_id">
                                                     <input type="hidden" x-bind:name="'items[' + index + '][quantity]'"
                                                         x-bind:value="item.quantity">
+                                                    <input type="hidden" x-bind:name="'items[' + index + '][batch]'"
+                                                        x-bind:value="item.batch">
                                                     <input type="hidden" x-bind:name="'items[' + index + '][unit_price]'"
                                                         x-bind:value="item.unit_price">
 
                                                     <td x-text="index + 1"></td>
                                                     <td x-text="item.item.name"></td>
+                                                    <td x-text="item.batch"></td>
                                                     <td x-text="item.unit.name"></td>
                                                     <td x-text="item.quantity"></td>
                                                     <td align="right" x-text="item.unit_price"></td>
@@ -176,6 +185,7 @@
             quantity: "",
             unit_price: "",
             vendor_id: "",
+            batch: ""
         };
 
         function getState() {
@@ -229,6 +239,7 @@
                         conf_unit_id: "",
                         quantity: "",
                         unit_price: "",
+                        batch: ""
                     };
                     console.log("Add Triggred", this.form);
                 },
@@ -241,9 +252,10 @@
                         conf_unit_id: "",
                         quantity: "",
                         unit_price: "",
+                        batch: ""
                     };
                     this.active = -1;
-                    console.log("Add Triggred", this.form);
+                    console.log("Update Triggred", this.form);
                 },
                 select(index) {
                     this.active = index;

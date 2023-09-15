@@ -29,10 +29,18 @@ class SaleCreateReportController extends Controller
 
         $from = $request->input("from");
         $to = $request->input("to");
-        $vendor_id = $request->input('vendor_id');
+        $vendor_type = $request->input('vendor_type');
 
         // $salesTotal = Sale::with('salesItems')->where(["status" => "SUBMITED"])->whereDate('date', '>', $from)->whereDate('date', '<=', $to)->sum('total_amount');
-        $expenses = Expense::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to)->sum('amount');
+        // $expense_type = '';
+
+        $expenses_query = Expense::whereDate('created_at', '>=', $from)->whereDate('created_at', '<=', $to);
+        if ($vendor_type == "Local Vendor") {
+            $expenses_query->where('type', 'local');
+        } elseif ($vendor_type == "International Vendor") {
+            $expenses_query->where('type', 'international');
+        }
+        $expenses = $expenses_query->sum('amount');
 
         // $purchases = Purchase::with('items', 'warehouses')->where(["status" => "SUBMITED"])->whereDate('date', '>', $from)->whereDate('date', '<=', $to)->get();
         // foreach ($purchases as $purchase) {
@@ -61,11 +69,11 @@ class SaleCreateReportController extends Controller
             ->join('vendors', 'purchases.vendor_id', '=', 'vendors.id')
             ->whereDate('sales.date', '>=', $from)
             ->whereDate('sales.date', '<=', $to);
-        
-        if ($vendor_id) {
-            $salesQuery->where('vendors.id', $vendor_id);
+
+        if ($vendor_type) {
+            $salesQuery->where('vendors.type', $vendor_type);
         }
-        
+
         $sales = $salesQuery->groupBy(
             'sales.code',
             'sales.total_amount',
@@ -73,19 +81,19 @@ class SaleCreateReportController extends Controller
             'sales.created_at',
             'users.name'
         )
-        ->get();
-        
+            ->get();
+
 
         $total_purchase = 0;
         $salesTotal = 0;
 
         foreach ($sales as $key => $sale) {
-                $total_purchase += $sale->total_unit_price * $sale->total_quantity;
-                $salesTotal += $sale->total_amount;
+            $total_purchase += $sale->total_unit_price * $sale->total_quantity;
+            $salesTotal += $sale->total_amount;
         }
 
-        $vendor = $vendor_id ? Vendor::find($vendor_id)->name : '';
-        $data = ['salesTotal' => $salesTotal,'total_purchase' => $total_purchase, 'expenses' => $expenses,'from' => $from, 'to' => $to, 'vendor' => $vendor];
+        // $vendor = $vendor_id ? Vendor::find($vendor_id)->name : '';
+        $data = ['salesTotal' => $salesTotal, 'total_purchase' => $total_purchase, 'expenses' => $expenses, 'from' => $from, 'to' => $to, 'vendor' => $vendor_type];
 
         view()->share('resources.report.sales.report', $data);
         $pdf = PDF::loadView('resources.report.sales.report', $data);
