@@ -11,7 +11,7 @@ class InventoryWarehouseController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(InventoryWarehouse::class, 'invetoryWarehouse');
+        $this->authorizeResource(InventoryWarehouse::class, 'inventoryWarehouse');
     }
     /**
      * Display a listing of the resource.

@@ -67,8 +67,7 @@ class InventoryWarehousePolicy
      */
     public function delete(User $user, InventoryWarehouse $inventoryWarehouse)
     {
-        return $user->is_admin;
-        
+        return $user->is_admin;  
     }
 
     /**
