@@ -9,10 +9,13 @@ use App\Models\Config\UnitType;
 use App\Models\Inventory\InventoryCategory;
 use App\Models\Inventory\InventoryItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class InventoryItemController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->authorizeResource(InventoryItem::class, 'inventoryItem');
     }
     /**
@@ -22,14 +25,19 @@ class InventoryItemController extends Controller
      */
     public function index()
     {
-        $inventoryItems = InventoryItem::all();
-        if (request()->wantsJson()) {
-            return response([
-                "data" => $inventoryItems
-            ], 200);
-        }
 
-        return view("resources.inventory.items.index", compact("inventoryItems"));
+        if (Auth::user()->is_admin == 1) {
+            $inventoryItems = InventoryItem::all();
+            return view("resources.inventory.items.index", compact("inventoryItems"));
+        } else {
+
+            $inv_warehouse_id = Auth::user()->inventory_warehouse_id;
+            $inventoryItems = InventoryItem::whereHas('stockItems', function ($query) use ($inv_warehouse_id) {
+                $query->where('inv_warehouse_id', $inv_warehouse_id)
+                    ->where('in_stock', '>', 1);
+            })->get();
+            return view("resources.inventory.items.index", compact("inventoryItems"));
+        }
     }
 
     /**
