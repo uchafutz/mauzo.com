@@ -208,6 +208,12 @@
                         </li>
                     @endif
                 </ul>
+                <div class="mt-3 ml-3">
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-primary">Logout</button>
+                    </form> 
+                </div> 
             </div>
         </div>
 
