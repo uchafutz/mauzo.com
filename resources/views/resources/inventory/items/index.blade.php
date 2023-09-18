@@ -7,6 +7,10 @@
     <a href="{{ route('inventory.inventoryItems.create') }}" class="btn btn-primary"><i class="material-icons">add</i>
         Create
         Inventory Item</a>
+        <a href="{{route('inventory.stocks.report')}}"
+            class="btn btn-outline-success">
+            <i class="material-icons-outlined">file_download</i>
+        Stock Avaliable</a> 
 @endsection
 @section('content')
     <div class="container">

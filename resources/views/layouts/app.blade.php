@@ -143,6 +143,7 @@
                                 <a class="{{ request()->is('stock/stockTransfers*') ? 'active' : '' }}"
                                     href="{{ route('stock.stockTransfers.index') }}">Stock Transfer</a>
                             </li>
+                              
 
                         </ul>
                     </li>
