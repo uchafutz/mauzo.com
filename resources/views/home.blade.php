@@ -84,10 +84,13 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                {{-- <a href=""
-            class="btn btn-outline-primary">
+                <div class="card-header">
+                       <a href="{{route('report.stock.available')}}"
+            class="btn btn-outline-primary float-right">
             <i class="material-icons-outlined">file_download</i>
-            Download Report</a> --}}
+            Download Report</a>
+                </div>
+             
                  <div class="card-body table-responsive">
                         <table  id="example" class="table table-stripped">
                             <thead>
@@ -156,5 +159,10 @@
         </div>
     </div> --}}
 </div>  
+  <script>
+        	
+        new DataTable('#example');
+        
+</script>
 
 @endsection

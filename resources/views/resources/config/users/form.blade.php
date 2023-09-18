@@ -43,7 +43,7 @@
 
                                 <div>
                                     <label for="">Warehouse</label>
-                                    <select name="user_warehouse" id="user_warehouse_id" class="form-control">
+                                    <select name="inventory_warehouse_id" id="user_warehouse_id" class="form-control">
                                         <option value="">Assign warehouse</option>
                                         @foreach ($warehouses as $warehouse)
                                         <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>

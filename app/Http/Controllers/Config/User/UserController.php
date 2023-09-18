@@ -122,9 +122,10 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-
+// dd(intval($request['user_warehouse']));
 
         $request['is_admin'] = $request['is_admin'] == 'on' ? 1 : 0;
+        $request['inventory_warehouse_id'] = intval($request['inventory_warehouse_id']);
 
         $user->update($request->input());
         if (request()->wantsJson()) {

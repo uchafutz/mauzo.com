@@ -26,18 +26,10 @@ class InventoryItemController extends Controller
     public function index()
     {
 
-        if (Auth::user()->is_admin == 1) {
-            $inventoryItems = InventoryItem::all();
-            return view("resources.inventory.items.index", compact("inventoryItems"));
-        } else {
 
-            $inv_warehouse_id = Auth::user()->inventory_warehouse_id;
-            $inventoryItems = InventoryItem::whereHas('stockItems', function ($query) use ($inv_warehouse_id) {
-                $query->where('inv_warehouse_id', $inv_warehouse_id)
-                    ->where('in_stock', '>', 1);
-            })->get();
-            return view("resources.inventory.items.index", compact("inventoryItems"));
-        }
+        $inventoryItems = InventoryItem::all();
+
+        return view("resources.inventory.items.index", compact("inventoryItems"));
     }
 
     /**
