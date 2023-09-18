@@ -37,13 +37,24 @@
 
                                 <br>
                                 <div>
+                                    <label for="">Shop</label>
+                                    <select name="inventory_warehouse_id" id="" class="form-control @error('inventory_warehouse_id') is-invalid @enderror">
+                                        <option value="">Choose shop</option>
+                                        @foreach ($warehouses as $warehouse)
+                                        <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <br>
+                                <div>
                                     <label for="" class="label-control">Type</label>
                                     <select name="type"
                                         class="form-control @error('type') is-invalid @enderror">
                                        <option value="">Choose vendor</option>
                                        <option value="local">Local</option>
                                        <option value="international">International</option>
-                                       <option value="others">Others</option>
+                                       <option value="internal">Internal</option>
                                     </select>
                                 </div>
                                 <br>

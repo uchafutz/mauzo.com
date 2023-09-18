@@ -147,23 +147,26 @@
                         </ul>
                     </li>
 
+                    <li class="{{ request()->is('expense*') ? 'active-page' : '' }}">
+                        <a href=""><i class="material-icons-two-tone">inbox</i>Expenses<i
+                                class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                        <ul class="sub-menu">
+                            @if (Auth::user()->is_admin)
+                            <li>
+                                <a class="{{ request()->is('expense/categories*') ? 'active' : '' }}"
+                                    href="{{ route('expense.expenseCategories.index') }}">Expense Category</a>
+                            </li>   
+                            @endif
+                            <li>
+                                <a class="{{ request()->is('expense/expenses*') ? 'active' : '' }}"
+                                    href="{{ route('expense.expenses.index') }}">Expenses</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
 
                     @if (Auth::user()->is_admin)
-                        <li class="{{ request()->is('expense*') ? 'active-page' : '' }}">
-                            <a href=""><i class="material-icons-two-tone">inbox</i>Expenses<i
-                                    class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
-                            <ul class="sub-menu">
-                                <li>
-                                    <a class="{{ request()->is('expense/categories*') ? 'active' : '' }}"
-                                        href="{{ route('expense.expenseCategories.index') }}">Expense Category</a>
-                                </li>
-                                <li>
-                                    <a class="{{ request()->is('expense/expenses*') ? 'active' : '' }}"
-                                        href="{{ route('expense.expenses.index') }}">Expenses</a>
-                                </li>
-
-                            </ul>
-                        </li>
 
                         <li>
                             <a href="#"><i class="material-icons-two-tone">grid_on</i>Reports<i
@@ -176,6 +179,10 @@
                                 <li>
                                     <a class="{{ request()->is('report/sales*') ? 'active' : '' }}"
                                         href="{{ route('report.sales.report') }}">Sales Report</a>
+                                </li>
+                                <li>
+                                    <a class="{{ request()->is('report/shops*') ? 'active' : '' }}"
+                                        href="{{ route('report.shops.report') }}">Shop Report</a>
                                 </li>
                             </ul>
                         </li>

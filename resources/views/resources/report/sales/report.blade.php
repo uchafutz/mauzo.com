@@ -97,7 +97,7 @@
     <td></td>
   </tr>
   <tr>
-    <td>Total Expresses</td>
+    <td>Total Expenses</td>
     <td></td>
     <td>{{number_format($expenses)}}</td>
   </tr>
