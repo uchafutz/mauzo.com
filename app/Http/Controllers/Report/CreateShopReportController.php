@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Report;
 
 use App\Http\Controllers\Controller;
 use App\Models\Expense\Expense;
+use App\Models\Purchase\Purchase;
 use App\Models\Sale\Sale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
-
+use Illuminate\Database\Eloquent\Builder;
 
 class CreateShopReportController extends Controller
 {
@@ -42,48 +43,19 @@ class CreateShopReportController extends Controller
 
         $expenses = $expenses_query->sum('amount');
 
-        $salesQuery = Sale::select(
-            'sales.code',
-            'sales.total_amount',
-            'vendors.name',
-            'sales.created_at',
-            'users.name as salesman',
-            DB::raw('SUM(purchase_items.quantity) as total_quantity'),
-            DB::raw('SUM(purchase_items.unit_price) as total_unit_price')
-        )
-            ->join('users', 'users.id', '=', 'sales.user_id')
-            ->join('sale_items', 'sales.id', '=', 'sale_items.sale_id')
-            ->join('inventory_items', 'sale_items.inv_item_id', '=', 'inventory_items.id')
-            ->join('purchase_items', 'inventory_items.id', '=', 'purchase_items.inv_item_id')
-            ->join('purchases', 'purchase_items.purchase_id', '=', 'purchases.id')
-            ->join('vendors', 'purchases.vendor_id', '=', 'vendors.id')
-            ->whereDate('sales.date', '>=', $from)
-            ->whereDate('sales.date', '<=', $to);
 
-        if ($shop_id) {
-            $salesQuery->where('purchases.warehouse_id', $shop_id);
-        }
-
-        $sales = $salesQuery->groupBy(
-            'sales.code',
-            'sales.total_amount',
-            'vendors.name',
-            'sales.created_at',
-            'users.name'
-        )
-            ->get();
-
-
+        $purchases = Purchase::with('items')->where('purchases.warehouse_id', $shop_id)->get();
         $total_purchase = 0;
-        $salesTotal = 0;
 
-        foreach ($sales as $key => $sale) {
-            $total_purchase += $sale->total_unit_price * $sale->total_quantity;
-            $salesTotal += $sale->total_amount;
+        foreach ($purchases as $key => $purchase) {
+            $total_purchase += intval($purchase->items[0]->unit_price) * $purchase->items[0]->quantity;
         }
+        
 
-        // $vendor = $vendor_id ? Vendor::find($vendor_id)->name : '';
-        $data = ['salesTotal' => $salesTotal, 'total_purchase' => $total_purchase, 'expenses' => $expenses, 'from' => $from, 'to' => $to, 'vendor' => $vendor_type];
+        $sales = Sale::where('inventory_warehouse_id', $shop_id)->sum('total_amount');
+
+
+        $data = ['salesTotal' => $sales, 'total_purchase' => $total_purchase, 'expenses' => $expenses, 'from' => $from, 'to' => $to, 'vendor' => $vendor_type];
 
         view()->share('resources.report.sales.report', $data);
         $pdf = PDF::loadView('resources.report.sales.report', $data);

@@ -17,12 +17,12 @@ class UserSeeder extends Seeder
     public function run()
     {
         //
-        // User::factory()->create(
-        //     [
-        //         "email" => "uchafutz@gmail.com",
-        //         "password" => Hash::make("mark@123"),
-        //         'inventory_warehouse_id' => '1',
-        //     ],
-        // );
+        User::factory()->create(
+            [
+                "email" => "uchafutz@gmail.com",
+                "password" => Hash::make("mark@123"),
+                'inventory_warehouse_id' => '1',
+            ],
+        );
     }
 }

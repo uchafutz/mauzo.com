@@ -81,16 +81,20 @@ class SaleCreateReportController extends Controller
             'sales.created_at',
             'users.name'
         )
-            ->get();
+        ->get();
 
 
         $total_purchase = 0;
         $salesTotal = 0;
 
+        // dd($sales);
+
         foreach ($sales as $key => $sale) {
             $total_purchase += $sale->total_unit_price * $sale->total_quantity;
             $salesTotal += $sale->total_amount;
         }
+
+        // dd($total_purchase);
 
         // $vendor = $vendor_id ? Vendor::find($vendor_id)->name : '';
         $data = ['salesTotal' => $salesTotal, 'total_purchase' => $total_purchase, 'expenses' => $expenses, 'from' => $from, 'to' => $to, 'vendor' => $vendor_type];

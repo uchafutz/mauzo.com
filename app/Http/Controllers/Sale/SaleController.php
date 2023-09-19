@@ -97,11 +97,13 @@ class SaleController extends Controller
     public function store(Request $request)
     {
 
-        // dd($request->all());
+        $data = $request->input();
+        $data['inventory_warehouse_id'] = Auth::user()->inventory_warehouse_id;  
+        // dd($data);
         $this->validateRequest($request);
 
         DB::beginTransaction();
-        $sale = Sale::create($request->input());
+        $sale = Sale::create($data);
         foreach ($request->input("items") as $item) {
             $saleItem = $sale->salesItems()->create($item);
             $saleItem->stockItems()->create([
