@@ -99,7 +99,6 @@ class SaleController extends Controller
 
         $data = $request->input();
         $data['inventory_warehouse_id'] = Auth::user()->inventory_warehouse_id;  
-        // dd($data);
         $this->validateRequest($request);
 
         DB::beginTransaction();
