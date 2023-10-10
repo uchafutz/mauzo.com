@@ -88,6 +88,7 @@ class ModifyStockTransfer
         } catch (\Exception $e) {
             DB::rollback();
             Log::debug($e);
+            print($e);
             return response()->json(['error' => $e->getMessage()], 500);
         }
 
