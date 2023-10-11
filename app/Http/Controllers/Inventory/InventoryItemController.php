@@ -12,7 +12,8 @@ use Illuminate\Http\Request;
 
 class InventoryItemController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->authorizeResource(InventoryItem::class, 'inventoryItem');
     }
     /**
@@ -91,7 +92,9 @@ class InventoryItemController extends Controller
                 "data" => $inventoryItem
             ], 200);
         }
-        return view("resources.inventory.items.show", compact("inventoryItem"));
+        $stockItems = $inventoryItem->stockItems()->where("quantity", ">", 1)->get();
+
+        return view("resources.inventory.items.show", compact("inventoryItem", "stockItems"));
     }
 
     /**
