@@ -44,16 +44,17 @@ class HomeController extends Controller
             $inventoryTotal = InventoryStockItem::sum('in_stock');
 
             $inventoryProduct = InventoryItem::where('is_product', 1)->count();
-        
-        }else{
+
+            $inventoryItem_orders = InventoryItem::whereColumn('reorder_level', '>=', 'in_stock')->get();
+        } else {
             //sales
-            $saleTotal = Sale::where('status', 'SUBMITED')->where('user_id',auth()->user()->id)->sum('total_amount');
-            $saleOrder = Sale::where('status', '=', 'SUBMITED')->where('user_id',auth()->user()->id)->count();
+            $saleTotal = Sale::where('status', 'SUBMITED')->where('user_id', auth()->user()->id)->sum('total_amount');
+            $saleOrder = Sale::where('status', '=', 'SUBMITED')->where('user_id', auth()->user()->id)->count();
 
 
             //purchases
-            $purchaseTotal = Purchase::join('purchase_items', 'purchase_items.purchase_id', '=', 'purchases.id')->where('purchases.status', '=', 'SUBMITED')->where('user_id',auth()->user()->id)->groupBy('purchases.id')->get(['purchases.id', DB::raw('sum(purchase_items.quantity*purchase_items.unit_price) as value')])->sum('value');
-            $purchaseOrder = Purchase::join('purchase_items', 'purchase_items.purchase_id', '=', 'purchases.id')->where('purchases.status', '=', 'SUBMITED')->where('user_id',auth()->user()->id)->count();
+            $purchaseTotal = Purchase::join('purchase_items', 'purchase_items.purchase_id', '=', 'purchases.id')->where('purchases.status', '=', 'SUBMITED')->where('user_id', auth()->user()->id)->groupBy('purchases.id')->get(['purchases.id', DB::raw('sum(purchase_items.quantity*purchase_items.unit_price) as value')])->sum('value');
+            $purchaseOrder = Purchase::join('purchase_items', 'purchase_items.purchase_id', '=', 'purchases.id')->where('purchases.status', '=', 'SUBMITED')->where('user_id', auth()->user()->id)->count();
 
 
             //Inventory Items
@@ -63,7 +64,6 @@ class HomeController extends Controller
             $inventoryProduct = InventoryItem::where('is_product', 1)->count();
 
             return redirect(route('sale.sales.index'));
-            
         }
 
 
@@ -74,6 +74,6 @@ class HomeController extends Controller
         // $itemsTops = [];
         // dd($itemsTops);
 
-        return view('home', compact('saleTotal', 'saleOrder', 'purchaseTotal', 'purchaseOrder', 'inventoryTotal', 'inventoryProduct', 'itemsTops'));
+        return view('home', compact('saleTotal', 'saleOrder', 'purchaseTotal', 'purchaseOrder', 'inventoryTotal', 'inventoryProduct', 'itemsTops', 'inventoryItem_orders'));
     }
 }

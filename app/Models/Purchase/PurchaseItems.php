@@ -15,7 +15,7 @@ class PurchaseItems extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable=['inv_item_id','conf_unit_id','purchase_id','unit_price','quantity'];
+    protected $fillable=['inv_item_id','conf_unit_id','purchase_id','unit_price','quantity','batch'];
 
     public function inventoryItem(){
         return $this->belongsTo(InventoryItem::class,'inv_item_id');

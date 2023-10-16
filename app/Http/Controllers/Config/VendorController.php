@@ -20,7 +20,7 @@ class VendorController extends Controller
     public function index()
     {
         $vendors = Vendor::all();
-        return view("resources.config.vendors.index", compact("vendors"));
+        return view("resources.vendors.index", compact("vendors"));
     }
 
     /**
@@ -30,7 +30,7 @@ class VendorController extends Controller
      */
     public function create()
     {
-        return view("resources.config.vendors.form");
+        return view("resources.vendors.form");
     }
 
     /**
@@ -43,10 +43,11 @@ class VendorController extends Controller
     {
         $request->validate([
             "name" => ['required', 'unique:vendors,name'],
-
+            "type" => ['required']
         ]);
+        
         Vendor::create($request->input());
-        return redirect(route("config.vendors.index"));
+        return redirect(route("vendor.vendors.index"));
     }
 
     /**
@@ -57,7 +58,7 @@ class VendorController extends Controller
      */
     public function show(Vendor $vendor)
     {
-        return view("resources.config.vendors.show", compact("vendor"));
+        return view("resources.vendors.show", compact("vendor"));
     }
 
     /**
@@ -68,7 +69,7 @@ class VendorController extends Controller
      */
     public function edit(Vendor $vendor)
     {
-        return view("resources.config.vendors.form", compact("vendor"));
+        return view("resources.vendors.form", compact("vendor"));
     }
 
     /**
@@ -80,12 +81,14 @@ class VendorController extends Controller
      */
     public function update(Request $request, Vendor $vendor)
     {
+        // dd($vendor);
+
         $request->validate([
-            "name" => ['required', 'unique:vendors,name'],
+            "name" => ['required'],
             "type" => ["required"]
         ]);
         $vendor->update($request->input());
-        return redirect(route("config.vendors.index"));
+        return redirect(route("vendor.vendors.index"));
     }
 
     /**
@@ -97,6 +100,6 @@ class VendorController extends Controller
     public function destroy(Vendor $vendor)
     {
         $vendor->delete();
-        return redirect(route("config.vendors.index"));
+        return redirect(route("vendor.vendors.index"));
     }
 }

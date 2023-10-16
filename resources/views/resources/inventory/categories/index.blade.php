@@ -13,7 +13,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         <table id="example" class="table table-stripped">
                             <thead>
                                 <tr>

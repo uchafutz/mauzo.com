@@ -66,7 +66,7 @@
                         </tr>
                         <tr>
                             <td>Date</td>
-                            <td><strong>{{ $from }} To {{ $to }}</strong></td>
+                            <td><strong>{{ $from }} to {{ $to }}</strong></td>
                         </tr>
                     </table>
                 </div>
@@ -80,6 +80,7 @@
                         <th>Date</th>
                         <th>Employee</th>
                         <th>Item</th>
+                        <th>Batch</th>
                         <th>Quantinty</th>
                         <th>Unit Amount</th>
                         <th>Total Amount</th>
@@ -103,6 +104,7 @@
                                 <td>{{ $purchaseItem->created_at }}</td>
                                 <td>{{ $purchase->users->name }}</td>
                                 <td>{{ $purchaseItem->inventoryItem->name }}</td>
+                                <td>{{ $purchaseItem->batch }}</td>
                                 <td>{{ $purchaseItem->quantity }} {{ $purchaseItem->unit->code }}</td>
                                 <td>{{ number_format($purchaseItem->unit_price) }}/=</td>
                                 <td align="right">{{ number_format($amount) }}/=</td>

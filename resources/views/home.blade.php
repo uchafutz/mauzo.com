@@ -81,7 +81,45 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                       <a href="{{route('report.stock.available')}}"
+            class="btn btn-outline-primary float-right">
+            <i class="material-icons-outlined">file_download</i>
+            Download Report</a>
+                </div>
+             
+                 <div class="card-body table-responsive">
+                        <table  id="example" class="table table-stripped">
+                            <thead>
+                                <tr>
+                                    <th>S/n</th>
+                                    <th>Name</th>
+                                    <th>R-Level</th>
+                                    <th>In Stock</th>
+                                    <th>Out of</th>
+                                </tr>
+                            </thead>
 
+                            <tbody>
+                                @foreach ($inventoryItem_orders as $inventoryItem)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $inventoryItem->name }}</td>
+                                        <td>{{ $inventoryItem->reorder_level }}</td>
+                                        <td class="{{ $inventoryItem->in_stock > $inventoryItem->reorder_level ? 'text-success' : 'text-danger' }}" >{{ $inventoryItem->in_stock ?? 0 }} {{ $inventoryItem->unit->code ?? null}}</td>
+                                        <td>{{ $inventoryItem->reorder_level-$inventoryItem->in_stock }}</td>
+                                        
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+        </div>
+    </div>
+    </div>
     {{-- <div class="row">
         <div class="col-xl-12">
             <div class="card widget widget-stats-large">
@@ -121,5 +159,10 @@
         </div>
     </div> --}}
 </div>  
+  <script>
+        	
+        new DataTable('#example');
+        
+</script>
 
 @endsection

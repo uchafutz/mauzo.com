@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Expense;
 use App\Http\Controllers\Controller;
 use App\Models\Expense\Expense;
 use App\Models\Expense\ExpenseCategory;
+use App\Models\Inventory\InventoryWarehouse;
+use App\Models\Sale\Sale;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ExpenseController extends Controller
 {
@@ -16,7 +20,8 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expenses = Expense::with(['expenseCategory','user'])->get();
+        $expenses = Expense::with(['expenseCategory','user', 'inventoryWarehouse'])->get();
+
 
         return view('resources.expense.expense.index', ['expenses' => $expenses]);
     }
@@ -29,7 +34,14 @@ class ExpenseController extends Controller
     public function create()
     {
         $categories = ExpenseCategory::all();
-        return view('resources.expense.expense.form', ['categories' => $categories]);
+        if (Auth::user()->is_admin) {
+            # code...
+        $warehouses = InventoryWarehouse::all();
+
+        }else{
+            $warehouses = InventoryWarehouse::where('id', Auth::user()->inventory_warehouse_id)->get();
+        }
+        return view('resources.expense.expense.form', ['categories' => $categories, 'warehouses' => $warehouses]);
     }
 
     /**
@@ -47,7 +59,9 @@ class ExpenseController extends Controller
         // Expense::create($request->input());
         $expense = new Expense();
         $expense->expense_category_id = $request->expense_category_id;
+        $expense->inventory_warehouse_id = $request->inventory_warehouse_id;
         $expense->amount = $request->amount;
+        $expense->type = $request->type;
         $expense->description = $request->description;
         $expense->user_id = auth()->user()->id;
         $expense->save();

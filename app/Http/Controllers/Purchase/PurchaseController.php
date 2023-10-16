@@ -67,7 +67,7 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        // dd($request->input('items')[0]);
         $this->validate($request, [
             "date" => ["required"],
             "items" => ["required"],

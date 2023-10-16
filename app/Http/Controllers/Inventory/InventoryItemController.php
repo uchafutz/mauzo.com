@@ -9,6 +9,8 @@ use App\Models\Config\UnitType;
 use App\Models\Inventory\InventoryCategory;
 use App\Models\Inventory\InventoryItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class InventoryItemController extends Controller
 {
@@ -23,12 +25,9 @@ class InventoryItemController extends Controller
      */
     public function index()
     {
+
+
         $inventoryItems = InventoryItem::all();
-        if (request()->wantsJson()) {
-            return response([
-                "data" => $inventoryItems
-            ], 200);
-        }
 
         return view("resources.inventory.items.index", compact("inventoryItems"));
     }

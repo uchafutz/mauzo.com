@@ -139,10 +139,35 @@
 
                     </div>
                 </div> --}}
+                <div class="card mt-2">
+                    <div class="card-header">{{ __('Available In Warehouse') }}</div>
+                    <div class="card-body table-responsive">
+                        <table class="table table-stripped">
+                            <thead>
+                                <tr>
+                                    <th>S/n</th>
+                                    <th>Warehouse</th>
+                                    <th>In Stock</th>
+                                </tr>
+                            </thead>
 
+                            <tbody>
+                                @foreach ($inventoryItem->warehouses as $warehouse)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $warehouse->name }}</td>
+                                        <td>{{ $warehouse->pivot->in_stock }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                
                 <div class="card mt-2">
                     <div class="card-header">{{ __('Stock Items Purchase List') }}</div>
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         <table id="example" class="table table-stripped">
                             <thead>
                                 <tr>
@@ -170,17 +195,6 @@
                     </div>
                 </div>
 
-                <div class="card mt-2">
-                    <div class="card-header">{{ __('Available In Warehouse') }}</div>
-                    <div class="card-body">
-                        <table class="table table-stripped">
-                            <thead>
-                                <tr>
-                                    <th>S/n</th>
-                                    <th>Warehouse</th>
-                                    <th>In Stock</th>
-                                </tr>
-                            </thead>
 
                             <tbody>
                                 @foreach ($inventoryItem->warehouses as $warehouse)

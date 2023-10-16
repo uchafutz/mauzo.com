@@ -15,7 +15,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('Sale List') }}</div>
 
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         <table id="example" class="table table-stripped">
                             <thead>
                                 <tr>

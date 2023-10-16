@@ -14,13 +14,15 @@
                 <div class="card">
                     <div class="card-header"></div>
 
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
 
                         <table class="table table-stripped" id="example">
                             <thead>
                                 <tr>
                                     <th>S/n</th>
+                                    <th>Category</th>
                                     <th>Type</th>
+                                    <th>Shop</th>
                                     <th>Amount</th>
                                     <th>User</th>
                                     <th>Date</th>
@@ -33,6 +35,8 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $expense->expenseCategory->category_name }}</td>
+                                        <td>{{ $expense->type }}</td>
+                                        <td>{{ $expense->inventoryWarehouse->name }}</td>
                                         <td>{{ number_format($expense->amount) }}</td>
                                         <td>{{ $expense->user->name }}</td>
                                         <td>{{ $expense->created_at }}</td>

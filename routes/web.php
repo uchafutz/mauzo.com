@@ -25,11 +25,15 @@ use App\Http\Controllers\Config\VatController;
 use App\Http\Controllers\Config\VendorController;
 use App\Http\Controllers\Expense\ExpenseCategoryController;
 use App\Http\Controllers\Expense\ExpenseController;
+use App\Http\Controllers\Inventory\InventoryStockReportController;
 use App\Http\Controllers\Inventory\ManufacturingSubmitController;
 use App\Http\Controllers\Report\CreatePDFPurchaseController;
+use App\Http\Controllers\Report\CreateShopReportController;
 use App\Http\Controllers\Report\PurchaseReportController;
 use App\Http\Controllers\Report\SaleCreateReportController;
 use App\Http\Controllers\Report\SaleReportController;
+use App\Http\Controllers\Report\ShopReportController;
+use App\Http\Controllers\Report\StockAvailableController;
 use App\Http\Controllers\Sale\Invoice\RequestInvoice;
 use App\Http\Controllers\Sale\SaleController;
 use App\Http\Controllers\Sale\SaleSubmitController;
@@ -74,7 +78,6 @@ Route::middleware("auth")->group(function () {
         Route::post("users/{user}/assign-roles", AssignUserRolesController::class)->name("users.assignRoles");
         Route::post("users/{user}/assign-permission", AssignUserPermissionController::class)->name("users.assignPermissions");
         Route::resource("vats", VatController::class);
-        Route::resource("vendors", VendorController::class);
     });
 
     Route::prefix("/inventory")->name("inventory.")->group(function () {
@@ -86,6 +89,7 @@ Route::middleware("auth")->group(function () {
         Route::post("manufacturings/{manufacturing}/generate-boq", ManufacturingGenrateBOQController::class)->name("manufacturings.generateBOQ");
         Route::post("manufacturings/{manufacturing}/material/{manufacturingMaterial}/assign-stock-items", ManufacturingMaterialStockAssignmentController::class)->name("manufacturings.materials.assignStock");
         Route::post("manufacturings/{manufacturing}/submit", ManufacturingSubmitController::class)->name("manufacturings.submit");
+        Route::get("stocks", InventoryStockReportController::class)->name('stocks.report');
     });
 
     Route::prefix("/purchase")->name("purchase.")->group(function () {
@@ -96,6 +100,11 @@ Route::middleware("auth")->group(function () {
     Route::prefix("/customer")->name("customer.")->group(function () {
         Route::resource("customers", CustomerController::class);
     });
+
+    Route::prefix("/vendor")->name("vendor.")->group(function () {
+        Route::resource("vendors", VendorController::class);
+    });
+
 
     Route::prefix("/expense")->name("expense.")->group(function () {
         Route::resource("expenses", ExpenseController::class);
@@ -117,5 +126,8 @@ Route::middleware("auth")->group(function () {
         Route::post("createPDF", CreatePDFPurchaseController::class, "createPDF")->name("create");
         Route::get("sales", SaleReportController::class)->name("sales.report");
         Route::post("salescreate", SaleCreateReportController::class)->name("sales.create");
+        Route::get("shops", ShopReportController::class)->name("shops.report");
+        Route::post("shopcreate", CreateShopReportController::class)->name("shops.create");
+        Route::get("stocks", StockAvailableController::class)->name("stock.available");
     });
 });

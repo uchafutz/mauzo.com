@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Report;
 
 use App\Http\Controllers\Controller;
+use App\Models\Vendor\Vendor;
 use Illuminate\Http\Request;
 
 class SaleReportController extends Controller
@@ -15,6 +16,8 @@ class SaleReportController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view("resources.report.sales.index");
+        $vendors = Vendor::all();
+
+        return view("resources.report.sales.index", compact("vendors"));
     }
 }

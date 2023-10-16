@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">{{ __('Stock TransFer') }}</div>
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         <div>
                             <h4>{{ $stockTransfer->code }}</h4>
                             <p>{{ $stockTransfer->date->format('d/m/Y') }}</p>
@@ -46,14 +46,14 @@
 
 
                         </table>
-                         @if ($stockTransfer->status == 'DRAFT')
+                         @if ($stockTransfer->status == 'DRAFT' && $stockTransfer->from_warehouse_id != Auth::user()->inventory_warehouse_id)
                             <form action="{{ route('stock.stockTransfer.submited', ['stockTransfer' => $stockTransfer]) }}"
                                 method="post" enctype="multipart/form-data">
                                 @csrf
                                 
                                 <br />
 
-                                <button type="submit" class="btn btn-lg btn-success">Submit Transfer</button>
+                                <button type="submit" class="btn btn-lg btn-success">Accept Transfer</button>
                             </form>
                         @else
                         @endif

@@ -27,10 +27,9 @@ class StockTransferController extends Controller
             if (request()->wantsJson()) {
                 return response()->json($stockTransfers);
             }
-
             return view('resources.stock.transfers.index', compact('stockTransfers'));
         } else {
-            $stockTransfers = StockTransfer::where('from_warehouse_id', Auth::user()->inventory_warehouse_id)->get();
+            $stockTransfers = StockTransfer::where('to_warehouse_id', Auth::user()->inventory_warehouse_id)->get();
             return view('resources.stock.transfers.index', compact('stockTransfers'));
         }
 

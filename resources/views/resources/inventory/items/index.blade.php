@@ -7,14 +7,17 @@
     <a href="{{ route('inventory.inventoryItems.create') }}" class="btn btn-primary"><i class="material-icons">add</i>
         Create
         Inventory Item</a>
+    <a href="{{ route('inventory.stocks.report') }}" class="btn btn-outline-success">
+        <i class="material-icons-outlined">file_download</i>
+        Stock Avaliable</a>
 @endsection
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-body">
-                        <table  id="example" class="table table-stripped">
+                    <div class="card-body table-responsive">
+                        <table id="example" class="table table-stripped">
                             <thead>
                                 <tr>
                                     <th>S/n</th>
@@ -35,9 +38,12 @@
                                         </td>
                                         <td>{{ $inventoryItem->name }}</td>
                                         <td>{{ $inventoryItem->reorder_level }}</td>
-                                        <td class="{{ $inventoryItem->in_stock > $inventoryItem->reorder_level ? 'text-success' : 'text-danger' }}" >{{ $inventoryItem->in_stock ?? 0 }} {{ $inventoryItem->unit->code ?? null}}</td>
-                                        
-                                        <td>{{ number_format($inventoryItem->sale_price, 2, null, " ") }} TZS</td>
+                                        <td
+                                            class="{{ $inventoryItem->in_stock > $inventoryItem->reorder_level ? 'text-success' : 'text-danger' }}">
+                                            {{ $inventoryItem->in_stock ?? 0 }} {{ $inventoryItem->unit->code ?? null }}
+                                        </td>
+
+                                        <td>{{ number_format($inventoryItem->sale_price, 2, null, ' ') }} TZS</td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <a href="{{ route('inventory.inventoryItems.edit', ['inventoryItem' => $inventoryItem]) }}"
@@ -65,7 +71,6 @@
         </div>
     </div>
     <script>
-        	
         new DataTable('#example');
     </script>
 @endsection

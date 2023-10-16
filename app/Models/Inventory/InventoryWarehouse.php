@@ -2,6 +2,7 @@
 
 namespace App\Models\Inventory;
 
+use App\Models\Expense\Expense;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -45,5 +46,9 @@ class InventoryWarehouse extends Model
 
     public function users(){
         return $this->hasMany(User::class);
+    }
+
+    public function expenses(){
+        return $this->hasMany(Expense::class);
     }
 }

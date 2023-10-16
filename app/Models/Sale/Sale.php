@@ -13,7 +13,7 @@ class Sale extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['code', 'date', 'description', 'customer_id', 'total_amount', 'received_amount', 'return_amount', 'user_id'];
+    protected $fillable = ['code', 'date', 'description', 'customer_id', 'total_amount', 'received_amount', 'return_amount', 'user_id','inventory_warehouse_id'];
     protected $dates = ["date"];
 
     public function customer()
