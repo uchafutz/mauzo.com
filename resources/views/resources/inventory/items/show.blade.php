@@ -180,7 +180,7 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($inventoryItem->stockItems as $stockItem)
+                                @foreach ($stockItems as $stockItem)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $stockItem->warehouse->name }}</td>
@@ -196,6 +196,23 @@
                 </div>
 
 
+                            <tbody>
+                                @foreach ($inventoryItem->warehouses as $warehouse)
+                                   @if ($warehouse->pivot->in_stock >= 1)
+                                     <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $warehouse->name }}</td>
+                                        <td>{{ $warehouse->pivot->in_stock  }}</td>
+                                    </tr>
+                                       
+                                   @endif
+                                  
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -91,7 +91,9 @@ class InventoryItemController extends Controller
                 "data" => $inventoryItem
             ], 200);
         }
-        return view("resources.inventory.items.show", compact("inventoryItem"));
+        $stockItems = $inventoryItem->stockItems()->where("quantity", ">", 1)->get();
+
+        return view("resources.inventory.items.show", compact("inventoryItem", "stockItems"));
     }
 
     /**
