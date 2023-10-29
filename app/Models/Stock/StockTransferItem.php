@@ -30,8 +30,9 @@ class StockTransferItem extends Model
     {
         return $this->belongsTo(StockTransfer::class, 'stock_transfer_id');
     }
+
     public function stockItems()
     {
-        return $this->hasMany(InventoryStockItem::class, "source_type");
+        return $this->morphMany(InventoryStockItem::class, 'source');
     }
 }

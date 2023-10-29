@@ -5,12 +5,15 @@ namespace App\Listeners\StockTransfer;
 use App\Events\StockItemCreated;
 use App\Events\StockTransferEvent;
 use App\Http\Helpers\Utility;
+use App\Models\Inventory\InventoryItem;
 use App\Models\Inventory\InventoryStockItem;
 use App\Models\Inventory\InventoryWarehouse;
+use App\Models\Stock\StockTransfer;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+
 
 class ModifyStockTransfer
 {
@@ -32,59 +35,47 @@ class ModifyStockTransfer
      */
     public function handle(StockTransferEvent $event)
     {
+        //   $stockTransferAction = new StockTransfer();
+
         $stockTransfer = $event->stockTransfer;
+        $stockTransfer->status = "SUBMITED";
         try {
             DB::beginTransaction();
-            DB::flushQueryLog();
+            DB::enableQueryLog();
             foreach ($stockTransfer->items as $itemStock) {
-                $fromInvStock = InventoryStockItem::where("inv_warehouse_id", "=", $stockTransfer->from_warehouse_id)->where("inv_item_id", "=", $itemStock->inv_item_id)->first();
+
+
+                $fromInvStock = InventoryStockItem::where([
+                    "inv_warehouse_id" => $stockTransfer->from_warehouse_id,
+                    "inv_item_id" => $itemStock->inv_item_id,
+                ])->where(
+                    "in_stock",
+                    ">=",
+                    $itemStock->quantity,
+
+                )->first();
+                // dd($fromInvStock);
                 $fromInvStock->in_stock = $fromInvStock->in_stock - $itemStock->quantity;
                 $fromInvStock->update();
+                // dd($fromInvStock);
 
-
-                $toInvStock =  InventoryStockItem::where("inv_warehouse_id", "=", $stockTransfer->to_warehouse_id)->where("inv_item_id", "=", $itemStock->inv_item_id)->first();
-                if ($toInvStock == null) {
-                    DB::table('warehouse_has_items')->insert([
-                        'inv_warehouse_id' => $stockTransfer->to_warehouse_id,
-                        'inv_item_id' => $itemStock->inv_item_id,
-                        'in_stock' => $itemStock->quantity,
-                    ]);
-                    DB::table('inventory_stock_items')->insert([
-                        "inv_item_id" => $itemStock->inv_item_id,
-                        "inv_warehouse_id" => $stockTransfer->to_warehouse_id,
-                        "unit_cost" => 0,
-                        "quantity" => $itemStock->quantity,
-                        "in_stock" => $itemStock->quantity,
-                        "source_id" => $stockTransfer->from_warehouse_id,
-                        "source_type" => "App\Models\Purchase\PurchaseItems"
-                    ]);
-                } else {
-                    //dd($toInvStock);
-                    $toInvStock->in_stock = $toInvStock->in_stock + $itemStock->quantity;
-                    $toInvStock->update();
-                    $newWarehouseItem = $toInvStock->warehouse->findItem($toInvStock->item);
-                    $toInvStock->warehouse->updateItemInstock($toInvStock->item, $newWarehouseItem->pivot->in_stock + $itemStock->quantity);
-                    $toInvStock->item->update();
-                }
-
-                if ($itemStock->quantity > $fromInvStock->in_stock) {
-                    DB::rollback();
-                }
-
-
-                //last thing to deal with pivot
-
-                // Modify In The Warehouse Item Instock Value by decrementing
-
+                $stockItem = $itemStock->stockItems()->create([
+                    "inv_item_id" => $itemStock->inv_item_id,
+                    "inv_warehouse_id" => $stockTransfer->to_warehouse_id,
+                    "unit_cost" => 0,
+                    "quantity" => $itemStock->quantity,
+                    "in_stock" => $itemStock->quantity,
+                    "batch" => $itemStock->batch
+                ]);
+                StockItemCreated::dispatch($stockItem);
                 $warehouseItem = $fromInvStock->warehouse->findItem($fromInvStock->item);
-                if ($warehouseItem->pivot->in_stock > $itemStock->quantity) {
-                    $fromInvStock->warehouse->updateItemInstock($fromInvStock->item, $warehouseItem->pivot->in_stock - $itemStock->quantity);
-                    // Modify the Item In Stock Value
-                    $fromInvStock->item->updateInStock();
-                }
+                $fromInvStock->warehouse->updateItemInstock($fromInvStock->item, $warehouseItem->pivot->in_stock - $itemStock->quantity);
+                $fromInvStock->item->updateInStock();
 
                 DB::commit();
             }
+
+            $stockTransfer->update();
         } catch (\Exception $e) {
             DB::rollback();
             Log::debug($e);
@@ -95,5 +86,12 @@ class ModifyStockTransfer
         //dd($stockTransferItem->stockTransfer->code);
 
 
+    }
+
+
+
+
+    private function toInventory()
+    {
     }
 }

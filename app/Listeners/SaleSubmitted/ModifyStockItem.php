@@ -32,6 +32,7 @@ class ModifyStockItem
         $sale = $event->sale;
         // Deduct Stock From Stock Items and Update the in stock
         foreach ($sale->salesItems as $saleItem) {
+            //dd($saleItem);
             foreach ($saleItem->stockItems as $saleItemStockItem) {
                 //dd($saleItemStockItem);
                 $stockItem = InventoryStockItem::find($saleItemStockItem->stock_item_id);
