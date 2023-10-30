@@ -36,9 +36,10 @@ class ModifyStockTransfer
     public function handle(StockTransferEvent $event)
     {
         //   $stockTransferAction = new StockTransfer();
-
+        //  dd($event);
         $stockTransfer = $event->stockTransfer;
         $stockTransfer->status = "SUBMITED";
+
         try {
             DB::beginTransaction();
             DB::enableQueryLog();
@@ -57,7 +58,7 @@ class ModifyStockTransfer
                 // dd($fromInvStock);
                 $fromInvStock->in_stock = $fromInvStock->in_stock - $itemStock->quantity;
                 $fromInvStock->update();
-                // dd($fromInvStock);
+                //dd($fromInvStock);
 
                 $stockItem = $itemStock->stockItems()->create([
                     "inv_item_id" => $itemStock->inv_item_id,
@@ -86,12 +87,5 @@ class ModifyStockTransfer
         //dd($stockTransferItem->stockTransfer->code);
 
 
-    }
-
-
-
-
-    private function toInventory()
-    {
     }
 }
