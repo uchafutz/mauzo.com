@@ -88,11 +88,4 @@ class ModifyStockTransfer
 
 
     }
-
-
-
-
-    private function toInventory()
-    {
-    }
 }
