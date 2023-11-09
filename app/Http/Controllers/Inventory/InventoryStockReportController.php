@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tests\Feature\inventory\inventorytest;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Illuminate\Support\Facades\DB;
 
 class InventoryStockReportController extends Controller
 {
@@ -21,22 +22,17 @@ class InventoryStockReportController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $inv_warehouse_id = Auth::user()->inventory_warehouse_id;
-        $warehouse = null;
+        $inv_warehouse_id = $request->warehouse_id;
+        $warehouse = InventoryWarehouse::find($inv_warehouse_id);
 
-        if (Auth::user()->is_admin) {
-            $inventoryItems = InventoryItem::with('stockItems')->whereHas('stockItems', function ($query) use ($inv_warehouse_id) {
-                $query->where('in_stock', '>=', 1);
-            })->get();
-        }else{
-            $inventoryItems = InventoryItem::with('stockItems')->whereHas('stockItems', function ($query) use ($inv_warehouse_id) {
-                $query->where('inv_warehouse_id', $inv_warehouse_id)
-                    ->where('in_stock', '>=', 1);
-            })->get();
-            $warehouse = InventoryWarehouse::find($inv_warehouse_id);
-        }
+
+        $inventoryItems = InventoryWarehouse::with(['items' => function($query){
+            $query->select('inventory_items.id','name','inventory_items.in_stock','reorder_level','default_unit_id')->with('unit:id,code');
+        }])->select('id')->where('id', $inv_warehouse_id)->get();
+
 
         $data = ["inventoryItems" => $inventoryItems, 'warehouse' => $warehouse];
+    
         view()->share('resources.report.stock.report', $data);
         $pdf = PDF::loadView('resources.report.stock.report', $data);
         return $pdf->download('AVAILABLE STOCK REPORT.pdf');
