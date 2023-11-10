@@ -4,15 +4,40 @@
 @endsection
 
 @section('page_action')
-    <a href="{{ route('inventory.inventoryItems.create') }}" class="btn btn-primary"><i class="material-icons">add</i>
-        Create
-        Inventory Item</a>
-    <a href="{{ route('inventory.stocks.report') }}" class="btn btn-outline-success">
-        <i class="material-icons-outlined">file_download</i>
-        Stock Avaliable</a>
+<div class="row">
+    <div class="col-md-6">
+        <a href="{{ route('inventory.inventoryItems.create') }}" class="btn btn-primary"><i class="material-icons">add</i>
+            Create
+            Inventory Item</a>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <h4>Stock Availability Report</h4>
+        </div>
+        <form action="{{ route('inventory.stocks.report') }}" method="post">
+            @csrf
+            <div class="col">
+                <div class="row mb-2">
+                    <select name="warehouse_id" id="" class="form-control">
+                        <option value="">Select warehouse</option>
+                        @foreach ($wareHouses as $warehouse)
+                            <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>    
+                        @endforeach
+                    </select>
+                </div>
+                <div class="row">
+                    <button class="btn btn-success">
+                        <i class="material-icons-outlined">file_download</i>Get report
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 @endsection
 @section('content')
     <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">

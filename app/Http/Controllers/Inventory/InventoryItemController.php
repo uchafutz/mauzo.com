@@ -8,6 +8,7 @@ use App\Models\Config\Unit;
 use App\Models\Config\UnitType;
 use App\Models\Inventory\InventoryCategory;
 use App\Models\Inventory\InventoryItem;
+use App\Models\Inventory\InventoryWarehouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -28,8 +29,13 @@ class InventoryItemController extends Controller
 
 
         $inventoryItems = InventoryItem::all();
+        if (Auth::user()->is_admin) {
+            $wareHouses = InventoryWarehouse::select('id','name')->get();
+        }else{
+             $wareHouses = InventoryWarehouse::select('id','name')->where('id', Auth::user()->inventory_warehouse_id)->get();
+        }
 
-        return view("resources.inventory.items.index", compact("inventoryItems"));
+        return view("resources.inventory.items.index", ['inventoryItems' => $inventoryItems, 'wareHouses' => $wareHouses]);
     }
 
     /**
