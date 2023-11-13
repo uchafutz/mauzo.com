@@ -61,13 +61,10 @@
             <div class="row">
                 <div class="col-md-5">
                     <table id="report-summary">
-                        
-                        @if (!Auth::user()->is_admin)
                         <tr>
                             <td>STORE NAME</td>
                             <td>{{$warehouse->name}}</td>
                         </tr> 
-                        @endif
                       
                         <tr>
                             <td>Date</td>
@@ -83,38 +80,23 @@
                                     <th>S/n</th>
                                     <th>Name</th>
                                     <th>Stock</th>
-                                    @if (!Auth::user()->is_admin)
-                                        <th>Available</th>        
-                                    @endif
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach ($inventoryItems as $inventoryItem)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        </td>
-                                        <td>{{ $inventoryItem->name }}</td>
-                                        
-                                        <td class="{{ $inventoryItem->in_stock > $inventoryItem->reorder_level ? 'text-success' : 'text-danger' }}" >{{ $inventoryItem->in_stock ?? 0 }} {{ $inventoryItem->unit->code ?? null}}</td>
-                                        
-                                        @if (!Auth::user()->is_admin)
-                                        <td>
-                                          
-                                            @php
-                                                  foreach ( $inventoryItem->stockItems as $stockItem ){
-                                                      if($stockItem->warehouse->id == $warehouse->id){
-                                                             echo ($stockItem->in_stock);
-                                                      }
-                                                     }
-                                            @endphp
-                                             
-                                             {{ $inventoryItem->unit->code ?? null}} 
-                                          </td>  
-                                        @endif
-                                      
-                                    </tr>
+                                @php
+                                    $i = 1;
+                                @endphp
+                                @foreach ($inventoryItems as $items)
+                                    @foreach ($items->items as $inventoryItem)
+                                        <tr>
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{ $inventoryItem->name }}</td>
+                                            <td class="{{ $inventoryItem->in_stock > $inventoryItem->reorder_level ? 'text-success' : 'text-danger' }}" >{{ $inventoryItem->in_stock ?? 0 }} {{ $inventoryItem->unit->code ?? null}}</td>       
+                                        </tr>
+                                    @endforeach   
                                 @endforeach
+
                             </tbody>
                         </table>
    

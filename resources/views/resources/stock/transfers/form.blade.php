@@ -85,7 +85,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-4">
+                                          <div class="col">
                                                 <label for="" class="label-control">Inventory Item</label>
                                                 <select class="form-control" x-model="itemForm.inv_item_id">
                                                     <option value="">Choose Item...</option>
@@ -94,7 +94,19 @@
                                                     </template>
                                                 </select>
                                             </div>
-                                            <div class="col-md-2">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="" class="label-control">Stock Item</label>
+                                                <select  class="form-control" x-model="itemForm.inv_stockitem_id">
+                                                    <option value="">Choose Item...</option>
+                                                    <template x-for="item in form.stock_item.stock">
+                                                        <option x-bind:value="item.id" x-text="item.in_stock"></option>
+                                                    
+                                                    </template>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
                                                 <label for="" class="label-control">Unit of Meansure</label>
                                                 <select class="form-control" x-model="itemForm.conf_unit_id">
                                                     <option value="">Choose Unit</option>
@@ -108,12 +120,7 @@
                                             <div class="col-md-2">
                                                 <label for="" class="label-control">Quantity</label>
                                                 <input type="number" placeholder="Qty" class="quantity border form-control"
-                                                    x-model="itemForm.quantity" x-bind:max="itemForm.item.pivot.in_stock">
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label for="" class="label-control">In Stock</label>
-                                                <input class="form-control" type="text"
-                                                    x-bind:value="itemForm.item.pivot.in_stock" readonly>
+                                                    x-model="itemForm.quantity" x-bind:max="form.value_instock">
                                             </div>
 
                                             <div class="col-md-2">
@@ -156,7 +163,10 @@
                         x-bind:value="warehouse.conf_unit_id">
                     <input type="hidden" x-bind:name="'warehouses[' + index + '][quantity]'"
                         x-bind:value="warehouse.quantity">
-
+                     <input type="hidden"
+                        x-bind:name="'warehouses[' + index + '][inv_stockitem_id]'"
+                        x-bind:value="itemForm.inv_stockitem_id">
+                    
 
 
 
@@ -196,15 +206,22 @@
             items: [],
         }
 
+        const initialStockItem = {
+            stock: []
+        }
+
         const initialItem = {
             pivot: {}
         }
         const initialForm = {
             from_warehouse_id: "",
             to_warehouse_id: "",
+            in_stock_items:"",
+            value_instock:"",
             warehouse: initialWarehouse,
             unit: null,
             items: [],
+            stock_item: initialStockItem,    
         };
 
         const initialItemForm = {
@@ -213,6 +230,8 @@
             conf_unit_id: "",
             quantity: "",
             in_stock: "",
+            inv_stockitem_id: '',
+            in_stock_item_value: '',
         };
 
         function getState() {
@@ -236,7 +255,6 @@
 
                     this.$watch('form.from_warehouse_id', value => {
                         console.log('From warehouse changed to ' + value);
-
                         // If the new value is not empty, find the corresponding warehouse
                         if (value) {
                             this.form.warehouse = this.wareHouses.find(warehouse => warehouse.id == value);
@@ -251,10 +269,28 @@
                         // If the new value is not empty, find the corresponding item
                         if (value) {
                             this.itemForm.item = this.form.warehouse.items.find(item => item.id == value);
-                            console.log(this.itemForm.item);
-                            this.itemForm.conf_unit_id = this.itemForm.item.default_unit_id
+                            // console.log('MCHAWIIII');
+                            // // console.log(this.itemForm.item.stock_items);
+                            // console.log("value_instock");
+                            this.form.stock_item.stock = this.itemForm.item.stock_items.filter(item => item.inv_warehouse_id == this.form.from_warehouse_id);
+                            // console.log(this.form.stock_item.stock);
+                            // console.log(this.from.value_instock);
+
+
+                            this.itemForm.conf_unit_id = this.itemForm.item.default_unit_id;
                         } else {
                             this.itemForm.item = initialItemForm;
+                        }
+                    });
+
+                    this.$watch('itemForm.inv_stockitem_id',value=>{
+                        if(value){
+                            this.form.value_instock = this.form.stock_item.stock.find(item=>item.id ==this.itemForm.inv_stockitem_id).in_stock;
+                            this.itemForm.inv_stockitem_id = this.form.stock_item.stock.find(item=>item.id ==this.itemForm.inv_stockitem_id).id;
+                            console.log("STOCKKKKKKKKKKKKK IDDDDDDDDDDDD");
+                            console.log(this.itemForm.inv_stockitem_id);
+                        }else{
+
                         }
                     });
 

@@ -46,6 +46,11 @@ class StockTransferController extends Controller
     {
         $inventoryWarehouse = new InventoryWarehouse();
         $wareHouses = $inventoryWarehouse->with(['items.unit', 'items.stockItems'])->get();
+        // $items = InventoryItem::with(["stockItems" => function ($query) {
+        //     $query->where('inv_warehouse_id', auth()->user()->inventory_warehouse_id)
+        //         ->with('warehouse');
+        // }])->get();
+        // dd($wareHouses);
         $units = Unit::all();
 
         return view('resources.stock.transfers.form', compact('wareHouses', 'units'));
@@ -63,7 +68,7 @@ class StockTransferController extends Controller
     {
 
 
-        // dd($request->input());
+        //dd($request->input());
         $request->validate([
             "from_warehouse_id" => ["required"],
             "to_warehouse_id" => ["required"],
