@@ -27,7 +27,7 @@
                 </div>
                 <div class="row">
                     <button class="btn btn-success">
-                        <i class="material-icons-outlined">file_download</i>Get report
+                        View instock
                     </button>
                 </div>
             </div>

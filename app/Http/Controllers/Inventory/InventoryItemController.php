@@ -28,11 +28,12 @@ class InventoryItemController extends Controller
     {
 
 
+
         $inventoryItems = InventoryItem::all();
         if (Auth::user()->is_admin) {
-            $wareHouses = InventoryWarehouse::select('id','name')->get();
-        }else{
-             $wareHouses = InventoryWarehouse::select('id','name')->where('id', Auth::user()->inventory_warehouse_id)->get();
+            $wareHouses = InventoryWarehouse::select('id', 'name')->get();
+        } else {
+            $wareHouses = InventoryWarehouse::select('id', 'name')->where('id', Auth::user()->inventory_warehouse_id)->get();
         }
 
         return view("resources.inventory.items.index", ['inventoryItems' => $inventoryItems, 'wareHouses' => $wareHouses]);
