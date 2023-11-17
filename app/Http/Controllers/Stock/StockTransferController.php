@@ -133,7 +133,9 @@ class StockTransferController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resournamespace App\Http\Controllers\Inventory;
+
+
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Stock\StockTransfer  $stockTransfer
