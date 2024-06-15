@@ -11,8 +11,6 @@ use App\Models\Inventory\InventoryItem;
 use App\Models\Inventory\InventoryWarehouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-
 class InventoryItemController extends Controller
 {
     public function __construct()
@@ -27,9 +25,7 @@ class InventoryItemController extends Controller
     public function index()
     {
 
-
-
-        $inventoryItems = InventoryItem::all();
+       $inventoryItems = InventoryItem::all();
         if (Auth::user()->is_admin) {
             $wareHouses = InventoryWarehouse::select('id', 'name')->get();
         } else {
@@ -98,7 +94,7 @@ class InventoryItemController extends Controller
                 "data" => $inventoryItem
             ], 200);
         }
-        $stockItems = $inventoryItem->stockItems()->where("quantity", ">", 1)->get();
+        $stockItems = $inventoryItem->stockItems()->where("quantity", ">=", 0)->get();
 
         return view("resources.inventory.items.show", compact("inventoryItem", "stockItems"));
     }

@@ -66,7 +66,7 @@ class UserController extends Controller
         $data["email"] = $request->email;
         $data["is_admin"] = $request->is_admin == 'on' ? 1 : 0;
         $data["password"] = Hash::make("password");
-        $data['inventory_warehouse_id'] = $request->inventory_warehouse_id;
+        $data['inventory_warehouse_id'] = $request->user_warehouse;
         $user = User::create($data);
 
         UserCreated::dispatch($user);

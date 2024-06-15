@@ -27,11 +27,6 @@ class InventoryWarehouse extends Model
         return $this->belongsToMany(InventoryItem::class, "warehouse_has_items", "inv_warehouse_id", "inv_item_id")->withPivot(["in_stock"]);
     }
 
-    public function item()
-    {
-        return $this->belongsToMany(InventoryItem::class, "warehouse_has_items", "inv_warehouse_id", "inv_item_id");
-    }
-
     public function findItem(InventoryItem $item)
     {
         $item = $this->items()->where("inv_item_id", $item->id)->first();
@@ -49,13 +44,11 @@ class InventoryWarehouse extends Model
         }
     }
 
-    public function users()
-    {
+    public function users(){
         return $this->hasMany(User::class);
     }
 
-    public function expenses()
-    {
+    public function expenses(){
         return $this->hasMany(Expense::class);
     }
 }

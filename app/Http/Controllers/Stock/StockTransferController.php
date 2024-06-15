@@ -23,13 +23,13 @@ class StockTransferController extends Controller
     public function index()
     {
         if (Auth::user()->is_admin != 0) {
-            $stockTransfers = StockTransfer::all();
+            $stockTransfers = StockTransfer::orderBy('id','desc')->paginate(100);
             if (request()->wantsJson()) {
                 return response()->json($stockTransfers);
             }
             return view('resources.stock.transfers.index', compact('stockTransfers'));
         } else {
-            $stockTransfers = StockTransfer::where('to_warehouse_id', Auth::user()->inventory_warehouse_id)->get();
+            $stockTransfers = StockTransfer::where('to_warehouse_id', Auth::user()->inventory_warehouse_id)->orderBy('id','desc')->paginate(50);
             return view('resources.stock.transfers.index', compact('stockTransfers'));
         }
 
@@ -46,11 +46,6 @@ class StockTransferController extends Controller
     {
         $inventoryWarehouse = new InventoryWarehouse();
         $wareHouses = $inventoryWarehouse->with(['items.unit', 'items.stockItems'])->get();
-        // $items = InventoryItem::with(["stockItems" => function ($query) {
-        //     $query->where('inv_warehouse_id', auth()->user()->inventory_warehouse_id)
-        //         ->with('warehouse');
-        // }])->get();
-        // dd($wareHouses);
         $units = Unit::all();
 
         return view('resources.stock.transfers.form', compact('wareHouses', 'units'));
@@ -68,7 +63,7 @@ class StockTransferController extends Controller
     {
 
 
-        //dd($request->input());
+        // dd($request->input());
         $request->validate([
             "from_warehouse_id" => ["required"],
             "to_warehouse_id" => ["required"],
@@ -133,9 +128,7 @@ class StockTransferController extends Controller
     }
 
     /**
-     * Update the specified resournamespace App\Http\Controllers\Inventory;
-
-
+     * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Stock\StockTransfer  $stockTransfer

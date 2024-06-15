@@ -27,10 +27,10 @@ class SaleController extends Controller
     public function index()
     {
         if (auth()->user()->is_admin) {
-            $sales = Sale::all();
+            $sales = Sale::orderBy('id','desc')->paginate(100);
             return view("resources.sale.sales.index", compact("sales"));
         } else {
-            $sales = Sale::where('user_id', auth()->user()->id)->get();
+            $sales = Sale::where('user_id', auth()->user()->id)->orderBy('id','desc')->paginate(50);
 
             if (request()->wantsJson()) {
                 return response([
