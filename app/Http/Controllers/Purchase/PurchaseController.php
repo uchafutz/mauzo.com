@@ -27,10 +27,10 @@ class PurchaseController extends Controller
     {
 
         if (auth()->user()->is_admin) {
-            $purchases = Purchase::all();
+            $purchases = Purchase::orderBy('id','desc')->paginate(100);
         }
         else{
-            $purchases = Purchase::where('user_id', auth()->user()->id)->get();
+            $purchases = Purchase::where('user_id', auth()->user()->id)->orderBy('id','desc')->paginate(50);
         }
 
         if (request()->wantsJson()) {

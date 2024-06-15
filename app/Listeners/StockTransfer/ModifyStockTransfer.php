@@ -52,9 +52,7 @@ class ModifyStockTransfer
                 ])->where(
                     "in_stock",
                     ">=",
-                    $itemStock->quantity,
-
-                )->first();
+                    $itemStock->quantity )->first();
                 // dd($fromInvStock);
                 $fromInvStock->in_stock = $fromInvStock->in_stock - $itemStock->quantity;
                 $fromInvStock->update();

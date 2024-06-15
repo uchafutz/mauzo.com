@@ -18,10 +18,9 @@ class StockSubmitTransferController extends Controller
      */
     public function __invoke(Request $request, StockTransfer $stockTransfer)
     {
-        //DB::beginTransaction();
-
+       
         StockTransferEvent::dispatch($stockTransfer);
-        //  DB::commit();
+       
 
         if ($request->wantsJson()) {
             return response()->json([
