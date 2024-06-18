@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
+            InventoryWarehouseSeeder::class,
             UserSeeder::class,
             InventoryCategorySeeder::class,
             //  InventoryItemsSeender::class,
