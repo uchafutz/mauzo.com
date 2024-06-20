@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Account\AccountController;
+use App\Http\Controllers\Account\AccountLedgerController;
 use App\Http\Controllers\Config\OrganizationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +31,8 @@ use App\Http\Controllers\Inventory\InventoryStockReportController;
 use App\Http\Controllers\Inventory\ManufacturingSubmitController;
 use App\Http\Controllers\Report\CreatePDFPurchaseController;
 use App\Http\Controllers\Report\CreateShopReportController;
+use App\Http\Controllers\Report\CustomerSalesController;
+use App\Http\Controllers\Report\CustomerSalesReportController;
 use App\Http\Controllers\Report\PurchaseReportController;
 use App\Http\Controllers\Report\SaleCreateReportController;
 use App\Http\Controllers\Report\SaleReportController;
@@ -39,6 +43,7 @@ use App\Http\Controllers\Sale\SaleController;
 use App\Http\Controllers\Sale\SaleSubmitController;
 use App\Http\Controllers\Stock\StockSubmitTransferController;
 use App\Http\Controllers\Stock\StockTransferController;
+
 use App\Models\Stock\StockTransfer;
 
 /*
@@ -129,5 +134,12 @@ Route::middleware("auth")->group(function () {
         Route::get("shops", ShopReportController::class)->name("shops.report");
         Route::post("shopcreate", CreateShopReportController::class)->name("shops.create");
         Route::get("stocks", StockAvailableController::class)->name("stock.available");
+        Route::get("customers",CustomerSalesReportController::class)->name("customers.report");
+        Route::post("customers",CustomerSalesController::class)->name("customers.create");
     });
+
+    Route::prefix("/account")->name("account.")->group(function(){
+     Route::resource("accounts",AccountController::class);
+     Route::resource("accountLedgers",AccountLedgerController::class);
+    }); 
 });

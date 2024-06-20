@@ -76,6 +76,7 @@ class SaleController extends Controller
 
     private function validateRequest(Request $request)
     {
+
         $messages = [];
         if ($request->input("items")) {
             foreach ($request->input('items') as $key => $val) {
@@ -97,6 +98,7 @@ class SaleController extends Controller
     public function store(Request $request)
     {
 
+       // dd($request);
         $data = $request->input();
         $data['inventory_warehouse_id'] = Auth::user()->inventory_warehouse_id;  
         $this->validateRequest($request);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Events\CustomerAccountCreateEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Customer\Customer;
 use Illuminate\Http\Request;
@@ -52,6 +53,7 @@ class CustomerController extends Controller
                 "data"=>$customer
             ],201);
         }
+         CustomerAccountCreateEvent::dispatch($customer);
         return redirect(route("customer.customers.index"));
     }
 

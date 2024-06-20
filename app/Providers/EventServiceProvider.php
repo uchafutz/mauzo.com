@@ -2,12 +2,15 @@
 
 namespace App\Providers;
 
+use App\Events\CustomerAccountCreateEvent;
 use App\Events\ManufacturingSubmited;
 use App\Events\PurchaseSubmited;
 use App\Events\SaleSubmited;
 use App\Events\StockItemCreated;
 use App\Events\StockTransferEvent;
 use App\Events\UserCreated;
+use App\Listeners\Account\AccountCreateListener;
+use App\Listeners\Account\AccountLedgerListener;
 use App\Listeners\ManufacturingSubmitted\ConsumeMaterial;
 use App\Listeners\ManufacturingSubmitted\GenerateItems;
 use App\Listeners\ManufacturingSubmitted\GenerateWaste;
@@ -43,6 +46,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         SaleSubmited::class => [
             ModifyStockItem::class,
+            AccountLedgerListener::class,
         ],
         ManufacturingSubmited::class => [
             ConsumeMaterial::class,
@@ -52,6 +56,9 @@ class EventServiceProvider extends ServiceProvider
         StockTransferEvent::class => [
             ModifyStockTransfer::class,
             //  CreateStockItem::class,
+        ],
+        CustomerAccountCreateEvent::class=>[
+            AccountCreateListener::class
         ]
     ];
 
