@@ -168,6 +168,22 @@
 
 
                     @if (Auth::user()->is_admin)
+                    <li class="{{ request()->is('accounts*') ? 'active-page' : '' }}">
+                        <a href=""><i class="material-icons-two-tone">account_balance</i>Account<i
+                                class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a class="{{ request()->is('account/accounts*') ? 'active' : '' }}"
+                                    href="{{ route('account.accounts.index') }}">Accounts</a>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('account/accountLedgers*') ? 'active' : '' }}"
+                                    href="{{ route('account.accountLedgers.index') }}">Ledgers</a>
+                            </li>
+                              
+
+                        </ul>
+                    </li>
 
                         <li>
                             <a href="#"><i class="material-icons-two-tone">grid_on</i>Reports<i
@@ -184,6 +200,10 @@
                                 <li>
                                     <a class="{{ request()->is('report/shops*') ? 'active' : '' }}"
                                         href="{{ route('report.shops.report') }}">Shop Report</a>
+                                </li>
+                                <li>
+                                    <a class="{{ request()->is('report/customers*') ? 'active' : '' }}"
+                                        href="{{ route('report.customers.report') }}">Customer Report</a>
                                 </li>
                             </ul>
                         </li>

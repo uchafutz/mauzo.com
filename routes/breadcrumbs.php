@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Account\Account;
 use App\Models\User;
 use App\Models\Sale\Sale;
 use App\Models\Config\Role;
@@ -316,4 +317,32 @@ Breadcrumbs::for('config.vendors.create', function ($trail) {
 Breadcrumbs::for('config.vendors.edit', function ($trail, Vendor $vendor) {
     $trail->parent('config.vendors.index');
     $trail->push('Edit', route('config.vendors.edit', ['vendor' => $vendor]));
+});
+
+
+//account
+Breadcrumbs::for('account.accounts.index',function($trail){
+    $trail->parent('home');
+    $trail->push('Account', route('account.accounts.index'));
+   
+
+});
+
+Breadcrumbs::for('account.accounts.show',function($trail, Account $account){
+    $trail->parent('home');
+    $trail->push('Account', route('account.accounts.index'));
+    $trail->push($account->account_name, route('account.accounts.show', ['account' => $account]));
+
+});
+
+//account Ledgers
+
+Breadcrumbs::for("account.accountLedgers.index",function($trail){
+    $trail->parent("home");
+    $trail->push("Account Ledger",route('account.accountLedgers.index'));
+});
+
+Breadcrumbs::for("account.accountLedgers.create",function($trail){
+    $trail->parent("account.accountLedgers.index");
+    $trail->push("Create Transaction",route('account.accountLedgers.create'));
 });

@@ -216,13 +216,13 @@
 
                                 <input type="hidden" name="total_amount" x-bind:value="total">
                                 <input type="hidden" name="return_amount" x-bind:value="received_amount - total">
-                                {{-- <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value=""
-                                        id="flexCheckDefault">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox"  value="{{ isset($sale) ? $sale->oncredit : 1 }}" 
+                                        id="flexCheckDefault" name="oncredit">
                                     <label class="form-check-label" for="flexCheckDefault">
                                         Sale on Credit
                                     </label>
-                                </div> --}}
+                                </div>
 
                                 <div class="row mt-2">
                                     <div class="col-lg-12">
