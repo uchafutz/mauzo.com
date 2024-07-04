@@ -18,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("account_id");
             $table->unsignedBigInteger("sale_id")->nullable();
+    
             $table->text("description")->nullable();
             $table->dateTime("date")->default(Carbon::now());
             $table->decimal("amount",17,2);

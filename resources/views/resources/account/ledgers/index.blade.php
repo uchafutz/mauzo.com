@@ -45,6 +45,7 @@
                             </tbody>
                                         
                         </table>
+                        {{ $accountLedgers->onEachSide(10)->links() }}
                     </div>
                 </div>
             </div>
@@ -52,6 +53,6 @@
     </div>
     <script>
         	
-        new DataTable('#example');
+       // new DataTable('#example');
     </script>
 @endsection

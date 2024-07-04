@@ -14,7 +14,10 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header"></div>
+                    <div class="card-header">
+                        
+                    </div>
+                   
                     <div class="card-body table-responsive">
                         <table id="example" class="table table-stripped">
                             <thead>
@@ -33,8 +36,8 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $account->account_name }}</td>
-                                        <td>{{ $account->balance }}</td>
-                                        <td>{{ $account->initial_balance }}</td>
+                                        <td>{{  number_format($account->balance) }}</td>
+                                        <td>{{  number_format($account->initial_balance) }}</td>
                                         <td>{{ $account->status }}</td>
                                         
 
@@ -62,11 +65,14 @@
                                 @endforeach
                             </tbody>
                         </table>
+                       
                     </div>
-                </div>
+                   </div>
+                
             </div>
         </div>
     </div>
+   
     <script>
         	
         new DataTable('#example');

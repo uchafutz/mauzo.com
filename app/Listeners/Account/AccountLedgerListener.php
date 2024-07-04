@@ -7,6 +7,7 @@ use App\Models\Account\AccountLedger;
 use Exception;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Auth;
 
 class AccountLedgerListener
 {
@@ -45,7 +46,8 @@ class AccountLedgerListener
                "description" => $sale->description,
                "amount" => $sale->total_amount,
                "credit" => "cr",
-               "sale_id" => $sale->id
+               "sale_id" => $sale->id,
+              "user_id" =>Auth::user()->id
            ];
        
            // Retrieve the account associated with the customer_id
@@ -62,21 +64,23 @@ class AccountLedgerListener
            // Create a new AccountLedger entry
            AccountLedger::create($data);
 
-        }
+        
        
-    //    } else {
-    //        // Prepare data for AccountLedger
-    //        $data = [
-    //            "account_id" => $sale->customer_id,
-    //            "description" => $sale->description,
-    //            "amount" => $sale->total_amount,
-    //            "debit" => "dr",
-    //            "sale_id" => $sale->id
-    //        ];
+       } else {
+           // Prepare data for AccountLedger
+           $data = [
+               "account_id" => $sale->customer_id,
+               "description" => $sale->description,
+               "amount" => $sale->total_amount,
+               "debit" => "dr",
+               "sale_id" => $sale->id,
+               "user_id" =>Auth::user()->id
+              // "user_id" =>1,
+           ];
        
-    //        // Create a new AccountLedger entry
-    //        AccountLedger::create($data);
-    //    }
+           // Create a new AccountLedger entry
+           AccountLedger::create($data);
+       }
        
        // dd($sale);
         //

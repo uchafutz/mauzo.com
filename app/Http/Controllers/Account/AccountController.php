@@ -31,8 +31,7 @@ class AccountController extends Controller
      */
     public function create()
     {
-        $accounts=Account::all();
-        return view("resources.account.ledgers.form",compact("accounts"));
+        
     }
 
     /**
@@ -95,6 +94,9 @@ class AccountController extends Controller
      */
     public function destroy(Account $account)
     {
+        $account->delete();
+        return redirect()->route("account.accounts.index");
+        
         //
     }
 }

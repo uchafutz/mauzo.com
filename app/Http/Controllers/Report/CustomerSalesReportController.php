@@ -24,27 +24,5 @@ class CustomerSalesReportController extends Controller
         //
     }
 
-    public function store(Request $request){
-        $request->validate([
-            'from' => "required",
-            'to' => "required",
-             "customer_id"=>"required"
-        ]);
-
-        $from = $request->input("from");
-        $to = $request->input("to");
-        $customer_id = $request->input('customer_id');
-
-        $salesTotal = Sale::with('salesItems')->where(["status" => "SUBMITED","customer_id"=>$customer_id])->whereDate('date', '>=', $from)->whereDate('date', '<=', $to)->sum('total_amount');
-        // $expense_type = '';
-
-        dd($salesTotal);
-
-
-        $data = ['salesTotal' => $salesTotal];
-
-        view()->share('resources.report.sales.report', $data);
-        $pdf = PDF::loadView('resources.report.sales.report', $data);
-        return $pdf->download('PROFIT REPORT.pdf');
-    }
+   
 }

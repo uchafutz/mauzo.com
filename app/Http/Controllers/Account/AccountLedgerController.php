@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateAccountLedgerRequest;
 use App\Models\Account\Account;
 use App\Models\Account\AccountLedger;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class AccountLedgerController extends Controller
 {
@@ -21,6 +22,7 @@ class AccountLedgerController extends Controller
     public function index()
     {
         $accountLedgers= AccountLedger::paginate(10);
+       // dd($accountLedgers);
         if(request()->wantsJson()){
             return response(["data"=>$accountLedgers],200);
         }
@@ -50,7 +52,7 @@ class AccountLedgerController extends Controller
     public function store(StoreAccountLedgerRequest $request)
     {
         $data=$request->validated();
-        if($data["type"]===AccountTypeEnum::DEPOSIT_ACCOUNT->value){
+        if($data["type"]===AccountTypeEnum::DEBIT_AMOUNT->value){
             $account=Account::where("account_owner",$data["account_id"])->first();
             if (!$account) {
                 throw new Exception("Account not found for customer ID: " . $data["account_id"]);
@@ -62,12 +64,13 @@ class AccountLedgerController extends Controller
                 "account_id"=>$data["account_id"],
                 "description"=>$data["description"], 
                 "amount"=>$data["amount"],
-                "debit"=>AccountTypeEnum::DEPOSIT_ACCOUNT->value,
+                "debit"=>AccountTypeEnum::DEBIT_AMOUNT->value,
+                "user_id" =>Auth::user()->id
                 
             ];
             AccountLedger::create($value);
 
-        }elseif($data["type"]===AccountTypeEnum::WITHDRAW_ACCOUNT->value){
+        }elseif($data["type"]===AccountTypeEnum::CREDIT_AMOUNT->value){
             $account=Account::where("account_owner",$data["account_id"])->first();
             if (!$account) {
                 throw new Exception("Account not found for customer ID: " . $data["account_id"]);
@@ -79,7 +82,8 @@ class AccountLedgerController extends Controller
                 "account_id"=>$data["account_id"],
                 "description"=>$data["description"], 
                 "amount"=>$data["amount"],
-                "credit"=>AccountTypeEnum::WITHDRAW_ACCOUNT->value,
+                "credit"=>AccountTypeEnum::CREDIT_AMOUNT->value,
+                "user_id" =>Auth::user()->id
                 
             ];
             AccountLedger::create($value);

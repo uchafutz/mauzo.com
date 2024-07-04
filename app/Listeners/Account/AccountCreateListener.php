@@ -36,7 +36,7 @@ class AccountCreateListener
         "account_name"=>$customer->name,
         "status"=>AccountStatusEnum::ACTIVE->value,
         "balance"=>0,
-        "account_type"=>AccountTypeEnum::CREDIT_ACCOUNT->value,
+        "account_type"=>"credit",
         "initial_balance"=>0,
         "account_owner"=>$customer->id,
       ];

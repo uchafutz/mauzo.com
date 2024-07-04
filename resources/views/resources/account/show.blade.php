@@ -14,8 +14,13 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header"></div>
-                    <table class="table table-bordered" cellpadding="0" cellspacing="0">
+                    <div class="card-header">
+                        <button type="button" class="btn btn-lg btn-primary" onclick="printableDiv('printableArea')" > <i class="material-icons-outlined">file_download</i> Print    </button>
+                    </div>
+                    <div id="printableArea">
+                        <div class="card">
+                            <div class="card-body">
+                    <table class="table table-bordered" cellpadding="1" cellspacing="1">
                         
                                
                                     <tr>
@@ -47,7 +52,9 @@
                             
             
                        
-                    </table>
+                                  </table>
+                                   </div>
+                                  </div>
                     <div class="card-body table-responsive">
                         <table id="example" class="table table-stripped">
                             <thead>
@@ -66,7 +73,7 @@
                                 @foreach ($accountLegders as $ledger)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{$ledger->sale->code}}</td>
+                                        <td>{{$ledger->sale?$ledger->sale->code:"NULL"}}</td>
                                         <td>{{ $ledger->description }}</td>
                                         <td>{{ $ledger->created_at }}</td>
                                         <td>{{ $ledger->credit?  number_format($ledger->amount):"NULL" }}</td>
@@ -80,10 +87,23 @@
                     </div>
                 </div>
             </div>
+            </div>
         </div>
     </div>
     <script>
+        function printableDiv(printableAreaDivId) {
+     var printContents = document.getElementById(printableAreaDivId).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+    }
+    </script>
+    {{-- <script>
         	
         new DataTable('#example');
-    </script>
+    </script> --}}
 @endsection
